@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "Wall.h"
 using namespace std;
 using namespace sf;
 
@@ -18,6 +19,8 @@ private:
 	Texture createColoredTexture(Color color, Vector2u size);
 
 	vector<vector<char>> map;
+
+	vector<unique_ptr<Wall>> walls;
 
 public:
 	Map();
