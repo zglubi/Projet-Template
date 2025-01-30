@@ -9,7 +9,7 @@ class Player : public Entity
 public:
     float getVitesse() const;
     void setVitesse(float newVitesse);
-
+    bool canmove = true;
     const Sprite& getSprite() const;
     void setSprite(const Sprite& newSprite);
 
@@ -17,7 +17,7 @@ public:
 
     void update(RenderWindow& window, Time deltatime, View& view) override;
     void draw(RenderWindow& window) override;
-    bool canMove();
+    void move(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls);
 private:
     float vitesse;
     Sprite sprite;
