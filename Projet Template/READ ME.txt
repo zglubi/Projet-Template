@@ -1,0 +1,15 @@
+Nous avons commencé par répartir les tâches entre nous. Taric le menu, Teo les entity, Emilien la map pendant que thomas finissait de régler son problème.
+
+Taric (Map) :
+
+
+Teo (Entity) :
+
+
+Emilien (Map) : 
+J'ai d'abord commencé par ajouter deux sprite et deux textures pour l'herbe et la pierre qui servira de mur.
+J'ai fait une fonction pour donner comme texture aux sprite un rectangle de couleur pour ne pas avoir à trouver des assets.
+J'ai ensuite initialisé dans le constructeur les textures et sprites.
+Après cela j'ai fait une fonction pour charger la map depuis un fichier txt et l'affecter à ma variable map.
+Puis j'ai fait la fonction draw de ma class map qui repositionne et draw les sprite en fonction de la valeur de cette case dans mon fichier txt qui correspond à la map.
+Enfin j'ai trouvé un tileset simple pour pouvoir déjà donner une texture à la map et en avoir fini avec cela.

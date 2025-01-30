@@ -13,8 +13,9 @@ Texture Map::createColoredTexture(Color color, Vector2u size)
 
 Map::Map()
 {
-	textureGrass = createColoredTexture(Color::Green, Vector2u(32, 32));
+	textureGrass.loadFromFile("assets/map_assets/tileset_grass.png");
 	spriteGrass.setTexture(textureGrass);
+	spriteGrass.setTextureRect(IntRect(0, 0, 32, 32));
 	textureRock = createColoredTexture(Color::Blue, Vector2u(32, 32));
 	spriteRock.setTexture(textureRock);
 
