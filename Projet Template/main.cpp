@@ -1,14 +1,21 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Map.h"
+#include "Entity.h"
+#include "Player.h"
+#include "Enemy.h"	
 using namespace std;
 using namespace sf;
 
 
 RenderWindow window(VideoMode(1440, 1080), "Zelda Like");
 
+
 Map gameMap;
 
+Entity* p = new Player(720, 540);
+Time deltatime;
+View view = window.getView();
 int main()
 {
 	while (window.isOpen())
@@ -21,6 +28,7 @@ int main()
 		}
 		window.clear();
 		gameMap.draw(window);
+		p->update(window, deltatime, view);
 		window.display();
 	}
 	
