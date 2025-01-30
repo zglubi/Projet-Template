@@ -1,0 +1,30 @@
+#ifndef PROJECTILE_H
+#define PROJECTILE_H
+
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include "Entity.h"
+
+
+class Projectile : public Entity
+{
+private:
+	float speed;
+	float damage;
+	Vector2f direction;
+public:
+	Projectile(Vector2f position, Vector2f direction, float speed, float damage);
+	~Projectile();
+	void update(RenderWindow& window, Time deltatime, View& view) override;
+	void draw(sf::RenderWindow& window) override;
+	void setDirection(Vector2f direction);
+	Vector2f getDirection();
+	float getDamage();
+};
+
+
+
+
+
+
+#endif // PROJECTILE_H
