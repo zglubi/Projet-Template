@@ -1,6 +1,6 @@
 #include "Wall.h"
 
-Wall::Wall(int x, int y, char t) : Entity(x, y), type(t)
+Wall::Wall(float x, float y, char t) : Entity(x, y), type(t)
 {
 	texture.loadFromFile("assets/map_assets/props.png");
 	sprite.setTexture(texture);
