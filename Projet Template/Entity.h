@@ -2,12 +2,10 @@
 #ifndef ENTITY_H
 #define ENtity_H
 
-
+#include <iostream>
 #include <SFML/Graphics.hpp>
 using namespace sf;
 using namespace std;
-
-
 
 class Entity
 {

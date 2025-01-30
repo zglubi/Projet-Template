@@ -14,7 +14,7 @@ public:
 
     void update(RenderWindow& window, Time deltatime) override;
     void draw(RenderWindow& window) override;
-    void speedboost();
+
 };
 
 
