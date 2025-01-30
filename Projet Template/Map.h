@@ -17,10 +17,17 @@ private:
 
 	Texture createColoredTexture(Color color, Vector2u size);
 
+	vector<vector<char>> map;
+
 public:
 	Map();
 	~Map();
+
+	vector<vector<char>> getMap();
+
 	void draw(sf::RenderWindow& window);
+
+	void loadMap(string path);
 };
 
 
