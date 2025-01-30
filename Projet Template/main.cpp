@@ -16,6 +16,8 @@ Map gameMap;
 Entity* p = new Player(720, 540);
 Time deltatime;
 View view = window.getView();
+
+
 int main()
 {
 	while (window.isOpen())

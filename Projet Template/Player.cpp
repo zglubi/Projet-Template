@@ -34,21 +34,21 @@ void Player::draw(RenderWindow& window) {
 
 void Player::update(RenderWindow& window, Time deltatime, View& view) {
 
-    if (Keyboard::isKeyPressed(Keyboard::Q) && x - vitesse - texture.getSize().x > 0) {
+    if (Keyboard::isKeyPressed(Keyboard::Q)) {
         x += -vitesse;
-        view.move(-1, 0);
+        view.move(-vitesse, 0);
     }
-    if (Keyboard::isKeyPressed(Keyboard::Z) && y - vitesse - texture.getSize().y - 10 > 200) {
+    if (Keyboard::isKeyPressed(Keyboard::Z)) {
         y += -vitesse;
-        view.move(0, -1);
+        view.move(0, -vitesse);
     }
-    if (Keyboard::isKeyPressed(Keyboard::S) && y + vitesse + texture.getSize().y + 15 < window.getSize().y) {
+    if (Keyboard::isKeyPressed(Keyboard::S)) {
         y += vitesse;
-        view.move(0, 1);
+        view.move(0, vitesse);
     }
-    if (Keyboard::isKeyPressed(Keyboard::D) && x + vitesse + texture.getSize().x < window.getSize().x) {
+    if (Keyboard::isKeyPressed(Keyboard::D)) {
         x += vitesse;
-        view.move(1, 0);
+        view.move(vitesse, 0);
     }
 
     sprite.setPosition(x, y);

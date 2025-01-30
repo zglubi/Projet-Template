@@ -3,7 +3,8 @@ Nous avons commencé par répartir les tâches entre nous. Taric le menu, Teo le
 Taric (Map) :
 
 
-Teo (Entity) :
+Teo (Entity) :J'ai commencé par faire la classe entity pour que le player, les ennemis et autres. La classe a comme attribut x, y, texture et sprite, et comme methode 
+le constructeur update et draw des méthodes qui seront override dans les classes qui herite de entity. Ensuite j'ai fait player qui utilise entity avec l'attribut vitesse en plus et sa fonction update permet de bouger la camera avec ZQSD.
 
 
 Emilien (Map) : 

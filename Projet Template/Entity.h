@@ -1,6 +1,6 @@
 #pragma once
 #ifndef ENTITY_H
-#define ENtity_H
+#define ENTITY_H
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
@@ -16,7 +16,6 @@ public:
 
 	float x;
 	float y;
-
 
 	Entity(float x, float y);
 	virtual void update(RenderWindow& window, Time deltatime, View& view) = 0;
