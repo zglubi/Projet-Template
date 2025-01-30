@@ -137,7 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ChaserEnemy.cpp" />
+    <ClCompile Include="Chaser.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="main.cpp" />
@@ -146,7 +146,7 @@
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ChaserEnemy.h" />
+    <ClInclude Include="Chaser.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Map.h" />
