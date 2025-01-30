@@ -14,6 +14,7 @@ Map gameMap;
 
 Entity* p = new Player(500, 500);
 Time deltatime;
+View view = window.getView();
 int main()
 {
 	while (window.isOpen())
@@ -26,7 +27,7 @@ int main()
 		}
 		window.clear();
 		gameMap.draw(window);
-		p->update(window, deltatime);
+		p->update(window, deltatime, view);
 		window.display();
 	}
 	
