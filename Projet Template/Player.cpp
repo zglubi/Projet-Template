@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Wall.h"
 
 Player::Player(int x, int y) : Entity(x, y) {
 
@@ -28,9 +29,65 @@ void Player::setSprite(const Sprite& newSprite) {
     sprite = newSprite;
 }
 
-bool canMove() {
+void Player::move(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls) {
+    if (Keyboard::isKeyPressed(Keyboard::Q)) {
+       
+        x += -vitesse;
+        view.move(-vitesse, 0);
 
+        for (auto wall = walls.begin(); wall != walls.end(); ++wall) {
+            if (sprite.getGlobalBounds().intersects(wall->get()->getSprite().getGlobalBounds()))
+            {
+                x += +vitesse + 0.1;
+                view.move(+vitesse+0.1, 0);
+            }
+        }
+        
+    }
+    if (Keyboard::isKeyPressed(Keyboard::Z)) {
 
+        y += -vitesse;
+        view.move(0, -vitesse);
+
+        for (auto wall = walls.begin(); wall != walls.end(); ++wall) {
+            if (sprite.getGlobalBounds().intersects(wall->get()->getSprite().getGlobalBounds()))
+            {
+                y += +vitesse + 0.1;
+                view.move(0, +vitesse + 0.1);
+            }
+        }
+        
+    }
+    if (Keyboard::isKeyPressed(Keyboard::S)) {
+
+        y += vitesse;
+        view.move(0, vitesse);
+
+        for (auto wall = walls.begin(); wall != walls.end(); ++wall) {
+            if (sprite.getGlobalBounds().intersects(wall->get()->getSprite().getGlobalBounds()))
+            {
+                y += -vitesse - 0.1;
+                view.move(0, -vitesse - 0.1);
+            }
+        }
+        
+    }
+    if (Keyboard::isKeyPressed(Keyboard::D)) {
+        
+        x += vitesse;
+        view.move(vitesse, 0);
+
+        for (auto wall = walls.begin(); wall != walls.end(); ++wall) {
+            if (sprite.getGlobalBounds().intersects(wall->get()->getSprite().getGlobalBounds()))
+            {
+                x += -vitesse - 0.1;
+                view.move(-vitesse - 0.1, 0);
+            }
+        }
+        
+    }
+    sprite.setPosition(x, y);
+    window.setView(view);
 }
 
 void Player::draw(RenderWindow& window) {
@@ -39,24 +96,5 @@ void Player::draw(RenderWindow& window) {
 
 void Player::update(RenderWindow& window, Time deltatime, View& view) {
 
-    if (Keyboard::isKeyPressed(Keyboard::Q)) {
-        x += -vitesse;
-        view.move(-vitesse, 0);
-    }
-    if (Keyboard::isKeyPressed(Keyboard::Z)) {
-        y += -vitesse;
-        view.move(0, -vitesse);
-    }
-    if (Keyboard::isKeyPressed(Keyboard::S)) {
-        y += vitesse;
-        view.move(0, vitesse);
-    }
-    if (Keyboard::isKeyPressed(Keyboard::D)) {
-        x += vitesse;
-        view.move(vitesse, 0);
-    }
-
-    sprite.setPosition(x, y);
-    window.setView(view);
     draw(window);
 }
