@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "Wall.h"
 using namespace std;
 using namespace sf;
 
@@ -19,15 +20,18 @@ private:
 
 	vector<vector<char>> map;
 
+	vector<unique_ptr<Wall>> walls;
+
 public:
 	Map();
 	~Map();
 
 	vector<vector<char>> getMap();
+	vector<unique_ptr<Wall>>& getWalls();
 
 	void draw(sf::RenderWindow& window);
 
-	void loadMap(string path);
+	void loadMap(int mapNum);
 };
 
 

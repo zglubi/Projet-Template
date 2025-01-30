@@ -9,7 +9,7 @@ Player::Player(int x, int y) : Entity(x, y) {
     sprite.setOrigin(texture.getSize().x / 2.f, texture.getSize().y / 2.f);
     sprite.setScale(Vector2f(2, 2));
 
-    vitesse = 1;
+    vitesse = 0.25;
 }
 
 float Player::getVitesse() const {
@@ -26,6 +26,11 @@ const Sprite& Player::getSprite() const {
 
 void Player::setSprite(const Sprite& newSprite) {
     sprite = newSprite;
+}
+
+bool canMove() {
+
+
 }
 
 void Player::draw(RenderWindow& window) {

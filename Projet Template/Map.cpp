@@ -16,20 +16,24 @@ Map::Map()
 	textureGrass.loadFromFile("assets/map_assets/tileset_grass.png");
 	spriteGrass.setTexture(textureGrass);
 	spriteGrass.setTextureRect(IntRect(0, 0, 32, 32));
-	textureRock = createColoredTexture(Color::Blue, Vector2u(32, 32));
-	spriteRock.setTexture(textureRock);
 
-	loadMap("maps/map1.txt");
+	loadMap(1);
 }
 
 Map::~Map()
 {
 	map.clear();
+	walls.clear();
 }
 
 vector<vector<char>> Map::getMap()
 {
 	return map;
+}
+
+vector<unique_ptr<Wall>>& Map::getWalls()
+{
+	return walls;
 }
 
 void Map::draw(sf::RenderWindow& window)
@@ -38,22 +42,23 @@ void Map::draw(sf::RenderWindow& window)
 	{
 		for (int j = 0; j < map[i].size(); j++)
 		{
-			if (map[i][j] == 'G')
-			{
-				spriteGrass.setPosition(j * 32, i * 32);
-				window.draw(spriteGrass);
-			}
-			else if (map[i][j] == 'R')
-			{
-				spriteRock.setPosition(j * 32, i * 32);
-				window.draw(spriteRock);
-			}
+			spriteGrass.setPosition(j * 32, i * 32);
+			window.draw(spriteGrass);
 		}
+	}
+
+	for (auto& wall : walls)
+	{
+		wall->draw(window);
 	}
 }
 
-void Map::loadMap(string path)
+void Map::loadMap(int mapNum)
 {
+	walls.clear();
+	
+	string path = "maps/map" + to_string(mapNum) + ".txt";
+	
 	ifstream file(path);
 	if (!file.is_open())
 	{
@@ -67,6 +72,14 @@ void Map::loadMap(string path)
 		for (int i = 0; i < line.size(); i++)
 		{
 			row.push_back(line[i]);
+			switch (line[i])
+			{
+				case 'R':
+					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, 'R'));
+					break;
+				default:
+					break;
+			}
 		}
 		map.push_back(row);
 	}

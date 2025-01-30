@@ -1,6 +1,6 @@
 #pragma once
 #ifndef ENTITY_H
-#define ENtity_H
+#define ENTITY_H
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
