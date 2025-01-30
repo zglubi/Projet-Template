@@ -27,10 +27,11 @@ public:
 	~Map();
 
 	vector<vector<char>> getMap();
+	vector<unique_ptr<Wall>>& getWalls();
 
 	void draw(sf::RenderWindow& window);
 
-	void loadMap(string path);
+	void loadMap(int mapNum);
 };
 
 
