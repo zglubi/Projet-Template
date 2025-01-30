@@ -12,15 +12,28 @@ Player::Player(int x, int y) : Entity(x, y) {
     vitesse = 1;
 }
 
+float Player::getVitesse() const {
+    return vitesse;
+}
+
+void Player::setVitesse(float newVitesse) {
+    vitesse = newVitesse;
+}
+
+const Sprite& Player::getSprite() const {
+    return sprite;
+}
+
+void Player::setSprite(const Sprite& newSprite) {
+    sprite = newSprite;
+}
 
 void Player::draw(RenderWindow& window) {
-
     window.draw(sprite);
 }
 
-
 void Player::update(RenderWindow& window, Time deltatime, View& view) {
- 
+
     if (Keyboard::isKeyPressed(Keyboard::Q) && x - vitesse - texture.getSize().x > 0) {
         x += -vitesse;
         view.move(-1, 0);
@@ -38,11 +51,7 @@ void Player::update(RenderWindow& window, Time deltatime, View& view) {
         view.move(1, 0);
     }
 
-
     sprite.setPosition(x, y);
     window.setView(view);
     draw(window);
-
-
-
 }
