@@ -77,6 +77,24 @@ void Map::loadMap(int mapNum)
 				case 'R':
 					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, 'R'));
 					break;
+				case 'S':
+					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, 'S'));
+					break;
+				case 's':
+					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, 's'));
+					break;
+				case 'E':
+					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, 'E'));
+					break;
+				case 'e':
+					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, 'e'));
+					break;
+				case 'Q':
+					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, 'Q'));
+					break;
+				case 'q':
+					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, 'q'));
+					break;
 				default:
 					break;
 			}

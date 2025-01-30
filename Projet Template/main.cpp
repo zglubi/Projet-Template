@@ -6,9 +6,6 @@
 #include "Enemy.h"
 #include "Chaser.h"
 
-using namespace std;
-using namespace sf;
-
 RenderWindow window(VideoMode(1440, 1080), "Zelda Like");
 
 Map gameMap;

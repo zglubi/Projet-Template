@@ -13,7 +13,7 @@ private:
 	Sprite sprite;
 	char type;
 public:
-	Wall(int x, int y, char t);
+	Wall(float x, float y, char t);
 	~Wall();
 	Sprite getSprite();
 
@@ -21,4 +21,4 @@ public:
 	void update(RenderWindow& window, Time deltatime, View& view) override;
 };
 
-#endif WALL_H
+#endif // WALL_H
