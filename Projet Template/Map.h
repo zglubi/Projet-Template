@@ -31,7 +31,7 @@ public:
 
 	void draw(sf::RenderWindow& window);
 
-	void loadMap(string path);
+	void loadMap(int mapNum);
 };
 
 

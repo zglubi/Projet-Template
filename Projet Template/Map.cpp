@@ -17,12 +17,13 @@ Map::Map()
 	spriteGrass.setTexture(textureGrass);
 	spriteGrass.setTextureRect(IntRect(0, 0, 32, 32));
 
-	loadMap("maps/map1.txt");
+	loadMap(1);
 }
 
 Map::~Map()
 {
 	map.clear();
+	walls.clear();
 }
 
 vector<vector<char>> Map::getMap()
@@ -52,8 +53,12 @@ void Map::draw(sf::RenderWindow& window)
 	}
 }
 
-void Map::loadMap(string path)
+void Map::loadMap(int mapNum)
 {
+	walls.clear();
+	
+	string path = "maps/map" + to_string(mapNum) + ".txt";
+	
 	ifstream file(path);
 	if (!file.is_open())
 	{
