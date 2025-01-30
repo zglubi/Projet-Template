@@ -2,6 +2,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include "Entity.h"
+#include "Map.h"
 
 class Player : public Entity
 {
@@ -16,7 +17,7 @@ public:
 
     void update(RenderWindow& window, Time deltatime, View& view) override;
     void draw(RenderWindow& window) override;
-
+    bool canMove();
 private:
     float vitesse;
     Sprite sprite;

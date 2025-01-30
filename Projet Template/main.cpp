@@ -4,9 +4,6 @@
 #include "Entity.h"
 #include "Player.h"
 #include "Enemy.h"	
-using namespace std;
-using namespace sf;
-
 
 RenderWindow window(VideoMode(1440, 1080), "Zelda Like");
 
@@ -28,6 +25,7 @@ int main()
 			if (event.type == Event::Closed)
 				window.close();
 		}
+		
 		window.clear();
 		gameMap.draw(window);
 		p->update(window, deltatime, view);
