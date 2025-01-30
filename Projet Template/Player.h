@@ -17,7 +17,7 @@ public:
     void update(RenderWindow& window, Time deltatime, View& view) override;
     void draw(RenderWindow& window) override;
 
-private:
+
     float vitesse;
     Sprite sprite;
 };
