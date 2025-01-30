@@ -44,7 +44,7 @@ int main()
         player->update(window, deltatime, view);
 
         // Set the player's position for the chaser enemy
-        chaser->setPlayerPosition(static_cast<Player*>(player)->sprite.getPosition());
+        chaser->setPlayerPosition(static_cast<Player*>(player)->getSprite().getPosition());
 
         // Update and draw the chaser enemy
         chaser->update(window, deltatime, view);
