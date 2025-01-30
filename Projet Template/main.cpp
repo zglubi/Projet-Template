@@ -4,7 +4,7 @@
 #include "Entity.h"
 #include "Player.h"
 #include "Enemy.h"
-#include "ChaserEnemy.h"
+#include "Chaser.h"
 
 RenderWindow window(VideoMode(1440, 1080), "Zelda Like");
 
@@ -17,13 +17,6 @@ View view = window.getView();
 
 int main()
 {
-    // Load ChaserEnemy texture
-    if (!chaser->texture.loadFromFile("assets/Skeleton.png")) {
-        cout << "Failed to load enemy texture!" << endl;
-        return -1;
-    }
-    chaser->sprite.setTexture(chaser->texture);
-    chaser->sprite.setPosition(chaser->position);
 
     Clock clock;
     while (window.isOpen())
@@ -43,10 +36,9 @@ int main()
         // Update player position (assuming the Player class has move method)
         player->move(window, view, gameMap.getWalls());
         player->update(window, deltatime, view);
-        // Set the player's position for the chaser enemy
-        //chaser->setPlayerPosition(static_cast<Player*>(player)->sprite.getPosition());
 
         // Update and draw the chaser enemy
+		chaser->moveUpdate(player);
         chaser->update(window, deltatime, view);
         chaser->draw(window);
 
