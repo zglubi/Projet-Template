@@ -30,64 +30,57 @@ void Player::setSprite(const Sprite& newSprite) {
 }
 
 void Player::move(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls) {
-    if (Keyboard::isKeyPressed(Keyboard::Q)) {
-       
-        x += -vitesse;
-        view.move(-vitesse, 0);
+    
+        float newX = x;
+        float newY = y;
 
-        for (auto wall = walls.begin(); wall != walls.end(); ++wall) {
-            if (sprite.getGlobalBounds().intersects(wall->get()->getSprite().getGlobalBounds()))
-            {
-                x += +vitesse + 0.1;
-                view.move(+vitesse+0.1, 0);
+        // Déplacement vers la gauche
+        if (Keyboard::isKeyPressed(Keyboard::Q)) {
+            newX -= vitesse;
+            view.move(-vitesse, 0);
+        }
+
+        // Déplacement vers le haut
+        if (Keyboard::isKeyPressed(Keyboard::Z)) {
+            newY -= vitesse;
+            view.move(0, -vitesse);
+        }
+
+        // Déplacement vers le bas
+        if (Keyboard::isKeyPressed(Keyboard::S)) {
+            newY += vitesse;
+            view.move(0, vitesse);
+        }
+
+        // Déplacement vers la droite
+        if (Keyboard::isKeyPressed(Keyboard::D)) {
+            newX += vitesse;
+            view.move(vitesse, 0);
+        }
+
+        // Vérification des collisions avant de mettre à jour la position
+        bool collisionDetected = false;
+        for (auto& wall : walls) {
+            // On obtient les limites globales du sprite et de chaque mur
+            sf::FloatRect playerBounds(newX, newY, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height);
+            sf::FloatRect wallBounds = wall->getSprite().getGlobalBounds();
+
+            // Vérification de la collision
+            if (playerBounds.intersects(wallBounds)) {
+                collisionDetected = true;
+                break;  // Sortir de la boucle dès qu'une collision est détectée
             }
         }
-        
-    }
-    if (Keyboard::isKeyPressed(Keyboard::Z)) {
 
-        y += -vitesse;
-        view.move(0, -vitesse);
-
-        for (auto wall = walls.begin(); wall != walls.end(); ++wall) {
-            if (sprite.getGlobalBounds().intersects(wall->get()->getSprite().getGlobalBounds()))
-            {
-                y += +vitesse + 0.1;
-                view.move(0, +vitesse + 0.1);
-            }
+        // Si aucune collision n'est détectée, on applique le déplacement
+        if (!collisionDetected) {
+            x = newX;
+            y = newY;
+            view.setCenter(x, y);
+            window.setView(view);
+            sprite.setPosition(x, y);
+            
         }
-        
-    }
-    if (Keyboard::isKeyPressed(Keyboard::S)) {
-
-        y += vitesse;
-        view.move(0, vitesse);
-
-        for (auto wall = walls.begin(); wall != walls.end(); ++wall) {
-            if (sprite.getGlobalBounds().intersects(wall->get()->getSprite().getGlobalBounds()))
-            {
-                y += -vitesse - 0.1;
-                view.move(0, -vitesse - 0.1);
-            }
-        }
-        
-    }
-    if (Keyboard::isKeyPressed(Keyboard::D)) {
-        
-        x += vitesse;
-        view.move(vitesse, 0);
-
-        for (auto wall = walls.begin(); wall != walls.end(); ++wall) {
-            if (sprite.getGlobalBounds().intersects(wall->get()->getSprite().getGlobalBounds()))
-            {
-                x += -vitesse - 0.1;
-                view.move(-vitesse - 0.1, 0);
-            }
-        }
-        
-    }
-    sprite.setPosition(x, y);
-    window.setView(view);
 }
 
 void Player::draw(RenderWindow& window) {
