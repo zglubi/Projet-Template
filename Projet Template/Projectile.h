@@ -5,7 +5,6 @@
 #include <iostream>
 #include "Entity.h"
 
-
 class Projectile : public Entity
 {
 private:
@@ -22,10 +21,5 @@ public:
 	Vector2f getDirection();
 	float getDamage();
 };
-
-
-
-
-
 
 #endif // PROJECTILE_H

@@ -23,7 +23,7 @@ Projectile::Projectile(Texture t, Vector2f position, Vector2f direction, float s
 
 Projectile::~Projectile() {}
 
-void Projectile::update(RenderWindow& window, float deltatime, View& view)
+void Projectile::update(sf::RenderWindow& window, float deltatime, sf::View& view)
 {
 	x += direction.x * speed * deltatime;
 	y += direction.y * speed * deltatime;
@@ -45,20 +45,20 @@ void Projectile::update(RenderWindow& window, float deltatime, View& view)
 
 void Projectile::draw(sf::RenderWindow& window)
 {
-	window.draw(sprite);
+    window.draw(sprite);
 }
 
-void Projectile::setDirection(Vector2f direction)
+void Projectile::setDirection(sf::Vector2f direction)
 {
-	this->direction = direction;
+    this->direction = direction;
 }
 
-Vector2f Projectile::getDirection()
+sf::Vector2f Projectile::getDirection()
 {
-	return direction;
+    return direction;
 }
 
 float Projectile::getDamage()
 {
-	return damage;
+    return damage;
 }

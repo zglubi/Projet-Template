@@ -13,7 +13,7 @@ Player::Player(int x, int y) : Entity(x, y) {
     sprite.setOrigin(texture.getSize().x / 2.f, texture.getSize().y / 2.f);
     sprite.setScale(Vector2f(2, 2));
 
-    vitesse = 0.25;
+    vitesse = 0.125;
 }
 
 float Player::getVitesse() const 
@@ -46,28 +46,28 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
         if (Keyboard::isKeyPressed(Keyboard::Q)) 
         {
             newX -= vitesse;
-            view.move(-vitesse, 0);
+            
         }
 
         // Déplacement vers le haut
         if (Keyboard::isKeyPressed(Keyboard::Z))
         {
             newY -= vitesse;
-            view.move(0, -vitesse);
+            
         }
 
         // Déplacement vers le bas
         if (Keyboard::isKeyPressed(Keyboard::S))
         {
             newY += vitesse;
-            view.move(0, vitesse);
+           
         }
 
         // Déplacement vers la droite
         if (Keyboard::isKeyPressed(Keyboard::D))
         {
             newX += vitesse;
-            view.move(vitesse, 0);
+           
         }
 
 		if (Mouse::isButtonPressed(Mouse::Left))
@@ -82,8 +82,10 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
         bool collisionDetected = false;
         for (auto& wall : walls) {
             // On obtient les limites globales du sprite et de chaque mur
-            sf::FloatRect playerBounds(newX, newY, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height);
-            sf::FloatRect wallBounds = wall->getSprite().getGlobalBounds();
+            
+            FloatRect playerBounds(newX - sprite.getGlobalBounds().width/2, newY- sprite.getGlobalBounds().height/2, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height);
+            FloatRect wallBounds = wall->getSprite().getGlobalBounds();
+
 
             // Vérification de la collision
             if (playerBounds.intersects(wallBounds)) {
@@ -104,6 +106,7 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
 }
 
 void Player::draw(RenderWindow& window) {
+
     window.draw(sprite);
 }
 
