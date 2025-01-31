@@ -2,7 +2,7 @@
 #include "Wall.h"
 #include "Projectile.h"
 
-Player::Player(int x, int y) : Entity(x, y) {
+Player::Player(int x, int y) : Entity(x, y), frame(0), frameKatanaSlash(0) {
 
     if (!texture.loadFromFile("assets\\player.png")) {
         std::cerr << "Erreur : impossible de charger 'playersprite'" << std::endl;
@@ -13,6 +13,13 @@ Player::Player(int x, int y) : Entity(x, y) {
     sprite.setTexture(texture);
     sprite.setOrigin(texture.getSize().x / 2.f, texture.getSize().y / 2.f);
     sprite.setScale(Vector2f(2, 2));
+
+    if (!katanaSlashTexture.loadFromFile("assets\\Slash\\katanaCurved.png"))
+    {
+        std::cerr << "Erreur : impossible de charger 'playersprite'" << std::endl;
+    }
+    katanaSlashSprite.setTexture(katanaSlashTexture);
+    katanaSlashSprite.setScale(Vector2f(2, 2));
 
     vitesse = 0.125;
 }
@@ -150,8 +157,15 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
             }
 		}
 
-        
-        
+        if (Mouse::isButtonPressed(Mouse::Right))
+        {
+            katanaAttack = true;
+        }
+
+        if (katanaAttack)
+        {
+            katanaSlash(window);
+        }
 }
 
 void Player::draw(RenderWindow& window) {
@@ -179,4 +193,21 @@ void Player::shoot(RenderWindow& window, View& view)
 
         cooldownProjectile.restart();
     }
+}
+
+void Player::katanaSlash(RenderWindow& window)
+{
+    if (frameKatanaSlash / 30 > 3)
+    {
+        katanaAttack = false;
+        frameKatanaSlash = 0;
+        return;
+    }
+    else
+    {
+        frameKatanaSlash++;
+    }
+    katanaSlashSprite.setPosition(sprite.getGlobalBounds().left + sprite.getGlobalBounds().width, sprite.getGlobalBounds().top);
+    katanaSlashSprite.setTextureRect(IntRect(0 + 32 * (frameKatanaSlash / 30), 0, 32, 32));
+    window.draw(katanaSlashSprite);
 }

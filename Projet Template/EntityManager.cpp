@@ -1,24 +1,35 @@
 #include "EntityManager.h"
 
+EntityManager::EntityManager() {}
 
-EntityManager::EntityManager()
+EntityManager* EntityManager::instance = nullptr;
+
+EntityManager* EntityManager::getInstance()
 {
+	if (instance == nullptr)
+	{
+		instance = new EntityManager();
+	}
+	return instance;
 }
 
-void EntityManager::addChaser(shared_ptr<Chaser> chaser)
+void EntityManager::addChaser(Vector2f startPosition, float initialSpeed)
 {
+	shared_ptr<Chaser> chaser = make_shared<Chaser>(startPosition, initialSpeed);
 	chasers.push_back(chaser);
 	entities.push_back(chaser);
 }
 
-void EntityManager::addShooter(shared_ptr<Shooter> shooter)
+void EntityManager::addShooter(Vector2f startPosition, float initialSpeed)
 {
+	shared_ptr<Shooter> shooter = make_shared<Shooter>(startPosition, initialSpeed);
 	shooters.push_back(shooter);
 	entities.push_back(shooter);
 }
 
-void EntityManager::setPlayer(shared_ptr<Player> player)
+void EntityManager::setPlayer(float x, float y)
 {
+	shared_ptr<Player> player = make_shared<Player>(x, y);
 	this->player = player;
 	entities.push_back(player);
 }
@@ -47,6 +58,8 @@ void EntityManager::update(RenderWindow& window, float deltatime, View& view, ve
 	{
 		shooter->draw(window);
 	}
+
+	player->handleInput(window, view, walls);
 }
 
 template <typename T>
