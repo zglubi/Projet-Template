@@ -10,23 +10,8 @@ public:
 	Medipack(float x, float y);
 	void update(RenderWindow& window, float deltatime, View& view) override;
 	void draw(RenderWindow& window) override;
-	void interact() override;
+	void interact(Player& player) override;
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 #endif // !MEDIPACK_H

@@ -75,11 +75,6 @@ void Projectile::collision(std::vector<unique_ptr<Wall>>& walls)
 	}
 }
 
-bool Projectile::isToBeDeleted() const
-{
-	return toBeDeleted;
-}
-
 
 Vector2f Projectile::getPosition()
 {
