@@ -146,7 +146,7 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
 		{
             if (cooldownProjectile.getElapsedTime().asSeconds() > 0.5)
             {
-                shoot();
+                shoot(window, view);
             }
 		}
 

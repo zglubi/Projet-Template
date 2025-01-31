@@ -14,7 +14,7 @@ Chaser::Chaser(Vector2f startPosition, float initialSpeed)
 	moveY = 0;
 }
 
-void Chaser::moveUpdate(Player* player) 
+void Chaser::moveUpdate(shared_ptr<Player> player)
 {
 	if (player->getSprite().getPosition().x > sprite.getPosition().x) 
 	{

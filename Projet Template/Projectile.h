@@ -12,7 +12,7 @@ private:
 	float damage;
 	Vector2f direction;
 	size_t frame;
-	bool toBeDeleted;
+
 public:
 	Projectile(Texture t, Vector2f position, Vector2f direction, float speed, float damage);
 	~Projectile();
@@ -23,7 +23,6 @@ public:
 	Vector2f getDirection();
 	Vector2f getPosition();
 	float getDamage();
-	bool isToBeDeleted() const;
 };
 
 #endif // PROJECTILE_H

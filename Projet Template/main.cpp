@@ -12,7 +12,7 @@ RenderWindow window(VideoMode(1440, 1080), "Zelda Like");
 
 Map gameMap;
 
-Player* player = new Player(720, 540);
+shared_ptr<Player> player = make_shared<Player>(720, 540);
 Chaser* chaser = new Chaser(Vector2f(100, 100), 50); // Position (100, 100), speed 50, detection range 200, stop range 50
 Shooter* shooter = new Shooter(Vector2f(200, 200), 50.0f); // Position (200, 200), speed 50
 float deltatime;
@@ -63,7 +63,7 @@ int main()
         }
     }
 
-    delete player;
+	player = nullptr;
     delete chaser;
 
     return 0;

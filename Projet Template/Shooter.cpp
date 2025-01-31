@@ -15,7 +15,7 @@ Shooter::Shooter(Vector2f startPosition, float initialSpeed)
     sprite.setScale(2, 2);
 }
 
-void Shooter::moveUpdate(Player* player)
+void Shooter::moveUpdate(shared_ptr<Player> player)
 {
     Vector2f playerPos = player->getSprite().getPosition();
     Vector2f enemyPos = sprite.getPosition();

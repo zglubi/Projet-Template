@@ -1,6 +1,6 @@
 #include "Projectile.h"
 
-Projectile::Projectile(Texture t, Vector2f position, Vector2f direction, float speed, float damage) : Entity(position.x, position.y), toBeDeleted(false)
+Projectile::Projectile(Texture t, Vector2f position, Vector2f direction, float speed, float damage) : Entity(position.x, position.y)
 {
 	if (abs(direction.x) > abs(direction.y))
 	{
@@ -69,7 +69,7 @@ void Projectile::collision(std::vector<unique_ptr<Wall>>& walls)
 	{
 		if (sprite.getGlobalBounds().intersects(walls[i]->getSprite().getGlobalBounds()))
 		{
-			toBeDeleted = true;
+			setToBeDeleted(true);
 			break;
 		}
 	}
