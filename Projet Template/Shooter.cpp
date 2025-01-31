@@ -1,10 +1,10 @@
 #include "Shooter.h"
 
-Shooter::Shooter(sf::Vector2f startPosition, float initialSpeed)
+Shooter::Shooter(Vector2f startPosition, float initialSpeed)
     : Enemy(startPosition.x, startPosition.y, initialSpeed), initialSpeed(initialSpeed), moveX(0), moveY(0), fireCooldown(1.0f), fireTimer(0.0f)
 {
     if (!texture.loadFromFile("assets/enemy_assets/shooter.png")) {
-        std::cerr << "Error loading shooter texture" << std::endl;
+        cerr << "Error loading shooter texture" << endl;
     }
     sprite.setTexture(texture);
     sprite.setPosition(startPosition);
@@ -14,16 +14,16 @@ Shooter::Shooter(sf::Vector2f startPosition, float initialSpeed)
 
 void Shooter::moveUpdate(Player* player)
 {
-    sf::Vector2f playerPos = player->getSprite().getPosition();
-    sf::Vector2f enemyPos = sprite.getPosition();
+    Vector2f playerPos = player->getSprite().getPosition();
+    Vector2f enemyPos = sprite.getPosition();
     moveX = (playerPos.x > enemyPos.x) - (playerPos.x < enemyPos.x);
     moveY = (playerPos.y > enemyPos.y) - (playerPos.y < enemyPos.y);
 }
 
-void Shooter::update(sf::RenderWindow& window, float deltatime, sf::View& view)
+void Shooter::update(RenderWindow& window, float deltatime, View& view)
 {
-    sf::Vector2f playerPos = view.getCenter();
-    sf::Vector2f enemyPos = sprite.getPosition();
+    Vector2f playerPos = view.getCenter();
+    Vector2f enemyPos = sprite.getPosition();
     moveX = (playerPos.x > enemyPos.x) - (playerPos.x < enemyPos.x);
     moveY = (playerPos.y > enemyPos.y) - (playerPos.y < enemyPos.y);
 
@@ -37,7 +37,7 @@ void Shooter::update(sf::RenderWindow& window, float deltatime, sf::View& view)
     if (fireTimer >= fireCooldown)
     {
         // Calculate the direction to the player
-        sf::Vector2f direction = playerPos - enemyPos;
+        Vector2f direction = playerPos - enemyPos;
         float length = sqrt(direction.x * direction.x + direction.y * direction.y);
         direction /= length; // Normalize the direction vector
 
@@ -64,7 +64,7 @@ void Shooter::update(sf::RenderWindow& window, float deltatime, sf::View& view)
         projectiles.end());
 }
 
-void Shooter::draw(sf::RenderWindow& window)
+void Shooter::draw(RenderWindow& window)
 {
     window.draw(sprite);
 
@@ -75,9 +75,9 @@ void Shooter::draw(sf::RenderWindow& window)
     }
 }
 
-void Shooter::fireProjectile(sf::Vector2f direction)
+void Shooter::fireProjectile(Vector2f direction)
 {
-    sf::Vector2f startPosition = sprite.getPosition();
+    Vector2f startPosition = sprite.getPosition();
     float speed = 300.0f; // Example speed value
     float damage = 10.0f; // Example damage value
     projectiles.emplace_back(std::make_unique<Projectile>(projectileTexture, startPosition, direction, speed, damage));

@@ -62,3 +62,8 @@ float Projectile::getDamage()
 {
     return damage;
 }
+
+Vector2f Projectile::getPosition()
+{
+	return Vector2f(x, y);
+}
