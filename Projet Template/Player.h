@@ -24,13 +24,19 @@ private:
     int frame;
     float vitesse;
     Sprite sprite;
+    char hand1;
+    char hand2;
+    int dir;
+
 	Texture projectileTexture;
 	vector<unique_ptr<Projectile>> projectiles;
 	Clock cooldownProjectile;
+
     int frameKatanaSlash;
     Texture katanaSlashTexture;
     Sprite katanaSlashSprite;
     bool katanaAttack = false;
+    Clock cooldownKatanaSlash;
 };
 
 #endif // !PLAYER_H

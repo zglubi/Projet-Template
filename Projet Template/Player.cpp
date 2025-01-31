@@ -21,6 +21,9 @@ Player::Player(int x, int y) : Entity(x, y), frame(0), frameKatanaSlash(0) {
     katanaSlashSprite.setTexture(katanaSlashTexture);
     katanaSlashSprite.setScale(Vector2f(2, 2));
 
+    hand1 = 1;
+    hand2 = 2;
+
     vitesse = 0.125;
 }
 
@@ -54,13 +57,13 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
         if (Keyboard::isKeyPressed(Keyboard::Q)) 
         {
             newX -= vitesse;
-            
+            dir = 2;
         }
         
         if (Keyboard::isKeyPressed(Keyboard::D))
         {
             newX += vitesse;
-
+            dir = 4;
         }
 
         bool collisionDetected = false;
@@ -91,21 +94,13 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
         if (Keyboard::isKeyPressed(Keyboard::Z))
         {
             newY -= vitesse;
-            
+            dir = 1;
         }
-
-		if (Mouse::isButtonPressed(Mouse::Left))
-		{
-            if (cooldownProjectile.getElapsedTime().asSeconds() > 0.5)
-            {
-                shoot(window, view);
-            }
-		}
         
         if (Keyboard::isKeyPressed(Keyboard::S))
         {
             newY += vitesse;
-           
+            dir = 3;
         }
 
         collisionDetected = false;
@@ -151,15 +146,42 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
 
 		if (Mouse::isButtonPressed(Mouse::Left))
 		{
-            if (cooldownProjectile.getElapsedTime().asSeconds() > 0.5)
+            switch (hand1)
             {
-                shoot(window, view);
+            case 0:
+                break;
+            case 1:
+                if (cooldownProjectile.getElapsedTime().asSeconds() > 0.5)
+                {
+                    shoot(window, view);
+                }
+            case 2:
+                if (cooldownKatanaSlash.getElapsedTime().asSeconds() > 1)
+                {
+                    cooldownKatanaSlash.restart();
+                    katanaAttack = true;
+                }
             }
 		}
 
         if (Mouse::isButtonPressed(Mouse::Right))
         {
-            katanaAttack = true;
+            switch (hand2)
+            {
+            case 0:
+                break;
+            case 1:
+                if (cooldownProjectile.getElapsedTime().asSeconds() > 0.5)
+                {
+                    shoot(window, view);
+                }
+            case 2:
+                if (cooldownKatanaSlash.getElapsedTime().asSeconds() > 1)
+                {
+                    cooldownKatanaSlash.restart();
+                    katanaAttack = true;
+                }
+            }
         }
 
         if (katanaAttack)
