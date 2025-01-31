@@ -3,8 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "Entity.h"
-
+#include "Wall.h"
 
 class Projectile : public Entity
 {
@@ -12,19 +11,18 @@ private:
 	float speed;
 	float damage;
 	Vector2f direction;
+	size_t frame;
+
 public:
 	Projectile(Texture t, Vector2f position, Vector2f direction, float speed, float damage);
 	~Projectile();
 	void update(RenderWindow& window, float deltatime, View& view) override;
+	void collision(std::vector<unique_ptr<Wall>>& walls);
 	void draw(sf::RenderWindow& window) override;
 	void setDirection(Vector2f direction);
 	Vector2f getDirection();
+	Vector2f getPosition();
 	float getDamage();
 };
-
-
-
-
-
 
 #endif // PROJECTILE_H
