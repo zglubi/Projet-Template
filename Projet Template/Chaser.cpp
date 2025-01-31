@@ -9,7 +9,7 @@ Chaser::Chaser(Vector2f startPosition, float initialSpeed)
 	sprite.setTexture(texture);
 	sprite.setOrigin(texture.getSize().x / 2.f, texture.getSize().y / 2.f);
 	sprite.setPosition(startPosition);
-
+	sprite.setScale(0.125, 0.125);
 	moveX = 0;
 	moveY = 0;
 }
