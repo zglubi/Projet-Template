@@ -34,6 +34,22 @@ void EntityManager::setPlayer(float x, float y)
 	entities.push_back(player);
 }
 
+void EntityManager::addItem(Vector2f Position, int val)
+{
+
+	switch (val)
+	{
+	case (1):
+	{
+		shared_ptr<Item> item = make_shared<Medipack>(Position.x, Position.y); items.push_back(item);
+		entities.push_back(item);
+		break;
+	}
+	default:
+		break;
+	}
+}
+
 void EntityManager::update(RenderWindow& window, float deltatime, View& view, vector<unique_ptr<Wall>>& walls)
 {
 	for (auto& entity : entities)
