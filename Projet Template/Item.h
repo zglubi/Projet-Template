@@ -12,6 +12,7 @@ public:
 	Item(float x, float y);
 	virtual void update(RenderWindow& window, float deltatime, View& view) = 0;
 	virtual void draw(RenderWindow& window) = 0;
+	virtual void interact(shared_ptr<Player>& player) = 0;
 };
 
 #endif // !ITEM_H

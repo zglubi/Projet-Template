@@ -1,9 +1,9 @@
 #include "Player.h"
 #include "Wall.h"
 #include "Projectile.h"
+#include <iostream>
 
 Player::Player(int x, int y) : Entity(x, y) {
-
     if (!texture.loadFromFile("assets\\player.png")) {
         std::cerr << "Erreur : impossible de charger 'playersprite'" << std::endl;
     }
@@ -17,12 +17,12 @@ Player::Player(int x, int y) : Entity(x, y) {
     vitesse = 0.125;
 }
 
-float Player::getVitesse() const 
+float Player::getVitesse() const
 {
     return vitesse;
 }
 
-void Player::setVitesse(float newVitesse) 
+void Player::setVitesse(float newVitesse)
 {
     vitesse = newVitesse;
 }
@@ -32,130 +32,104 @@ const Sprite& Player::getSprite() const
     return sprite;
 }
 
-void Player::setSprite(const Sprite& newSprite) 
+void Player::setSprite(const Sprite& newSprite)
 {
     sprite = newSprite;
 }
 
-void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls) 
+void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls)
 {
-    
-        float newX = x;
-        float newY = y;
+    float newX = x;
+    float newY = y;
 
-        
-        if (Keyboard::isKeyPressed(Keyboard::Q)) 
+    if (Keyboard::isKeyPressed(Keyboard::Q))
+    {
+        newX -= vitesse;
+    }
+
+    if (Keyboard::isKeyPressed(Keyboard::D))
+    {
+        newX += vitesse;
+    }
+
+    bool collisionDetected = false;
+    for (auto& wall : walls) {
+        FloatRect playerBounds(newX - sprite.getGlobalBounds().width / 2, newY - sprite.getGlobalBounds().height / 4, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height * 3 / 4);
+        FloatRect wallBounds = wall->getSprite().getGlobalBounds();
+
+        if (playerBounds.intersects(wallBounds)) {
+            collisionDetected = true;
+            break;
+        }
+    }
+
+    if (!collisionDetected) {
+        x = newX;
+        y = newY;
+        view.setCenter(x, y);
+        window.setView(view);
+        sprite.setPosition(x, y);
+    }
+
+    if (Keyboard::isKeyPressed(Keyboard::Z))
+    {
+        newY -= vitesse;
+    }
+
+    if (Keyboard::isKeyPressed(Keyboard::S))
+    {
+        newY += vitesse;
+    }
+
+    collisionDetected = false;
+    for (auto& wall : walls) {
+        FloatRect playerBounds(newX - sprite.getGlobalBounds().width / 2, newY - sprite.getGlobalBounds().height / 4, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height * 3 / 4);
+        FloatRect wallBounds = wall->getSprite().getGlobalBounds();
+
+        if (playerBounds.intersects(wallBounds)) {
+            collisionDetected = true;
+            break;
+        }
+    }
+
+    if (!collisionDetected) {
+        x = newX;
+        y = newY;
+        view.setCenter(x, y);
+        window.setView(view);
+        sprite.setPosition(x, y);
+    }
+
+    for (auto& projectile : projectiles)
+    {
+        projectile->collision(walls);
+    }
+
+    projectiles.erase(
+        std::remove_if(projectiles.begin(), projectiles.end(),
+            [](const std::unique_ptr<Projectile>& projectile) { return projectile->isToBeDeleted(); }),
+        projectiles.end());
+
+    if (Keyboard::isKeyPressed(Keyboard::Escape))
+    {
+        window.close();
+    }
+
+    if (Mouse::isButtonPressed(Mouse::Left))
+    {
+        if (cooldownProjectile.getElapsedTime().asSeconds() > 0.5 && hasShuriken)
         {
-            newX -= vitesse;
-            
+            shoot(window, view);
         }
-        
-        if (Keyboard::isKeyPressed(Keyboard::D))
-        {
-            newX += vitesse;
+    }
 
-        }
-
-        bool collisionDetected = false;
-        for (auto& wall : walls) {
-
-
-            FloatRect playerBounds(newX - sprite.getGlobalBounds().width / 2, newY - sprite.getGlobalBounds().height / 4, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height * 3 / 4);
-            FloatRect wallBounds = wall->getSprite().getGlobalBounds();
-
-
-
-            if (playerBounds.intersects(wallBounds)) {
-                collisionDetected = true;
-                break;
-            }
-        }
-
-
-        if (!collisionDetected) {
-            x = newX;
-            y = newY;
-            view.setCenter(x, y);
-            window.setView(view);
-            sprite.setPosition(x, y);
-
-        }
-
-        if (Keyboard::isKeyPressed(Keyboard::Z))
-        {
-            newY -= vitesse;
-            
-        }
-
-		if (Mouse::isButtonPressed(Mouse::Left))
-		{
-            if (cooldownProjectile.getElapsedTime().asSeconds() > 0.5)
-            {
-                shoot(window, view);
-            }
-		}
-        
-        if (Keyboard::isKeyPressed(Keyboard::S))
-        {
-            newY += vitesse;
-           
-        }
-
-        collisionDetected = false;
-        for (auto& wall : walls) {
-
-
-            FloatRect playerBounds(newX - sprite.getGlobalBounds().width / 2, newY - sprite.getGlobalBounds().height / 4, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height * 3 / 4);
-            FloatRect wallBounds = wall->getSprite().getGlobalBounds();
-
-
-
-            if (playerBounds.intersects(wallBounds)) {
-                collisionDetected = true;
-                break;
-            }
-        }
-
-
-        if (!collisionDetected) {
-            x = newX;
-            y = newY;
-            view.setCenter(x, y);
-            window.setView(view);
-            sprite.setPosition(x, y);
-
-        }
-
-		for (auto& projectile : projectiles)
-		{
-			projectile->collision(walls);
-		}
-
-        projectiles.erase(
-            std::remove_if(projectiles.begin(), projectiles.end(),
-                [](const std::unique_ptr<Projectile>& projectile) { return projectile->isToBeDeleted(); }),
-            projectiles.end());
-
-        if (Keyboard::isKeyPressed(Keyboard::Escape))
-        {
-            window.close();
-
-        }
-
-		if (Mouse::isButtonPressed(Mouse::Left))
-		{
-            if (cooldownProjectile.getElapsedTime().asSeconds() > 0.5)
-            {
-                shoot(window, view);
-            }
-		}
-
-        
-        
+    if (Keyboard::isKeyPressed(Keyboard::Space) && hasKatana)
+    {
+        meleeAttack(window, view);
+    }
 }
 
 void Player::draw(RenderWindow& window) {
-
     window.draw(sprite);
 }
 
@@ -169,14 +143,37 @@ void Player::update(RenderWindow& window, float deltatime, View& view) {
 
 void Player::shoot(RenderWindow& window, View& view)
 {
-	Vector2f mousePos = Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y);
-	Vector2f direction = mousePos - Vector2f(720, 540);
+    Vector2f mousePos = Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y);
+    Vector2f direction = mousePos - Vector2f(720, 540);
 
     if (direction.x != 0 || direction.y != 0)
     {
-
         projectiles.push_back(make_unique<Projectile>(projectileTexture, view.getCenter(), direction, 200, 10));
-
         cooldownProjectile.restart();
     }
 }
+
+void Player::meleeAttack(RenderWindow& window, View& view)
+{
+    std::cout << "Performing melee attack with Katana!" << std::endl;
+    // Add melee attack logic here
+}
+
+void Player::setHasKatana(bool value)
+{
+    hasKatana = value;
+}
+
+void Player::setHasShuriken(bool value)
+{
+    hasShuriken = value;
+}
+
+//bool Player::checkCollisionWithItem(Item& item)
+//{
+//    if (sprite.getGlobalBounds().intersects(item.getSprite().getGlobalBounds())) {
+//        item.interact(shared_from_this());
+//        return true;
+//    }
+//    return false;
+//}

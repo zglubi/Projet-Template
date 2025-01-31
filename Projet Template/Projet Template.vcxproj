@@ -143,6 +143,7 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="EntityManager.cpp" />
+    <ClCompile Include="Katana.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Medipack.cpp" />
@@ -150,6 +151,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Shooter.cpp" />
+    <ClCompile Include="Shuriken.cpp" />
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -160,12 +162,14 @@
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="Interactable.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="Katana.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Medipack.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="Shooter.h" />
+    <ClInclude Include="Shuriken.h" />
     <ClInclude Include="Wall.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

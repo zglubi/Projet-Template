@@ -8,6 +8,8 @@
 #include "Menu.h"
 #include "Shooter.h"
 #include "Medipack.h"
+#include "Katana.h"
+#include "Shuriken.h"
 
 RenderWindow window(VideoMode(1440, 1080), "Zelda Like");
 
@@ -17,6 +19,8 @@ shared_ptr<Player> player = make_shared<Player>(720, 540);
 Chaser* chaser = new Chaser(Vector2f(100, 100), 50); // Position (100, 100), speed 50, detection range 200, stop range 50
 Shooter* shooter = new Shooter(Vector2f(200, 200), 50.0f); // Position (200, 200), speed 50
 Medipack* med = new Medipack(200, 200);
+Katana* kat = new Katana(200, 200);
+Shuriken* shur = new Shuriken(200, 200);
 float deltatime;
 View view = window.getView();
 Menu menu;
