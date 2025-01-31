@@ -7,6 +7,7 @@
 #include "Chaser.h"
 #include "Menu.h"
 #include "Shooter.h"
+#include "Medipack.h"
 #include "EntityManager.h"
 
 RenderWindow window(VideoMode(1440, 1080), "Zelda Like");

@@ -75,6 +75,7 @@ void Projectile::collision(std::vector<unique_ptr<Wall>>& walls)
 	}
 }
 
+
 Vector2f Projectile::getPosition()
 {
 	return Vector2f(x, y);
