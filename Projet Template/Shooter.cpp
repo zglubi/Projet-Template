@@ -1,12 +1,15 @@
 #include "Shooter.h"
 
 Shooter::Shooter(Vector2f startPosition, float initialSpeed)
-    : Enemy(startPosition.x, startPosition.y, initialSpeed), initialSpeed(initialSpeed), moveX(0), moveY(0), fireCooldown(1.0f), fireTimer(0.0f)
+    : Enemy(startPosition.x, startPosition.y, initialSpeed), initialSpeed(initialSpeed), moveX(0), moveY(0), fireCooldown(1.3f), fireTimer(0.0f)
 {
-    if (!texture.loadFromFile("assets/enemy_assets/shooter.png")) {
+    if (!texture.loadFromFile("assets/Ninja_Adventure_Asset_Pack/Actor/Characters/NinjaBlue2/Faceset.png")) {
         cerr << "Error loading shooter texture" << endl;
     }
     sprite.setTexture(texture);
+    if (!projectileTexture.loadFromFile("assets/Projectiles/Kunai.png")) {
+        cerr << "Error loading shooter texture" << endl;
+    }
     sprite.setPosition(startPosition);
     sprite.setOrigin(16, 16);
     sprite.setScale(2, 2);
