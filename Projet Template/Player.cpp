@@ -75,7 +75,7 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
 		{
             if (cooldownProjectile.getElapsedTime().asSeconds() > 0.5)
             {
-                shoot();
+                shoot(window, view);
             }
 		}
 
@@ -104,6 +104,16 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
             sprite.setPosition(x, y);
             
         }
+
+		for (auto& projectile : projectiles)
+		{
+			projectile->collision(walls);
+		}
+
+        projectiles.erase(
+            std::remove_if(projectiles.begin(), projectiles.end(),
+                [](const std::unique_ptr<Projectile>& projectile) { return projectile->isToBeDeleted(); }),
+            projectiles.end());
 }
 
 void Player::draw(RenderWindow& window) {
@@ -119,15 +129,15 @@ void Player::update(RenderWindow& window, float deltatime, View& view) {
     draw(window);
 }
 
-void Player::shoot()
+void Player::shoot(RenderWindow& window, View& view)
 {
-	Vector2f mousePos = Vector2f(Mouse::getPosition().x, Mouse::getPosition().y);
-	Vector2f direction = mousePos - Vector2f(x, y);
+	Vector2f mousePos = Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y);
+	Vector2f direction = mousePos - Vector2f(720, 540);
 
     if (direction.x != 0 || direction.y != 0)
     {
 
-        projectiles.push_back(make_unique<Projectile>(projectileTexture, Vector2f(x, y), direction, 200, 10));
+        projectiles.push_back(make_unique<Projectile>(projectileTexture, view.getCenter(), direction, 200, 10));
 
         cooldownProjectile.restart();
     }

@@ -18,7 +18,7 @@ public:
     void update(RenderWindow& window, float deltatime, View& view) override;
     void draw(RenderWindow& window) override;
     void handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls);
-	void shoot();
+	void shoot(RenderWindow& window, View& view);
 private:
     float vitesse;
     Sprite sprite;
