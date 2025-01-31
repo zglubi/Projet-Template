@@ -6,7 +6,8 @@ Medipack::Medipack(float x, float y) : Item(x, y) {
     }
     sprite.setTexture(texture);
     sprite.setOrigin(texture.getSize().x / 2.f, texture.getSize().y / 2.f);
-    /*sprite.setScale(Vector2f(2, 2));*/
+    sprite.setScale(Vector2f(2, 2));
+    sprite.setPosition(x, y);
 }
 
 
@@ -20,8 +21,8 @@ void Medipack::update(RenderWindow& window, float deltatime, View& view){
 
 void Medipack::interact(shared_ptr<Player>& player) {
 
-    if (player.get()->getSprite().getGlobalBounds().intersects(sprite.getGlobalBounds()))
-        cout << "touché";
+    if (player->getSprite().getGlobalBounds().intersects(sprite.getGlobalBounds()))
+        setToBeDeleted(true);
 }
 
 
