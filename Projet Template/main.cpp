@@ -6,6 +6,7 @@
 #include "Enemy.h"
 #include "Chaser.h"
 #include "Menu.h"
+#include "Shooter.h"
 
 RenderWindow window(VideoMode(1440, 1080), "Zelda Like");
 
@@ -13,6 +14,7 @@ Map gameMap;
 
 Player* player = new Player(720, 540);
 Chaser* chaser = new Chaser(Vector2f(100, 100), 50); // Position (100, 100), speed 50, detection range 200, stop range 50
+Shooter* shooter = new Shooter(Vector2f(200, 200), 50.0f); // Position (200, 200), speed 50
 float deltatime;
 View view = window.getView();
 Menu menu;
@@ -52,7 +54,10 @@ int main()
             // Update and draw the chaser enemy
             chaser->moveUpdate(player);
             chaser->update(window, deltatime, view);
+			shooter->moveUpdate(player);
+			shooter->update(window, deltatime, view);
             chaser->draw(window);
+			shooter->draw(window);
 
             window.display();
         }

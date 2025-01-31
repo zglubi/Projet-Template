@@ -21,6 +21,7 @@ public:
 	void draw(sf::RenderWindow& window) override;
 	void setDirection(Vector2f direction);
 	Vector2f getDirection();
+	Vector2f getPosition();
 	float getDamage();
 	bool isToBeDeleted() const;
 };

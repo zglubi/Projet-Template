@@ -43,32 +43,48 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
         float newX = x;
         float newY = y;
 
-        // Déplacement vers la gauche
+        
         if (Keyboard::isKeyPressed(Keyboard::Q)) 
         {
             newX -= vitesse;
             
         }
+        
+        if (Keyboard::isKeyPressed(Keyboard::D))
+        {
+            newX += vitesse;
 
-        // Déplacement vers le haut
+        }
+
+        bool collisionDetected = false;
+        for (auto& wall : walls) {
+
+
+            FloatRect playerBounds(newX - sprite.getGlobalBounds().width / 2, newY - sprite.getGlobalBounds().height / 4, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height * 3 / 4);
+            FloatRect wallBounds = wall->getSprite().getGlobalBounds();
+
+
+
+            if (playerBounds.intersects(wallBounds)) {
+                collisionDetected = true;
+                break;
+            }
+        }
+
+
+        if (!collisionDetected) {
+            x = newX;
+            y = newY;
+            view.setCenter(x, y);
+            window.setView(view);
+            sprite.setPosition(x, y);
+
+        }
+
         if (Keyboard::isKeyPressed(Keyboard::Z))
         {
             newY -= vitesse;
             
-        }
-
-        // Déplacement vers le bas
-        if (Keyboard::isKeyPressed(Keyboard::S))
-        {
-            newY += vitesse;
-           
-        }
-
-        // Déplacement vers la droite
-        if (Keyboard::isKeyPressed(Keyboard::D))
-        {
-            newX += vitesse;
-           
         }
 
 		if (Mouse::isButtonPressed(Mouse::Left))
@@ -78,31 +94,36 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
                 shoot(window, view);
             }
 		}
+        
+        if (Keyboard::isKeyPressed(Keyboard::S))
+        {
+            newY += vitesse;
+           
+        }
 
-        // Vérification des collisions avant de mettre à jour la position
-        bool collisionDetected = false;
+        collisionDetected = false;
         for (auto& wall : walls) {
-            // On obtient les limites globales du sprite et de chaque mur
-            
-            FloatRect playerBounds(newX - sprite.getGlobalBounds().width/2, newY- sprite.getGlobalBounds().height/4, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height*3/4);
+
+
+            FloatRect playerBounds(newX - sprite.getGlobalBounds().width / 2, newY - sprite.getGlobalBounds().height / 4, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height * 3 / 4);
             FloatRect wallBounds = wall->getSprite().getGlobalBounds();
 
 
-            // Vérification de la collision
+
             if (playerBounds.intersects(wallBounds)) {
                 collisionDetected = true;
-                break;  // Sortir de la boucle dès qu'une collision est détectée
+                break;
             }
         }
 
-        // Si aucune collision n'est détectée, on applique le déplacement
+
         if (!collisionDetected) {
             x = newX;
             y = newY;
             view.setCenter(x, y);
             window.setView(view);
             sprite.setPosition(x, y);
-            
+
         }
 
 		for (auto& projectile : projectiles)
@@ -114,6 +135,23 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
             std::remove_if(projectiles.begin(), projectiles.end(),
                 [](const std::unique_ptr<Projectile>& projectile) { return projectile->isToBeDeleted(); }),
             projectiles.end());
+
+        if (Keyboard::isKeyPressed(Keyboard::Escape))
+        {
+            window.close();
+
+        }
+
+		if (Mouse::isButtonPressed(Mouse::Left))
+		{
+            if (cooldownProjectile.getElapsedTime().asSeconds() > 0.5)
+            {
+                shoot();
+            }
+		}
+
+        
+        
 }
 
 void Player::draw(RenderWindow& window) {

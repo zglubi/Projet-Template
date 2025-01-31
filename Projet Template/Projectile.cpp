@@ -79,3 +79,9 @@ bool Projectile::isToBeDeleted() const
 {
 	return toBeDeleted;
 }
+}
+
+Vector2f Projectile::getPosition()
+{
+	return Vector2f(x, y);
+}
