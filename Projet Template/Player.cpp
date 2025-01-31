@@ -3,7 +3,8 @@
 #include "Projectile.h"
 #include <iostream>
 
-Player::Player(int x, int y) : Entity(x, y) {
+Player::Player(int x, int y) : Entity(x, y), frame(0), frameKatanaSlash(0) {
+
     if (!texture.loadFromFile("assets\\player.png")) {
         std::cerr << "Erreur : impossible de charger 'playersprite'" << std::endl;
     }
@@ -13,6 +14,16 @@ Player::Player(int x, int y) : Entity(x, y) {
     sprite.setTexture(texture);
     sprite.setOrigin(texture.getSize().x / 2.f, texture.getSize().y / 2.f);
     sprite.setScale(Vector2f(2, 2));
+
+    if (!katanaSlashTexture.loadFromFile("assets\\Slash\\katanaCurved.png"))
+    {
+        std::cerr << "Erreur : impossible de charger 'playersprite'" << std::endl;
+    }
+    katanaSlashSprite.setTexture(katanaSlashTexture);
+    katanaSlashSprite.setScale(Vector2f(2, 2));
+
+    hand1 = 1;
+    hand2 = 2;
 
     vitesse = 0.125;
 }
@@ -42,15 +53,18 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
     float newX = x;
     float newY = y;
 
-    if (Keyboard::isKeyPressed(Keyboard::Q))
-    {
-        newX -= vitesse;
-    }
-
-    if (Keyboard::isKeyPressed(Keyboard::D))
-    {
-        newX += vitesse;
-    }
+        
+        if (Keyboard::isKeyPressed(Keyboard::Q)) 
+        {
+            newX -= vitesse;
+            dir = 2;
+        }
+        
+        if (Keyboard::isKeyPressed(Keyboard::D))
+        {
+            newX += vitesse;
+            dir = 4;
+        }
 
     bool collisionDetected = false;
     for (auto& wall : walls) {
@@ -71,15 +85,17 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
         sprite.setPosition(x, y);
     }
 
-    if (Keyboard::isKeyPressed(Keyboard::Z))
-    {
-        newY -= vitesse;
-    }
-
-    if (Keyboard::isKeyPressed(Keyboard::S))
-    {
-        newY += vitesse;
-    }
+        if (Keyboard::isKeyPressed(Keyboard::Z))
+        {
+            newY -= vitesse;
+            dir = 1;
+        }
+        
+        if (Keyboard::isKeyPressed(Keyboard::S))
+        {
+            newY += vitesse;
+            dir = 3;
+        }
 
     collisionDetected = false;
     for (auto& wall : walls) {
@@ -115,18 +131,50 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
         window.close();
     }
 
-    if (Mouse::isButtonPressed(Mouse::Left))
-    {
-        if (cooldownProjectile.getElapsedTime().asSeconds() > 0.5 && hasShuriken)
-        {
-            shoot(window, view);
-        }
-    }
+		if (Mouse::isButtonPressed(Mouse::Left))
+		{
+            switch (hand1)
+            {
+            case 0:
+                break;
+            case 1:
+                if (cooldownProjectile.getElapsedTime().asSeconds() > 0.5)
+                {
+                    shoot(window, view);
+                }
+            case 2:
+                if (cooldownKatanaSlash.getElapsedTime().asSeconds() > 1)
+                {
+                    cooldownKatanaSlash.restart();
+                    katanaAttack = true;
+                }
+            }
+		}
 
-    if (Keyboard::isKeyPressed(Keyboard::Space) && hasKatana)
-    {
-        meleeAttack(window, view);
-    }
+        if (Mouse::isButtonPressed(Mouse::Right))
+        {
+            switch (hand2)
+            {
+            case 0:
+                break;
+            case 1:
+                if (cooldownProjectile.getElapsedTime().asSeconds() > 0.5)
+                {
+                    shoot(window, view);
+                }
+            case 2:
+                if (cooldownKatanaSlash.getElapsedTime().asSeconds() > 1)
+                {
+                    cooldownKatanaSlash.restart();
+                    katanaAttack = true;
+                }
+            }
+        }
+
+        if (katanaAttack)
+        {
+            katanaSlash(window);
+        }
 }
 
 void Player::draw(RenderWindow& window) {
@@ -159,21 +207,23 @@ void Player::meleeAttack(RenderWindow& window, View& view)
     // Add melee attack logic here
 }
 
-void Player::setHasKatana(bool value)
-{
-    hasKatana = value;
+        cooldownProjectile.restart();
+    }
 }
 
-void Player::setHasShuriken(bool value)
+void Player::katanaSlash(RenderWindow& window)
 {
-    hasShuriken = value;
+    if (frameKatanaSlash / 30 > 3)
+    {
+        katanaAttack = false;
+        frameKatanaSlash = 0;
+        return;
+    }
+    else
+    {
+        frameKatanaSlash++;
+    }
+    katanaSlashSprite.setPosition(sprite.getGlobalBounds().left + sprite.getGlobalBounds().width, sprite.getGlobalBounds().top);
+    katanaSlashSprite.setTextureRect(IntRect(0 + 32 * (frameKatanaSlash / 30), 0, 32, 32));
+    window.draw(katanaSlashSprite);
 }
-
-//bool Player::checkCollisionWithItem(Item& item)
-//{
-//    if (sprite.getGlobalBounds().intersects(item.getSprite().getGlobalBounds())) {
-//        item.interact(shared_from_this());
-//        return true;
-//    }
-//    return false;
-//}
