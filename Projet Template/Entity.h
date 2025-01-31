@@ -13,6 +13,7 @@ public:
 	
 	Sprite sprite;
 	Texture texture;
+	bool toBeDeleted = false;
 
 	float x;
 	float y;
@@ -22,7 +23,8 @@ public:
 	virtual void draw(RenderWindow& window) = 0;
 
 	Sprite& getSprite();
-
+	bool isToBeDeleted() const;
+	void setToBeDeleted(bool ToBeDeleted);
 };
 
 
