@@ -4,18 +4,39 @@
 using namespace std;
 using namespace sf;
 
-Menu::Menu() 
+Menu::Menu(RenderWindow& window)
 {
-	Texture buttonPlayTexture;
-	buttonPlayTexture.loadFromFile("Assets/player.png");
+	// Background du menu principal
+	MainMenuBGTexture.loadFromFile("Assets/MenuBG.jpg");
+	MainMenuBGSprite.setTexture(MainMenuBGTexture);
+	Vector2u windowSizeM = window.getSize();
+	Vector2u textureSizeM = MainMenuBGTexture.getSize();
 
-	Texture buttonExitTexture;
+	float scaleMX = static_cast<float>(windowSizeM.x) / textureSizeM.x;
+	float scaleMY = static_cast<float>(windowSizeM.y) / textureSizeM.y;
+
+	MainMenuBGSprite.setScale(scaleMX, scaleMY);
+
+	// Background du menu pause
+
+	PauseMenuBGTexture.loadFromFile("Assets/MenuBG.jpg");
+	PauseMenuBGSprite.setTexture(PauseMenuBGTexture);
+	Vector2u windowSizeP = window.getSize();
+	Vector2u textureSizeP = PauseMenuBGTexture.getSize();
+
+	float scalePX = static_cast<float>(windowSizeP.x) / textureSizeP.x;
+	float scalePY = static_cast<float>(windowSizeP.y) / textureSizeP.y;
+
+	PauseMenuBGSprite.setScale(scalePX, scalePY);
+
+	// Boutons
+
+	buttonPlayTexture.loadFromFile("Assets/player.png");
+;
 	buttonExitTexture.loadFromFile("Assets/player.png");
 
-	Texture buttonResumeTexture;
 	buttonResumeTexture.loadFromFile("Assets/player.png");
 
-	Texture buttonOptionsTexture;
 	buttonOptionsTexture.loadFromFile("Assets/player.png");
 
 	buttons.push_back(Button(buttonPlayTexture, Vector2f(540, 200)));
@@ -46,12 +67,12 @@ int Menu::handleInput(const RenderWindow& window, Event event)
 
 void Menu::menuDisplay(RenderWindow& window, int type)
 {
+	bool menu = true;
+	Event event;
 	if (type == 0)
 	{
-		bool menu = true;
 		while (menu)
 		{
-			Event event;
 			while (window.pollEvent(event))
 			{
 				if (event.type == Event::Closed)
@@ -71,7 +92,41 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 				}
 			}
 			window.clear();
+			window.draw(MainMenuBGSprite);
 			buttons[0].draw(window);
+			buttons[1].draw(window);
+			window.display();
+		}
+	}
+	if (type == 1)
+	{
+		bool pause = true;
+		while (pause)
+		{
+			while (window.pollEvent(event))
+			{
+				if (event.type == Event::Closed)
+				{
+					window.close();
+				}
+				if (buttons[2].isClicked(window, event))
+				{
+					pause = false;
+				}
+				if (buttons[3].isClicked(window, event))
+				{
+
+				}
+				if (buttons[1].isClicked(window, event))
+				{
+					window.close();
+					menu = false;
+				}
+			}
+			window.clear();
+			window.draw(PauseMenuBGSprite);
+			buttons[2].draw(window);
+			buttons[3].draw(window);
 			buttons[1].draw(window);
 			window.display();
 		}

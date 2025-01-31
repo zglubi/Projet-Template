@@ -15,7 +15,7 @@ Player* player = new Player(720, 540);
 Chaser* chaser = new Chaser(Vector2f(100, 100), 50); // Position (100, 100), speed 50, detection range 200, stop range 50
 float deltatime;
 View view = window.getView();
-Menu menu;
+Menu menu(window);
 
 int main()
 {
@@ -26,6 +26,7 @@ int main()
         menu.menuDisplay(window, 0);
 
         bool isRunning = true;
+        bool isPause = false;
 
         while (isRunning)
         {
@@ -37,6 +38,12 @@ int main()
                 {
                     window.close();
 					isRunning = false;
+                }
+                if (event.type == sf::Event::KeyPressed) {
+                    if (event.key.code == sf::Keyboard::Escape) {
+                        std::cout << "Touche Echap pressee !" << std::endl;
+                        isPause = true;
+                    }
                 }
             }
 
@@ -55,6 +62,10 @@ int main()
             chaser->draw(window);
 
             window.display();
+        }
+        while (isPause)
+        {
+			menu.menuDisplay(window, 1);
         }
     }
 
