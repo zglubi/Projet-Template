@@ -12,6 +12,7 @@ private:
 	float speed;
 	float damage;
 	Vector2f direction;
+	size_t frame;
 public:
 	Projectile(Texture t, Vector2f position, Vector2f direction, float speed, float damage);
 	~Projectile();
