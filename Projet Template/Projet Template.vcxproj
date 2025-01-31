@@ -158,6 +158,7 @@
     <ClInclude Include="Interactable.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="Medipack.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Projectile.h" />
