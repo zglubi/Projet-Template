@@ -15,7 +15,7 @@ private:
 public:
 	Projectile(Vector2f position, Vector2f direction, float speed, float damage);
 	~Projectile();
-	void update(RenderWindow& window, Time deltatime, View& view) override;
+	void update(RenderWindow& window, float deltatime, View& view) override;
 	void draw(sf::RenderWindow& window) override;
 	void setDirection(Vector2f direction);
 	Vector2f getDirection();

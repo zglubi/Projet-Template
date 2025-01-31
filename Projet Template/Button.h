@@ -8,15 +8,14 @@ using namespace std;
 
 class Button {
 public:
-    Button(const string& text, const Vector2f& position, const Vector2f& size);
+    Button(const Texture& texture, const Vector2f& position);
 
     void draw(RenderWindow& window);
     bool isClicked(const RenderWindow& window, Event event) const;
+	void setPosition(const Vector2f& position);
 
 private:
-    RectangleShape buttonShape;
-    Text buttonText;
-    Font font;
+    Sprite buttonSprite;
 };
 
 #endif

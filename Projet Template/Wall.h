@@ -18,7 +18,7 @@ public:
 	Sprite getSprite();
 
 	void draw(RenderWindow& window) override;
-	void update(RenderWindow& window, Time deltatime, View& view) override;
+	void update(RenderWindow& window, float deltatime, View& view) override;
 };
 
 #endif // WALL_H

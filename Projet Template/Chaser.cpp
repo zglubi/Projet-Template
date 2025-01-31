@@ -14,33 +14,39 @@ Chaser::Chaser(Vector2f startPosition, float initialSpeed)
 	moveY = 0;
 }
 
-void Chaser::moveUpdate(Player* player) {
-	if (player->getSprite().getPosition().x > sprite.getPosition().x) {
+void Chaser::moveUpdate(Player* player) 
+{
+	if (player->getSprite().getPosition().x > sprite.getPosition().x) 
+	{
 		moveX = 1;
 	}
-	else if (player->getSprite().getPosition().x < sprite.getPosition().x) {
+	else if (player->getSprite().getPosition().x < sprite.getPosition().x) 
+	{
 		moveX = -1;
 	}
 	else {
 		moveX = 0;
 	}
 
-	if (player->getSprite().getPosition().y > sprite.getPosition().y) {
+	if (player->getSprite().getPosition().y > sprite.getPosition().y) 
+	{
 		moveY = 1;
 	}
-	else if (player->getSprite().getPosition().y < sprite.getPosition().y) {
+	else if (player->getSprite().getPosition().y < sprite.getPosition().y) 
+	{
 		moveY = -1;
 	}
-	else {
+	else 
+	{
 		moveY = 0;
 	}
 }
 
-void Chaser::update(RenderWindow& window, Time deltatime, View& view) {
-	cout << moveX << " " << moveY << endl;
+void Chaser::update(RenderWindow& window, float deltatime, View& view) 
+{
 	velocity.x = moveX * speed;
 	velocity.y = moveY * speed;
-	sprite.move(velocity * deltatime.asSeconds());
+	sprite.move(velocity * deltatime);
 }
 
 void Chaser::draw(RenderWindow& window) {

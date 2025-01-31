@@ -87,7 +87,7 @@ void Player::draw(RenderWindow& window) {
     window.draw(sprite);
 }
 
-void Player::update(RenderWindow& window, Time deltatime, View& view) {
+void Player::update(RenderWindow& window, float deltatime, View& view) {
 
     draw(window);
 }

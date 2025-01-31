@@ -65,6 +65,6 @@ void Wall::draw(RenderWindow& window)
 	window.draw(sprite);
 }
 
-void Wall::update(RenderWindow& window, Time deltatime, View& view)
+void Wall::update(RenderWindow& window, float deltatime, View& view)
 {
 }

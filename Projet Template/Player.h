@@ -15,7 +15,7 @@ public:
 
     Player(int x, int y);
 
-    void update(RenderWindow& window, Time deltatime, View& view) override;
+    void update(RenderWindow& window, float deltatime, View& view) override;
     void draw(RenderWindow& window) override;
     void move(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls);
 private:

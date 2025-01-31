@@ -14,10 +14,10 @@ Projectile::~Projectile()
 {
 }
 
-void Projectile::update(RenderWindow& window, Time deltatime, View& view)
+void Projectile::update(RenderWindow& window, float deltatime, View& view)
 {
-	x += direction.x * speed * deltatime.asSeconds();
-	y += direction.y * speed * deltatime.asSeconds();
+	x += direction.x * speed * deltatime;
+	y += direction.y * speed * deltatime;
 	sprite.setPosition(x, y);
 }
 

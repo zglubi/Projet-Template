@@ -1,33 +1,25 @@
 #include "Button.h"
 
-Button::Button(const string& text, const Vector2f& position, const Vector2f& size) {
-    buttonShape.setPosition(position);
-    buttonShape.setSize(size);
-    buttonShape.setFillColor(Color::Blue);
-
-    if (!font.loadFromFile("arial.ttf")) {
-        throw std::runtime_error("Failed to load font");
-    }
-
-    buttonText.setFont(font);
-    buttonText.setString(text);
-    buttonText.setCharacterSize(24);
-    buttonText.setFillColor(Color::White);
-    buttonText.setPosition(
-        position.x + (size.x - buttonText.getGlobalBounds().width) / 2,
-        position.y + (size.y - buttonText.getGlobalBounds().height) / 2
-    );
+Button::Button(const Texture& texture, const Vector2f& position) {
+    buttonSprite.setTexture(texture);
+    buttonSprite.setPosition(position);
 }
 
 void Button::draw(RenderWindow& window) {
-    window.draw(buttonShape);
-    window.draw(buttonText);
+    window.draw(buttonSprite);
 }
 
 bool Button::isClicked(const RenderWindow& window, Event event) const {
-    if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) {
+    if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) {
+        FloatRect bounds = buttonSprite.getGlobalBounds();
         Vector2i mousePos = Mouse::getPosition(window);
-        return buttonShape.getGlobalBounds().contains(static_cast<Vector2f>(mousePos));
+        if (bounds.contains(static_cast<Vector2f>(mousePos))) {
+            return true;
+        }
     }
     return false;
+}
+
+void Button::setPosition(const Vector2f& position) {
+	buttonSprite.setPosition(position);
 }

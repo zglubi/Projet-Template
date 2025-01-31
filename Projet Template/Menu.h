@@ -8,23 +8,16 @@
 using namespace std;
 using namespace sf;
 
-enum class MenuType {
-    MainMenu,
-    PauseMenu,
-    GameOver,
-    Win
-};
-
 class Menu
 {
 private:
     vector<Button> buttons;
-    MenuType menuType;
 
 public:
-    Menu(MenuType type);
+    Menu();
 
     void draw(RenderWindow& window);
+	void menuDisplay(RenderWindow& window, int type);
     int handleInput(const RenderWindow& window, Event event);
 };
 
