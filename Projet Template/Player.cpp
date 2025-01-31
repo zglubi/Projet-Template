@@ -71,6 +71,12 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
            
         }
 
+        if (Keyboard::isKeyPressed(Keyboard::Escape))
+        {
+            window.close();
+
+        }
+
 		if (Mouse::isButtonPressed(Mouse::Left))
 		{
             if (cooldownProjectile.getElapsedTime().asSeconds() > 0.5)
