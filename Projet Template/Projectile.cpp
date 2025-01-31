@@ -1,42 +1,42 @@
 #include "Projectile.h"
 
-Projectile::Projectile(Vector2f position, Vector2f direction, float speed, float damage) : Entity(position.x, position.y)
+Projectile::Projectile(sf::Vector2f position, sf::Vector2f direction, float speed, float damage)
+    : Entity(position.x, position.y), direction(direction), speed(speed), damage(damage)
 {
-	this->direction = direction;
-	this->speed = speed;
-	this->damage = damage;
-	texture.loadFromFile("assets/projectile.png");
-	sprite.setTexture(texture);
-	sprite.setPosition(position);
+    if (!texture.loadFromFile("assets/projectile.png")) {
+        std::cerr << "Error loading projectile texture" << std::endl;
+    }
+    sprite.setTexture(texture);
+    sprite.setPosition(position);
 }
 
 Projectile::~Projectile()
 {
 }
 
-void Projectile::update(RenderWindow& window, float deltatime, View& view)
+void Projectile::update(sf::RenderWindow& window, float deltatime, sf::View& view)
 {
-	x += direction.x * speed * deltatime;
-	y += direction.y * speed * deltatime;
-	sprite.setPosition(x, y);
+    x += direction.x * speed * deltatime;
+    y += direction.y * speed * deltatime;
+    sprite.setPosition(x, y);
 }
 
 void Projectile::draw(sf::RenderWindow& window)
 {
-	window.draw(sprite);
+    window.draw(sprite);
 }
 
-void Projectile::setDirection(Vector2f direction)
+void Projectile::setDirection(sf::Vector2f direction)
 {
-	this->direction = direction;
+    this->direction = direction;
 }
 
-Vector2f Projectile::getDirection()
+sf::Vector2f Projectile::getDirection()
 {
-	return direction;
+    return direction;
 }
 
 float Projectile::getDamage()
 {
-	return damage;
+    return damage;
 }
