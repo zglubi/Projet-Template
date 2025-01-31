@@ -18,9 +18,9 @@ void Medipack::update(RenderWindow& window, float deltatime, View& view){
     draw(window);
 }
 
-void Medipack::interact(Player& player) {
+void Medipack::interact(shared_ptr<Player>& player) {
 
-    if (player.getSprite().getGlobalBounds().intersects(sprite.getGlobalBounds()))
+    if (player.get()->getSprite().getGlobalBounds().intersects(sprite.getGlobalBounds()))
         cout << "touché";
 }
 

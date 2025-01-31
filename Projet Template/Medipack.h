@@ -10,7 +10,7 @@ public:
 	Medipack(float x, float y);
 	void update(RenderWindow& window, float deltatime, View& view) override;
 	void draw(RenderWindow& window) override;
-	void interact(Player& player) override;
+	void interact(shared_ptr<Player>& player) override;
 };
 
 

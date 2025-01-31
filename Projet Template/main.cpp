@@ -54,6 +54,9 @@ int main()
             player->update(window, deltatime, view);
 
 
+            med->update(window, deltatime, view);
+            med->interact(player);
+
             // Update and draw the chaser enemy
             chaser->moveUpdate(player);
             chaser->update(window, deltatime, view);

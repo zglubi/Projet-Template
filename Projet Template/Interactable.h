@@ -5,7 +5,7 @@
 class Interactable
 {
 public:
-	virtual void interact(Player& player) = 0;
+	virtual void interact(shared_ptr<Player>& player) = 0;
 };
 
 #endif // INTERACTABLE_H
