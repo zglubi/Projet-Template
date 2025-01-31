@@ -23,7 +23,9 @@ public:
 private:
     float vitesse;
     Sprite sprite;
+	Texture projectileTexture;
 	vector<unique_ptr<Projectile>> projectiles;
+	Clock cooldownProjectile;
 };
 
 #endif // !PLAYER_H

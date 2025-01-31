@@ -6,6 +6,9 @@ Player::Player(int x, int y) : Entity(x, y) {
     if (!texture.loadFromFile("assets\\player.png")) {
         std::cerr << "Erreur : impossible de charger 'playersprite'" << std::endl;
     }
+    if (!projectileTexture.loadFromFile("assets\\Projectiles\\Shuriken.png")) {
+        std::cerr << "Erreur : impossible de charger 'playersprite'" << std::endl;
+    }
     sprite.setTexture(texture);
     sprite.setOrigin(texture.getSize().x / 2.f, texture.getSize().y / 2.f);
     sprite.setScale(Vector2f(2, 2));
@@ -69,7 +72,10 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
 
 		if (Mouse::isButtonPressed(Mouse::Left))
 		{
-			shoot();
+            if (cooldownProjectile.getElapsedTime().asSeconds() > 0.5)
+            {
+                shoot();
+            }
 		}
 
         // Vérification des collisions avant de mettre à jour la position
@@ -105,7 +111,10 @@ void Player::draw(RenderWindow& window) {
 }
 
 void Player::update(RenderWindow& window, float deltatime, View& view) {
-
+    for (auto& projectile : projectiles)
+    {
+        projectile->update(window, deltatime, view);
+    }
     draw(window);
 }
 
@@ -113,6 +122,12 @@ void Player::shoot()
 {
 	Vector2f mousePos = Vector2f(Mouse::getPosition().x, Mouse::getPosition().y);
 	Vector2f direction = mousePos - Vector2f(x, y);
-    
-    projectiles.push_back(make_unique<Projectile>(texture, Vector2f(x, y), direction, 500, 10));
+
+    if (direction.x != 0 || direction.y != 0)
+    {
+
+        projectiles.push_back(make_unique<Projectile>(projectileTexture, Vector2f(x, y), direction, 200, 10));
+
+        cooldownProjectile.restart();
+    }
 }
