@@ -1,7 +1,9 @@
-Nous avons commencé par répartir les tâches entre nous. Taric le menu, Teo les entity, Emilien la map pendant que thomas finissait de régler son problème.
+Nous avons commencé par répartir les tâches entre nous. Tarik le menu, Teo les entity, Emilien la map pendant que thomas finissait de régler son problème.
 
-Taric (Map) :
-
+Tarik (Map) :
+J'ai commencé par faire une classe Menu avec également un enum pour définir les différents écran de menu du jeu.
+J'ai fait une fonction draw pour les boutons et une fonction handleInput pour vérifier si un bouton est cliqué.
+J'ai ensuite fait une classe Button afin de créé les boutons, les boutons sont pour l'instant des rectangles.
 
 Teo (Entity) :J'ai commencé par faire la classe entity pour que le player, les ennemis et autres. La classe a comme attribut x, y, texture et sprite, et comme methode 
 le constructeur update et draw des méthodes qui seront override dans les classes qui herite de entity. Ensuite j'ai fait player qui utilise entity avec l'attribut vitesse en plus et sa fonction update permet de bouger la camera avec ZQSD.
