@@ -57,9 +57,9 @@ void Shooter::update(sf::RenderWindow& window, float deltatime, sf::View& view)
     // Remove projectiles that go out of the window bounds (optional)
     projectiles.erase(std::remove_if(projectiles.begin(), projectiles.end(),
         [&window](Projectile& projectile) {
-            return projectile.getPosition().x < 0 || projectile.getPosition().y < 0 ||
-                projectile.getPosition().x > window.getSize().x ||
-                projectile.getPosition().y > window.getSize().y;
+            return projectile.getSprite().getPosition().x < 0 || projectile.getSprite().getPosition().y < 0 ||
+                projectile.getSprite().getPosition().x > window.getSize().x ||
+                projectile.getSprite().getPosition().y > window.getSize().y;
         }),
         projectiles.end());
 }
@@ -71,7 +71,7 @@ void Shooter::draw(sf::RenderWindow& window)
     // Draw projectiles
     for (const auto& projectile : projectiles)
     {
-        projectile.draw(window);
+        //projectile->draw(window);
     }
 }
 
