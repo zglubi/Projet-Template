@@ -3,6 +3,7 @@
 #define PLAYER_H
 #include "Entity.h"
 #include "Map.h"
+#include "Projectile.h"
 
 class Player : public Entity
 {
@@ -17,10 +18,12 @@ public:
 
     void update(RenderWindow& window, float deltatime, View& view) override;
     void draw(RenderWindow& window) override;
-    void move(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls);
+    void handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls);
+	void shoot();
 private:
     float vitesse;
     Sprite sprite;
+	vector<unique_ptr<Projectile>> projectiles;
 };
 
 #endif // !PLAYER_H

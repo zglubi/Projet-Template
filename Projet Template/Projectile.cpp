@@ -1,13 +1,13 @@
 #include "Projectile.h"
 
-Projectile::Projectile(sf::Vector2f position, sf::Vector2f direction, float speed, float damage)
-    : Entity(position.x, position.y), direction(direction), speed(speed), damage(damage)
+Projectile::Projectile(Texture t, Vector2f position, Vector2f direction, float speed, float damage) : Entity(position.x, position.y)
 {
-    if (!texture.loadFromFile("assets/projectile.png")) {
-        std::cerr << "Error loading projectile texture" << std::endl;
-    }
-    sprite.setTexture(texture);
-    sprite.setPosition(position);
+	this->direction = direction;
+	this->speed = speed;
+	this->damage = damage;
+	texture = t;
+	sprite.setTexture(texture);
+	sprite.setPosition(position);
 }
 
 Projectile::~Projectile()

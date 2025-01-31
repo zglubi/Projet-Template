@@ -8,21 +8,17 @@
 class Projectile : public Entity
 {
 private:
-    float speed;
-    float damage;
-    sf::Vector2f direction;
-    sf::Texture texture;
-    sf::Sprite sprite;
-
+	float speed;
+	float damage;
+	Vector2f direction;
 public:
-    Projectile(sf::Vector2f position, sf::Vector2f direction, float speed, float damage);
-    ~Projectile();
-    void update(sf::RenderWindow& window, float deltatime, sf::View& view) override;
-    void draw(sf::RenderWindow& window) override;
-    void setDirection(sf::Vector2f direction);
-    sf::Vector2f getDirection();
-    float getDamage();
-    sf::Vector2f getPosition() const { return sprite.getPosition(); } // Added to get position
+	Projectile(Texture t, Vector2f position, Vector2f direction, float speed, float damage);
+	~Projectile();
+	void update(RenderWindow& window, float deltatime, View& view) override;
+	void draw(sf::RenderWindow& window) override;
+	void setDirection(Vector2f direction);
+	Vector2f getDirection();
+	float getDamage();
 };
 
 #endif // PROJECTILE_H
