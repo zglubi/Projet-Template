@@ -1,11 +1,11 @@
 #include "Projectile.h"
 
-Projectile::Projectile(Vector2f position, Vector2f direction, float speed, float damage) : Entity(position.x, position.y)
+Projectile::Projectile(Texture t, Vector2f position, Vector2f direction, float speed, float damage) : Entity(position.x, position.y)
 {
 	this->direction = direction;
 	this->speed = speed;
 	this->damage = damage;
-	texture.loadFromFile("assets/projectile.png");
+	texture = t;
 	sprite.setTexture(texture);
 	sprite.setPosition(position);
 }

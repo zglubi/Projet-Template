@@ -13,7 +13,7 @@ private:
 	float damage;
 	Vector2f direction;
 public:
-	Projectile(Vector2f position, Vector2f direction, float speed, float damage);
+	Projectile(Texture t, Vector2f position, Vector2f direction, float speed, float damage);
 	~Projectile();
 	void update(RenderWindow& window, float deltatime, View& view) override;
 	void draw(sf::RenderWindow& window) override;

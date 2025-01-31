@@ -46,10 +46,8 @@ int main()
             gameMap.draw(window);
 
             // Update player position (assuming the Player class has move method)
-            player->move(window, view, gameMap.getWalls());
+            player->handleInput(window, view, gameMap.getWalls());
             player->update(window, deltatime, view);
-
-            // Set the player's position for the chaser enemy
 
             // Update and draw the chaser enemy
             chaser->moveUpdate(player);
