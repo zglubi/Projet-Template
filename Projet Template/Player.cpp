@@ -77,7 +77,7 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
         for (auto& wall : walls) {
             // On obtient les limites globales du sprite et de chaque mur
             
-            FloatRect playerBounds(newX - sprite.getGlobalBounds().width/2, newY- sprite.getGlobalBounds().height/2, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height);
+            FloatRect playerBounds(newX - sprite.getGlobalBounds().width/2, newY- sprite.getGlobalBounds().height/4, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height*3/4);
             FloatRect wallBounds = wall->getSprite().getGlobalBounds();
 
 
