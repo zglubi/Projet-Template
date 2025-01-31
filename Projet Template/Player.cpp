@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Wall.h"
+#include "Projectile.h"
 
 Player::Player(int x, int y) : Entity(x, y) {
 

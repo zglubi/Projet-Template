@@ -51,15 +51,15 @@ void Shooter::update(sf::RenderWindow& window, float deltatime, sf::View& view)
     // Update projectiles
     for (auto& projectile : projectiles)
     {
-        projectile.update(window, deltatime, view);
+        projectile->update(window, deltatime, view);
     }
 
     // Remove projectiles that go out of the window bounds (optional)
     projectiles.erase(std::remove_if(projectiles.begin(), projectiles.end(),
-        [&window](Projectile& projectile) {
-            return projectile.getSprite().getPosition().x < 0 || projectile.getSprite().getPosition().y < 0 ||
-                projectile.getSprite().getPosition().x > window.getSize().x ||
-                projectile.getSprite().getPosition().y > window.getSize().y;
+        [&window](const std::unique_ptr<Projectile>& projectile) {
+            return projectile->getSprite().getPosition().x < 0 || projectile->getSprite().getPosition().y < 0 ||
+                projectile->getSprite().getPosition().x > window.getSize().x ||
+                projectile->getSprite().getPosition().y > window.getSize().y;
         }),
         projectiles.end());
 }
@@ -71,7 +71,7 @@ void Shooter::draw(sf::RenderWindow& window)
     // Draw projectiles
     for (const auto& projectile : projectiles)
     {
-        //projectile->draw(window);
+        projectile->draw(window);
     }
 }
 
@@ -80,5 +80,5 @@ void Shooter::fireProjectile(sf::Vector2f direction)
     sf::Vector2f startPosition = sprite.getPosition();
     float speed = 300.0f; // Example speed value
     float damage = 10.0f; // Example damage value
-    projectiles.emplace_back(startPosition, direction, speed, damage);
+    projectiles.emplace_back(std::make_unique<Projectile>(projectileTexture, startPosition, direction, speed, damage));
 }

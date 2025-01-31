@@ -1,7 +1,6 @@
 #pragma once
 #ifndef PLAYER_H
 #define PLAYER_H
-#include "Entity.h"
 #include "Map.h"
 #include "Projectile.h"
 
