@@ -1,7 +1,6 @@
 #pragma once
 #ifndef PLAYER_H
 #define PLAYER_H
-#include "Entity.h"
 #include "Map.h"
 #include "Projectile.h"
 
@@ -23,7 +22,9 @@ public:
 private:
     float vitesse;
     Sprite sprite;
+	Texture projectileTexture;
 	vector<unique_ptr<Projectile>> projectiles;
+	Clock cooldownProjectile;
 };
 
 #endif // !PLAYER_H

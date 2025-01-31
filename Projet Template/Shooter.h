@@ -15,7 +15,8 @@ private:
     float initialSpeed;
     int moveX;
     int moveY;
-    std::vector<Projectile> projectiles; // Store the projectiles
+    std::vector<unique_ptr<Projectile>> projectiles; // Store the projectiles
+	Texture projectileTexture;
     float fireCooldown; // Cooldown time between shots
     float fireTimer; // Timer to track time since last shot
 
