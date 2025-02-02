@@ -17,7 +17,7 @@ private:
 public:
     Chaser(Vector2f startPosition, float initialSpeed);
 
-    void moveUpdate(Player* player);
+    void moveUpdate(shared_ptr<Player> player);
     void update(RenderWindow& window, float deltatime, View& view) override;
     void draw(RenderWindow& window) override;
 };
