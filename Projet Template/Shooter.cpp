@@ -15,14 +15,6 @@ Shooter::Shooter(Vector2f startPosition, float initialSpeed)
     sprite.setScale(2, 2);
 }
 
-void Shooter::moveUpdate(shared_ptr<Player> player)
-{
-    Vector2f playerPos = player->getSprite().getPosition();
-    Vector2f enemyPos = sprite.getPosition();
-    moveX = (playerPos.x > enemyPos.x) - (playerPos.x < enemyPos.x);
-    moveY = (playerPos.y > enemyPos.y) - (playerPos.y < enemyPos.y);
-}
-
 void Shooter::update(RenderWindow& window, float deltatime, View& view)
 {
     Vector2f playerPos = view.getCenter();
@@ -65,6 +57,8 @@ void Shooter::update(RenderWindow& window, float deltatime, View& view)
                 projectile->getSprite().getPosition().y > window.getSize().y;
         }),
         projectiles.end());
+    draw(window);
+
 }
 
 void Shooter::draw(RenderWindow& window)
