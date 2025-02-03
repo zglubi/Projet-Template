@@ -21,5 +21,4 @@ void Shuriken::draw(RenderWindow& window) {
 
 void Shuriken::interact(shared_ptr<Player>& player) {
     cout << "Shuriken grabbed by player!" << endl;
-    player->setHasShuriken(true);
 }

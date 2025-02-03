@@ -3,6 +3,7 @@
 #define SHURIKEN_H
 
 #include "Item.h"
+#include "Player.h"
 
 class Shuriken : public Item
 {

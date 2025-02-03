@@ -21,6 +21,7 @@ public:
     void draw(RenderWindow& window) override;
     void handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls);
 	void shoot(RenderWindow& window, View& view);
+    void meleeAttack(RenderWindow& window, View& view);
     void katanaSlash(RenderWindow& window);
 private:
     int frame;
@@ -39,6 +40,7 @@ private:
     Sprite katanaSlashSprite;
     bool katanaAttack = false;
     Clock cooldownKatanaSlash;
+    int slashDir;
 };
 
 #endif // !PLAYER_H

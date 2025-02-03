@@ -1,11 +1,14 @@
 #ifndef INTERACTABLE_H
 #define INTERACTABLE_H
-#include "Player.h"
+
+#include <memory>  // Nécessaire pour std::shared_ptr
+
+class Player;  // Déclaration avancée
 
 class Interactable
 {
 public:
-	virtual void interact(shared_ptr<Player>& player) = 0;
+    virtual void interact(std::shared_ptr<Player>& player) = 0;
 };
 
 #endif // INTERACTABLE_H

@@ -2,7 +2,7 @@
 #ifndef MEDIPACK_H
 #define MEDIPACK_H
 #include "Item.h"
-
+#include "Player.h"
 
 class Medipack : public Item
 {

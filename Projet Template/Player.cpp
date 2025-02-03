@@ -20,12 +20,17 @@ Player::Player(int x, int y) : Entity(x, y), frame(0), frameKatanaSlash(0) {
         std::cerr << "Erreur : impossible de charger 'playersprite'" << std::endl;
     }
     katanaSlashSprite.setTexture(katanaSlashTexture);
+    katanaSlashSprite.setTextureRect(IntRect(0 , 0, 32, 32));
+    katanaSlashSprite.setOrigin(Vector2f(katanaSlashSprite.getLocalBounds().width / 2, katanaSlashSprite.getLocalBounds().height / 2));
     katanaSlashSprite.setScale(Vector2f(2, 2));
 
     hand1 = 1;
     hand2 = 2;
 
     vitesse = 0.125;
+
+    dir = 4;
+    slashDir = 4;
 }
 
 float Player::getVitesse() const
@@ -142,12 +147,14 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
                 {
                     shoot(window, view);
                 }
+                break;
             case 2:
                 if (cooldownKatanaSlash.getElapsedTime().asSeconds() > 1)
                 {
                     cooldownKatanaSlash.restart();
                     katanaAttack = true;
                 }
+                break;
             }
 		}
 
@@ -162,12 +169,14 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
                 {
                     shoot(window, view);
                 }
+                break;
             case 2:
                 if (cooldownKatanaSlash.getElapsedTime().asSeconds() > 1)
                 {
                     cooldownKatanaSlash.restart();
                     katanaAttack = true;
                 }
+                break;
             }
         }
 
@@ -207,12 +216,14 @@ void Player::meleeAttack(RenderWindow& window, View& view)
     // Add melee attack logic here
 }
 
-        cooldownProjectile.restart();
-    }
-}
-
 void Player::katanaSlash(RenderWindow& window)
-{
+{   
+    
+    if (frameKatanaSlash == 0)
+    {
+        slashDir = dir;
+    }
+    
     if (frameKatanaSlash / 30 > 3)
     {
         katanaAttack = false;
@@ -223,7 +234,29 @@ void Player::katanaSlash(RenderWindow& window)
     {
         frameKatanaSlash++;
     }
-    katanaSlashSprite.setPosition(sprite.getGlobalBounds().left + sprite.getGlobalBounds().width, sprite.getGlobalBounds().top);
+    if (slashDir == 1)
+    {
+        katanaSlashSprite.setPosition(sprite.getGlobalBounds().left + (katanaSlashSprite.getGlobalBounds().width / 2), sprite.getGlobalBounds().top - (katanaSlashSprite.getGlobalBounds().height / 2));
+        katanaSlashSprite.setRotation(270);
+        katanaSlashSprite.setScale(Vector2f(2, 2));
+    }
+    else if (slashDir == 2)
+    {
+        katanaSlashSprite.setPosition(sprite.getGlobalBounds().left - (katanaSlashSprite.getGlobalBounds().width / 2), sprite.getGlobalBounds().top + (katanaSlashSprite.getGlobalBounds().height / 2));
+        katanaSlashSprite.setScale(Vector2f(-2, 2));
+    }
+    else if (slashDir == 3)
+    {
+        katanaSlashSprite.setPosition(sprite.getGlobalBounds().left + (katanaSlashSprite.getGlobalBounds().width / 2), sprite.getGlobalBounds().top + sprite.getGlobalBounds().height + (katanaSlashSprite.getGlobalBounds().height / 2));
+        katanaSlashSprite.setRotation(90);
+        katanaSlashSprite.setScale(Vector2f(2, 2));
+    }
+    else if (slashDir == 4)
+    {
+        katanaSlashSprite.setPosition(sprite.getGlobalBounds().left + sprite.getGlobalBounds().width + (katanaSlashSprite.getGlobalBounds().width / 2), sprite.getGlobalBounds().top + (katanaSlashSprite.getGlobalBounds().height / 2));
+        katanaSlashSprite.setRotation(0);
+    }
+
     katanaSlashSprite.setTextureRect(IntRect(0 + 32 * (frameKatanaSlash / 30), 0, 32, 32));
     window.draw(katanaSlashSprite);
 }
