@@ -6,7 +6,7 @@ using namespace sf;
 
 Menu::Menu(RenderWindow& window)
 {
-	// Background du menu principal
+	// Background du menu Principal
 	mainMenuBGTexture.loadFromFile("Assets/Backgrounds/MainMenuBG.jpg");
 	mainMenuBGSprite.setTexture(mainMenuBGTexture);
 	Vector2u windowSizeM = window.getSize();
@@ -17,7 +17,7 @@ Menu::Menu(RenderWindow& window)
 
 	mainMenuBGSprite.setScale(scaleMX, scaleMY);
 
-	// Background du menu pause
+	// Background du menu Pause
 	pauseMenuBGTexture.loadFromFile("Assets/Backgrounds/PauseMenuBG.jpg");
 	pauseMenuBGSprite.setTexture(pauseMenuBGTexture);
 	Vector2u windowSizeP = window.getSize();
