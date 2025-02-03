@@ -1,7 +1,13 @@
 #include "Player.h"
 #include "Wall.h"
 #include "Projectile.h"
+#include "Enemy.h"
 #include <iostream>
+#include <cmath>
+
+sf::Vector2f operator*(const sf::Vector2f& vector, float scalar) {
+    return sf::Vector2f(vector.x * scalar, vector.y * scalar);
+}
 
 Player::Player(int x, int y) : Entity(x, y), frame(0), frameKatanaSlash(0) {
 
@@ -27,10 +33,9 @@ Player::Player(int x, int y) : Entity(x, y), frame(0), frameKatanaSlash(0) {
     hand1 = 1;
     hand2 = 2;
 
-    vitesse = 0.125;
+    vitesse = 300;
 
     dir = 4;
-    slashDir = 4;
 }
 
 float Player::getVitesse() const
@@ -53,7 +58,7 @@ void Player::setSprite(const Sprite& newSprite)
     sprite = newSprite;
 }
 
-void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls)
+void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls, vector<shared_ptr<Enemy>>& enemies, float deltatime)
 {
     float newX = x;
     float newY = y;
@@ -61,13 +66,13 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
         
         if (Keyboard::isKeyPressed(Keyboard::Q)) 
         {
-            newX -= vitesse;
+            newX -= vitesse * deltatime;
             dir = 2;
         }
         
         if (Keyboard::isKeyPressed(Keyboard::D))
         {
-            newX += vitesse;
+            newX += vitesse * deltatime;
             dir = 4;
         }
 
@@ -92,13 +97,13 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
 
         if (Keyboard::isKeyPressed(Keyboard::Z))
         {
-            newY -= vitesse;
+            newY -= vitesse * deltatime;
             dir = 1;
         }
         
         if (Keyboard::isKeyPressed(Keyboard::S))
         {
-            newY += vitesse;
+            newY += vitesse * deltatime;
             dir = 3;
         }
 
@@ -131,10 +136,6 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
             [](const std::unique_ptr<Projectile>& projectile) { return projectile->isToBeDeleted(); }),
         projectiles.end());
 
-    if (Keyboard::isKeyPressed(Keyboard::Escape))
-    {
-        window.close();
-    }
 
 		if (Mouse::isButtonPressed(Mouse::Left))
 		{
@@ -182,15 +183,17 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
 
         if (katanaAttack)
         {
-            katanaSlash(window);
+            katanaSlash(window, enemies);
         }
 }
 
-void Player::draw(RenderWindow& window) {
+void Player::draw(RenderWindow& window)
+{
     window.draw(sprite);
 }
 
-void Player::update(RenderWindow& window, float deltatime, View& view) {
+void Player::update(RenderWindow& window, float deltatime, View& view)
+{
     for (auto& projectile : projectiles)
     {
         projectile->update(window, deltatime, view);
@@ -210,21 +213,49 @@ void Player::shoot(RenderWindow& window, View& view)
     }
 }
 
-void Player::meleeAttack(RenderWindow& window, View& view)
+Vector2f normalize(const Vector2f& source) 
 {
-    std::cout << "Performing melee attack with Katana!" << std::endl;
-    // Add melee attack logic here
+    float length = std::sqrt(source.x * source.x + source.y * source.y);
+    if (length != 0)
+        return Vector2f(source.x / length, source.y / length);
+    else
+        return source;
 }
 
-void Player::katanaSlash(RenderWindow& window)
+float dotProduct(const sf::Vector2f& v1, const sf::Vector2f& v2) {
+    return v1.x * v2.x + v1.y * v2.y;
+}
+
+float magnitude(const sf::Vector2f& v) {
+    return std::sqrt(v.x * v.x + v.y * v.y);
+}
+
+float calculateAngle(const sf::Vector2f& direction) {
+    sf::Vector2f normalizedDirection = normalize(direction);
+    sf::Vector2f reference(1.0f, 0.0f); // Vecteur de référence (axe des x)
+    float dot = dotProduct(normalizedDirection, reference);
+    float angle = std::acos(dot); // Angle en radians
+
+    // Déterminer le signe de l'angle en utilisant le produit vectoriel
+    float cross = reference.x * normalizedDirection.y - reference.y * normalizedDirection.x;
+    if (cross < 0) {
+        angle = -angle;
+    }
+
+    return angle * 180 / 3.14159265;
+}
+
+void Player::katanaSlash(RenderWindow& window, vector<shared_ptr<Enemy>>& enemies)
 {   
     
     if (frameKatanaSlash == 0)
     {
-        slashDir = dir;
+        Vector2f mousePos = Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y);
+        slashDir = mousePos - Vector2f(720, 540);
+        slashDir = normalize(slashDir);
     }
     
-    if (frameKatanaSlash / 30 > 3)
+    if (frameKatanaSlash / 10 > 3)
     {
         katanaAttack = false;
         frameKatanaSlash = 0;
@@ -234,29 +265,36 @@ void Player::katanaSlash(RenderWindow& window)
     {
         frameKatanaSlash++;
     }
-    if (slashDir == 1)
-    {
-        katanaSlashSprite.setPosition(sprite.getGlobalBounds().left + (katanaSlashSprite.getGlobalBounds().width / 2), sprite.getGlobalBounds().top - (katanaSlashSprite.getGlobalBounds().height / 2));
-        katanaSlashSprite.setRotation(270);
-        katanaSlashSprite.setScale(Vector2f(2, 2));
-    }
-    else if (slashDir == 2)
-    {
-        katanaSlashSprite.setPosition(sprite.getGlobalBounds().left - (katanaSlashSprite.getGlobalBounds().width / 2), sprite.getGlobalBounds().top + (katanaSlashSprite.getGlobalBounds().height / 2));
-        katanaSlashSprite.setScale(Vector2f(-2, 2));
-    }
-    else if (slashDir == 3)
-    {
-        katanaSlashSprite.setPosition(sprite.getGlobalBounds().left + (katanaSlashSprite.getGlobalBounds().width / 2), sprite.getGlobalBounds().top + sprite.getGlobalBounds().height + (katanaSlashSprite.getGlobalBounds().height / 2));
-        katanaSlashSprite.setRotation(90);
-        katanaSlashSprite.setScale(Vector2f(2, 2));
-    }
-    else if (slashDir == 4)
-    {
-        katanaSlashSprite.setPosition(sprite.getGlobalBounds().left + sprite.getGlobalBounds().width + (katanaSlashSprite.getGlobalBounds().width / 2), sprite.getGlobalBounds().top + (katanaSlashSprite.getGlobalBounds().height / 2));
-        katanaSlashSprite.setRotation(0);
-    }
 
-    katanaSlashSprite.setTextureRect(IntRect(0 + 32 * (frameKatanaSlash / 30), 0, 32, 32));
+    katanaSlashSprite.setPosition(Vector2f(x, y) + (slashDir * 50));
+    katanaSlashSprite.setRotation(calculateAngle(slashDir));
+    katanaSlashSprite.setTextureRect(IntRect(0 + 32 * (frameKatanaSlash / 10), 0, 32, 32));
     window.draw(katanaSlashSprite);
+
+    RectangleShape katanaBounds(sf::Vector2f(katanaSlashSprite.getGlobalBounds().width, katanaSlashSprite.getGlobalBounds().height));
+    katanaBounds.setPosition(katanaSlashSprite.getGlobalBounds().left, katanaSlashSprite.getGlobalBounds().top);
+    katanaBounds.setFillColor(sf::Color::Transparent);
+    katanaBounds.setOutlineColor(sf::Color::Red);
+    katanaBounds.setOutlineThickness(1.0f);
+    window.draw(katanaBounds);
+
+    for (auto& enemy : enemies)
+    {
+        sf::RectangleShape enemyBounds(sf::Vector2f(enemy->getSprite().getGlobalBounds().width, enemy->getSprite().getGlobalBounds().height));
+        enemyBounds.setPosition(enemy->getSprite().getGlobalBounds().left, enemy->getSprite().getGlobalBounds().top);
+        enemyBounds.setFillColor(sf::Color::Transparent);
+        enemyBounds.setOutlineColor(sf::Color::Green);
+        enemyBounds.setOutlineThickness(1.0f);
+        window.draw(enemyBounds);
+        
+        if (katanaSlashSprite.getGlobalBounds().intersects(enemy->getSprite().getGlobalBounds()))
+        {            
+            enemy->setToBeDeleted(true);
+        }
+    }
+}
+
+void Player::addToInventory(int item)
+{
+    inventory.push_back(item);
 }

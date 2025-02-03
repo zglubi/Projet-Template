@@ -3,6 +3,7 @@
 #define KATANA_H
 
 #include "Item.h"
+#include "Player.h"
 
 class Katana : public Item
 {

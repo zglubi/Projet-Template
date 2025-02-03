@@ -18,7 +18,17 @@ Puis j'ai fait la fonction draw de ma class map qui repositionne et draw les spr
 Enfin j'ai trouvé un tileset simple pour pouvoir déjà donner une texture à la map et en avoir fini avec cela.
 J'ai ensuite créé une classe Wall pour pouvoir gérer les murs à part dans la classe Map et aussi pouvoir mieux gérer les collisions avec le joueur.
 
-Thomas(Enemy/Chaser) : une fois mon problème réglé, je me suis occupé de coder la classe enemy (dérivée de entity) qui servira de base a toute les entités hostiles du jeu.
+Thomas(Enemy/Chaser) : 
+une fois mon problème réglé, je me suis occupé de coder la classe enemy (dérivée de entity) qui servira de base a toute les entités hostiles du jeu.
 Elle donne les caractéristiques de tout les ennemis (position, vitesse, vélocité…).
 J'ai ensuite codé le premier ennemi fonctionnel du jeu, le chaser(dérivé de enemy).
 Il est plutôt simple, il cherche la position du sprite du joueur puis modifie ses paramètres moveX et moveY en comparant la position du joueur et la sienne avec moveUpdate puis se déplace vers le joueur avec Update.
+
+jour 2:
+Je me suis occupé à créer le second ennemi du jeu : le shooter. il se déplace vers le joueur et lui tire dessus à intervalle régulier
+j'ai également travailler sur l'implémentation des objets (notamment le katana et le shuriken) mais ce n'est pas encore opérationnel
+
+jour 3:
+Je me suis occupé de créer la class HUD qui gère toute l'ui du joueur. Elle sert a afficher la vie du joueur et elle se met a jour selon les dégats/soint reçus par le joueur.
+Le hud affiche également l'inventaire et il se met a jour quand un objet est ramassé, il apparait alors dans la hotbar.
+J'ai aussi légèrement travaillé sur la carte en améliorant la classe stairs mais elle n'est pas encore fonctionnelle.

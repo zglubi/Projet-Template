@@ -2,15 +2,17 @@
 #include <iostream>
 
 Katana::Katana(float x, float y) : Item(x, y) {
-    if (!texture.loadFromFile("assets/Items/Katana_Sprite.png")) {
+    if (!texture.loadFromFile("assets\\Items\\Weapons\\Katana.png")) {
         cerr << "Error loading shooter texture" << endl;
     }
     sprite.setTexture(texture);
+    sprite.setPosition(Vector2f(x, y));
+    sprite.setScale(Vector2f(2, 2));
 }
 
-void Katana::update(RenderWindow& window, float deltatime, View& view) {
-    // Update logic for Katana
-	cout << "Updating Katana" << endl;
+void Katana::update(RenderWindow& window, float deltatime, View& view) 
+{
+    draw(window);
 }
 
 void Katana::draw(RenderWindow& window) {
@@ -18,5 +20,9 @@ void Katana::draw(RenderWindow& window) {
 }
 
 void Katana::interact(shared_ptr<Player>& player) {
-    cout << "Katana grabbed by player!" << endl;
+    if (player->getSprite().getGlobalBounds().intersects(sprite.getGlobalBounds()))
+    {
+        player->addToInventory(2);
+        setToBeDeleted(true);
+    }
 }

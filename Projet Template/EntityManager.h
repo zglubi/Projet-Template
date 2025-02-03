@@ -8,6 +8,8 @@
 #include "Chaser.h"
 #include "Shooter.h"
 #include "Medipack.h"
+#include "Katana.h"
+#include "Shuriken.h"
 #include <SFML/Graphics.hpp>
 #include "Wall.h"
 using namespace std;
@@ -18,8 +20,7 @@ class EntityManager
 private:
 	static EntityManager* instance;
 	vector<shared_ptr<Entity>> entities;
-	vector<shared_ptr<Chaser>> chasers;
-	vector<shared_ptr<Shooter>> shooters;
+	vector<shared_ptr<Enemy>> enemies;
 	vector<shared_ptr<Item>> items;
 	shared_ptr<Player> player;
 
@@ -32,9 +33,9 @@ public:
 	void addItem(Vector2f Position, int val);
 	void setPlayer(float x, float y);
 	void update(RenderWindow& window, float deltatime, View& view, vector<unique_ptr<Wall>>& walls);
-
-	template <typename T>
-	void removeEntity(T enemies);
+	vector<shared_ptr<Enemy>> getEnemies();
+	void removeEntity();
+	void checkPlayerEnemyCollision();
 };
 
 #endif // ENTITYMANAGER_H

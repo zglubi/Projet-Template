@@ -22,7 +22,9 @@ void Medipack::update(RenderWindow& window, float deltatime, View& view){
 void Medipack::interact(shared_ptr<Player>& player) {
 
     if (player->getSprite().getGlobalBounds().intersects(sprite.getGlobalBounds()))
+    {
         setToBeDeleted(true);
+    }
 }
 
 
