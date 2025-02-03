@@ -7,7 +7,7 @@ using namespace sf;
 Menu::Menu(RenderWindow& window)
 {
 	// Background du menu principal
-	MainMenuBGTexture.loadFromFile("Assets/MenuBG.jpg");
+	MainMenuBGTexture.loadFromFile("Assets/MainMenuBG.jpg");
 	MainMenuBGSprite.setTexture(MainMenuBGTexture);
 	Vector2u windowSizeM = window.getSize();
 	Vector2u textureSizeM = MainMenuBGTexture.getSize();
@@ -27,6 +27,28 @@ Menu::Menu(RenderWindow& window)
 	float scalePY = static_cast<float>(windowSizeP.y) / textureSizeP.y;
 
 	PauseMenuBGSprite.setScale(scalePX, scalePY);
+
+	// Background du Game Over
+	GameOverBGTexture.loadFromFile("Assets/GameOverBG.jpg");
+	GameOverBGSprite.setTexture(GameOverBGTexture);
+	Vector2u windowSizeG = window.getSize();
+	Vector2u textureSizeG = GameOverBGTexture.getSize();
+
+	float scaleGX = static_cast<float>(windowSizeG.x) / textureSizeG.x;
+	float scaleGY = static_cast<float>(windowSizeG.y) / textureSizeG.y;
+
+	GameOverBGSprite.setScale(scaleGX, scaleGY);
+
+	// Background du Win
+	WinBGTexture.loadFromFile("Assets/WinBG.jpg");
+	WinBGSprite.setTexture(WinBGTexture);
+	Vector2u windowSizeW = window.getSize();
+	Vector2u textureSizeW = WinBGTexture.getSize();
+
+	float scaleWX = static_cast<float>(windowSizeW.x) / textureSizeW.x;
+	float scaleWY = static_cast<float>(windowSizeW.y) / textureSizeW.y;
+
+	WinBGSprite.setScale(scaleWX, scaleWY);
 
 	// Boutons
 
@@ -110,17 +132,14 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 				{
 					window.close();
 				}
-
 				if (buttons[2].isClicked(window, event))  // Bouton "Reprendre"
 				{
 					pause = false;
 				}
-
 				if (buttons[3].isClicked(window, event))  // Option inutilisée pour l'instant
 				{
 					// Code pour une option supplémentaire
 				}
-
 				if (buttons[1].isClicked(window, event))  // Bouton "Quitter"
 				{
 					window.close();
@@ -139,6 +158,70 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 			window.draw(PauseMenuBGSprite);
 			buttons[2].draw(window); // Reprendre
 			buttons[3].draw(window); // Option
+			buttons[1].draw(window); // Quitter
+			window.display();
+		}
+	}
+	if (type == 2)
+	{
+		bool gameOver = true;
+		while (gameOver)
+		{
+			window.setView(window.getDefaultView());
+
+			while (window.pollEvent(event))
+			{
+				if (event.type == Event::Closed)
+				{
+					window.close();
+				}
+				if (buttons[1].isClicked(window, event))  // Bouton "Quitter"
+				{
+					window.close();
+					gameOver = false;
+				}
+				if (event.type == sf::Event::KeyPressed)
+				{
+					if (event.key.code == sf::Keyboard::Escape)
+					{
+						gameOver = false;
+					}
+				}
+			}
+			window.clear();
+			window.draw(GameOverBGSprite);
+			buttons[1].draw(window); // Quitter
+			window.display();
+		}
+	}
+	if (type == 3)
+	{
+		bool Win = true;
+		while (Win)
+		{
+			window.setView(window.getDefaultView());
+
+			while (window.pollEvent(event))
+			{
+				if (event.type == Event::Closed)
+				{
+					window.close();
+				}
+				if (buttons[1].isClicked(window, event))  // Bouton "Quitter"
+				{
+					window.close();
+					Win = false;
+				}
+				if (event.type == sf::Event::KeyPressed)
+				{
+					if (event.key.code == sf::Keyboard::Escape)
+					{
+						Win = false;
+					}
+				}
+			}
+			window.clear();
+			window.draw(WinBGSprite);
 			buttons[1].draw(window); // Quitter
 			window.display();
 		}

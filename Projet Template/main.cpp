@@ -40,6 +40,8 @@ int main()
 
     bool isRunning = true;
     bool isPause = false;
+	bool GameOver = false;
+    bool Win = false;
 
     // Affiche le menu principal avant de lancer le jeu
     menu.menuDisplay(window, 0);
@@ -58,11 +60,10 @@ int main()
             {
                 if (event.key.code == sf::Keyboard::Escape)
                 {
-                    isPause = !isPause;
+					isPause = !isPause;
                 }
             }
         }
-
         if (isPause)
         {
             menu.menuDisplay(window, 1);
@@ -70,6 +71,22 @@ int main()
 			clock.restart();
             window.setView(view);
             continue; 
+        }
+        if (GameOver)
+        {
+			menu.menuDisplay(window, 2);
+			GameOver = false;
+			clock.restart();
+			window.setView(view);
+            continue;
+        }
+        if (Win)
+        {
+            menu.menuDisplay(window, 3);
+            Win = false;
+            clock.restart();
+            window.setView(view);
+            continue;
         }
 
         // Mise à jour du deltaTime
