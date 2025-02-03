@@ -279,11 +279,28 @@ void Player::katanaSlash(RenderWindow& window, vector<shared_ptr<Enemy>>& enemie
     katanaSlashSprite.setTextureRect(IntRect(0 + 32 * (frameKatanaSlash / 80), 0, 32, 32));
     window.draw(katanaSlashSprite);
 
+    RectangleShape katanaBounds(sf::Vector2f(katanaSlashSprite.getGlobalBounds().width, katanaSlashSprite.getGlobalBounds().height));
+    katanaBounds.setPosition(katanaSlashSprite.getGlobalBounds().left, katanaSlashSprite.getGlobalBounds().top);
+    katanaBounds.setFillColor(sf::Color::Transparent);
+    katanaBounds.setOutlineColor(sf::Color::Red);
+    katanaBounds.setOutlineThickness(1.0f);
+    window.draw(katanaBounds);
+
     for (auto& enemy : enemies)
     {
+        sf::RectangleShape enemyBounds(sf::Vector2f(enemy->getSprite().getGlobalBounds().width, enemy->getSprite().getGlobalBounds().height));
+        enemyBounds.setPosition(enemy->getSprite().getGlobalBounds().left, enemy->getSprite().getGlobalBounds().top);
+        enemyBounds.setFillColor(sf::Color::Transparent);
+        enemyBounds.setOutlineColor(sf::Color::Green);
+        enemyBounds.setOutlineThickness(1.0f);
+        window.draw(enemyBounds);
+
+        cout << enemy->getSprite().getGlobalBounds().width << "      " << enemy->getSprite().getGlobalBounds().height << endl;
+        
         if (katanaSlashSprite.getGlobalBounds().intersects(enemy->getSprite().getGlobalBounds()))
-        {
+        {            
             enemy->setToBeDeleted(true);
+            cout << "slash" << endl;
         }
     }
 }
