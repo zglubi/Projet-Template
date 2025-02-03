@@ -18,6 +18,7 @@ class EntityManager
 private:
 	static EntityManager* instance;
 	vector<shared_ptr<Entity>> entities;
+	vector<shared_ptr<Enemy>> enemies;
 	vector<shared_ptr<Chaser>> chasers;
 	vector<shared_ptr<Shooter>> shooters;
 	vector<shared_ptr<Item>> items;
@@ -32,9 +33,10 @@ public:
 	void addItem(Vector2f Position, int val);
 	void setPlayer(float x, float y);
 	void update(RenderWindow& window, float deltatime, View& view, vector<unique_ptr<Wall>>& walls);
+	vector<shared_ptr<Enemy>> getEnemies();
 
-	template <typename T>
-	void removeEntity(T enemies);
+	
+	void removeEntity();
 };
 
 #endif // ENTITYMANAGER_H

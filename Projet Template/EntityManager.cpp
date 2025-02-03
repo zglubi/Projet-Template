@@ -17,6 +17,7 @@ void EntityManager::addChaser(Vector2f startPosition, float initialSpeed)
 {
 	shared_ptr<Chaser> chaser = make_shared<Chaser>(startPosition, initialSpeed);
 	chasers.push_back(chaser);
+	enemies.push_back(chaser);
 	entities.push_back(chaser);
 }
 
@@ -24,6 +25,7 @@ void EntityManager::addShooter(Vector2f startPosition, float initialSpeed)
 {
 	shared_ptr<Shooter> shooter = make_shared<Shooter>(startPosition, initialSpeed);
 	shooters.push_back(shooter);
+	enemies.push_back(shooter);
 	entities.push_back(shooter);
 }
 
@@ -41,7 +43,8 @@ void EntityManager::addItem(Vector2f Position, int val)
 	{
 	case (1):
 	{
-		shared_ptr<Item> item = make_shared<Medipack>(Position.x, Position.y); items.push_back(item);
+		shared_ptr<Item> item = make_shared<Medipack>(Position.x, Position.y); 
+		items.push_back(item);
 		entities.push_back(item);
 		break;
 	}
@@ -50,11 +53,24 @@ void EntityManager::addItem(Vector2f Position, int val)
 	}
 }
 
+
+void EntityManager::removeEntity()
+{
+	entities.erase(
+		std::remove_if(entities.begin(), entities.end(),
+			[](const std::shared_ptr<Entity>& entity) { return entity->isToBeDeleted(); }),
+		entities.end());
+}
+
 void EntityManager::update(RenderWindow& window, float deltatime, View& view, vector<unique_ptr<Wall>>& walls)
 {
 	for (auto& entity : entities)
 	{
 		entity->update(window, deltatime, view);
+	}
+	removeEntity();
+	for (auto& item : items) {
+		item->interact(player);
 	}
 	for (auto& chaser : chasers)
 	{
@@ -75,14 +91,6 @@ void EntityManager::update(RenderWindow& window, float deltatime, View& view, ve
 		shooter->draw(window);
 	}
 
-	player->handleInput(window, view, walls);
+	player->handleInput(window, view, walls, enemies);
 }
 
-template <typename T>
-void EntityManager::removeEntity(T enemies)
-{
-	entities.erase(
-		std::remove_if(entities.begin(), entities.end(),
-			[](const std::shared_ptr<Entity>& entity) { return entity->isToBeDeleted(); }),
-		entities.end());
-}
