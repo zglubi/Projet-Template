@@ -9,7 +9,7 @@ Chaser::Chaser(Vector2f startPosition, float initialSpeed)
 	sprite.setTextureRect(IntRect(0, 0, 16, 16));
 	sprite.setTexture(texture);
 	sprite.setScale(2, 2);
-	sprite.setOrigin(texture.getSize().x / 2.f, texture.getSize().y / 2.f);
+	sprite.setOrigin(sprite.getGlobalBounds().width / 2.f, sprite.getGlobalBounds().height / 2.f);
 	sprite.setPosition(startPosition);
 	
 	moveX = 0;
@@ -27,6 +27,8 @@ void Chaser::update(RenderWindow& window, float deltatime, View& view)
 	velocity.x = moveX * speed;
 	velocity.y = moveY * speed;
 
+	float distanceX = abs(playerPos.x - enemyPos.x);
+	float distanceY = abs(playerPos.y - enemyPos.y);
 
 	if (frame / 10 > 3)
 	{
@@ -36,25 +38,24 @@ void Chaser::update(RenderWindow& window, float deltatime, View& view)
 	{
 		frame++;
 	}
-	cout << moveX << endl;
-	cout << moveY << endl;
-	if (abs(moveX) > abs(moveY)) {
-		if (moveX > 0)
-		{
+	
+	if (distanceX > distanceY) { // Mouvement principalement horizontal
+		if (moveX > 0) {
+			// Vers la droite
 			sprite.setTextureRect(IntRect(16 * 3, 0 + 16 * (frame / 10), 16, 16));
 		}
-		else
-		{
+		else {
+			// Vers la gauche
 			sprite.setTextureRect(IntRect(16 * 2, 0 + 16 * (frame / 10), 16, 16));
 		}
 	}
-	else{
-		if (moveY > 0)
-		{
+	else { // Mouvement principalement vertical
+		if (moveY > 0) {
+			// Vers le bas
 			sprite.setTextureRect(IntRect(0, 0 + 16 * (frame / 10), 16, 16));
 		}
-		else 
-		{
+		else {
+			// Vers le haut
 			sprite.setTextureRect(IntRect(16, 0 + 16 * (frame / 10), 16, 16));
 		}
 	}
