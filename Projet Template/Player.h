@@ -24,7 +24,7 @@ public:
 	void shoot(RenderWindow& window, View& view);
     void meleeAttack(RenderWindow& window, View& view);
     void katanaSlash(RenderWindow& window, vector<shared_ptr<Enemy>>& enemies);
-    void addToInventory(shared_ptr<Item> item);
+    void addToInventory(int item);
 private:
     int frame;
     float vitesse;
@@ -32,7 +32,7 @@ private:
     char hand1;
     char hand2;
     int dir;
-    vector<shared_ptr<Item>> inventory;
+    vector<int> inventory;
 
 	Texture projectileTexture;
 	vector<unique_ptr<Projectile>> projectiles;

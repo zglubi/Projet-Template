@@ -7,11 +7,12 @@ Shuriken::Shuriken(float x, float y) : Item(x, y) {
     }
     sprite.setTexture(texture);
 	sprite.setTextureRect(IntRect(0, 0, 16, 16));
+    sprite.setPosition(Vector2f(x, y));
 }
 
 void Shuriken::update(RenderWindow& window, float deltatime, View& view) {
 	// Update logic for Shuriken
-	cout << "Updating Shuriken" << endl;
+    draw(window);
 }
 
 void Shuriken::draw(RenderWindow& window) {
@@ -20,5 +21,9 @@ void Shuriken::draw(RenderWindow& window) {
 }
 
 void Shuriken::interact(shared_ptr<Player>& player) {
-    cout << "Shuriken grabbed by player!" << endl;
+    if (player->getSprite().getGlobalBounds().intersects(sprite.getGlobalBounds()))
+    {
+        player->addToInventory(1);
+        setToBeDeleted(true);
+    }
 }
