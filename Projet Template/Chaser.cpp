@@ -39,23 +39,22 @@ void Chaser::update(RenderWindow& window, float deltatime, View& view)
 		frame++;
 	}
 	
-	if (distanceX > distanceY) { // Mouvement principalement horizontal
+	if (distanceX > distanceY) { 
 		if (moveX > 0) {
-			// Vers la droite
+			
 			sprite.setTextureRect(IntRect(16 * 3, 0 + 16 * (frame / 10), 16, 16));
 		}
 		else {
-			// Vers la gauche
 			sprite.setTextureRect(IntRect(16 * 2, 0 + 16 * (frame / 10), 16, 16));
 		}
 	}
-	else { // Mouvement principalement vertical
+	else { 
 		if (moveY > 0) {
-			// Vers le bas
+
 			sprite.setTextureRect(IntRect(0, 0 + 16 * (frame / 10), 16, 16));
 		}
 		else {
-			// Vers le haut
+
 			sprite.setTextureRect(IntRect(16, 0 + 16 * (frame / 10), 16, 16));
 		}
 	}
