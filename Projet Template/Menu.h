@@ -12,14 +12,19 @@ class Menu
 {
 private:
 
-	Sprite PauseMenuBGSprite;
-	Texture PauseMenuBGTexture;
-	Sprite MainMenuBGSprite;
-	Texture MainMenuBGTexture;
-	Sprite GameOverBGSprite;
-	Texture GameOverBGTexture;
-	Sprite WinBGSprite;
-	Texture WinBGTexture;
+	Font font;
+	Text title;
+	Text gameOver;
+	Text win;
+
+	Sprite pauseMenuBGSprite;
+	Texture pauseMenuBGTexture;
+	Sprite mainMenuBGSprite;
+	Texture mainMenuBGTexture;
+	Sprite gameOverBGSprite;
+	Texture gameOverBGTexture;
+	Sprite winBGSprite;
+	Texture winBGTexture;
 	Texture buttonPlayTexture;
 	Texture buttonExitTexture;
 	Texture buttonResumeTexture;

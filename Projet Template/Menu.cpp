@@ -7,51 +7,53 @@ using namespace sf;
 Menu::Menu(RenderWindow& window)
 {
 	// Background du menu principal
-	MainMenuBGTexture.loadFromFile("Assets/MainMenuBG.jpg");
-	MainMenuBGSprite.setTexture(MainMenuBGTexture);
+	mainMenuBGTexture.loadFromFile("Assets/MainMenuBG.jpg");
+	mainMenuBGSprite.setTexture(mainMenuBGTexture);
 	Vector2u windowSizeM = window.getSize();
-	Vector2u textureSizeM = MainMenuBGTexture.getSize();
+	Vector2u textureSizeM = mainMenuBGTexture.getSize();
 
 	float scaleMX = static_cast<float>(windowSizeM.x) / textureSizeM.x;
 	float scaleMY = static_cast<float>(windowSizeM.y) / textureSizeM.y;
 
-	MainMenuBGSprite.setScale(scaleMX, scaleMY);
+	mainMenuBGSprite.setScale(scaleMX, scaleMY);
 
 	// Background du menu pause
-	PauseMenuBGTexture.loadFromFile("Assets/PauseMenuBG.jpg");
-	PauseMenuBGSprite.setTexture(PauseMenuBGTexture);
+	pauseMenuBGTexture.loadFromFile("Assets/PauseMenuBG.jpg");
+	pauseMenuBGSprite.setTexture(pauseMenuBGTexture);
 	Vector2u windowSizeP = window.getSize();
-	Vector2u textureSizeP = PauseMenuBGTexture.getSize();
+	Vector2u textureSizeP = pauseMenuBGTexture.getSize();
 
 	float scalePX = static_cast<float>(windowSizeP.x) / textureSizeP.x;
 	float scalePY = static_cast<float>(windowSizeP.y) / textureSizeP.y;
 
-	PauseMenuBGSprite.setScale(scalePX, scalePY);
+	pauseMenuBGSprite.setScale(scalePX, scalePY);
 
 	// Background du Game Over
-	GameOverBGTexture.loadFromFile("Assets/GameOverBG.jpg");
-	GameOverBGSprite.setTexture(GameOverBGTexture);
+	gameOverBGTexture.loadFromFile("Assets/GameOverBG.jpg");
+	gameOverBGSprite.setTexture(gameOverBGTexture);
 	Vector2u windowSizeG = window.getSize();
-	Vector2u textureSizeG = GameOverBGTexture.getSize();
+	Vector2u textureSizeG = gameOverBGTexture.getSize();
 
 	float scaleGX = static_cast<float>(windowSizeG.x) / textureSizeG.x;
 	float scaleGY = static_cast<float>(windowSizeG.y) / textureSizeG.y;
 
-	GameOverBGSprite.setScale(scaleGX, scaleGY);
+	gameOverBGSprite.setScale(scaleGX, scaleGY);
 
 	// Background du Win
-	WinBGTexture.loadFromFile("Assets/WinBG.jpg");
-	WinBGSprite.setTexture(WinBGTexture);
+	winBGTexture.loadFromFile("Assets/WinBG.jpg");
+	winBGSprite.setTexture(winBGTexture);
 	Vector2u windowSizeW = window.getSize();
-	Vector2u textureSizeW = WinBGTexture.getSize();
+	Vector2u textureSizeW = winBGTexture.getSize();
 
 	float scaleWX = static_cast<float>(windowSizeW.x) / textureSizeW.x;
 	float scaleWY = static_cast<float>(windowSizeW.y) / textureSizeW.y;
 
-	WinBGSprite.setScale(scaleWX, scaleWY);
+	winBGSprite.setScale(scaleWX, scaleWY);
+
+	// Titre
+	font.loadFromFile("Assets/SquadaOne-Regular.ttf");
 
 	// Boutons
-
 	buttonPlayTexture.loadFromFile("Assets/PlayButton.png");
 ;
 	buttonExitTexture.loadFromFile("Assets/ExitButton.png");
@@ -113,7 +115,7 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 				}
 			}
 			window.clear();
-			window.draw(MainMenuBGSprite);
+			window.draw(mainMenuBGSprite);
 			buttons[0].draw(window);
 			buttons[1].draw(window);
 			window.display();
@@ -155,7 +157,7 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 			}
 
 			window.clear();
-			window.draw(PauseMenuBGSprite);
+			window.draw(pauseMenuBGSprite);
 			buttons[2].draw(window); // Reprendre
 			buttons[3].draw(window); // Option
 			buttons[1].draw(window); // Quitter
@@ -189,7 +191,7 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 				}
 			}
 			window.clear();
-			window.draw(GameOverBGSprite);
+			window.draw(gameOverBGSprite);
 			buttons[1].draw(window); // Quitter
 			window.display();
 		}
@@ -221,7 +223,7 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 				}
 			}
 			window.clear();
-			window.draw(WinBGSprite);
+			window.draw(winBGSprite);
 			buttons[1].draw(window); // Quitter
 			window.display();
 		}
