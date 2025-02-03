@@ -31,6 +31,7 @@ Player::Player(int x, int y) : Entity(x, y), frame(0), frameKatanaSlash(0) {
 
     dir = 4;
     slashDir = 4;
+
 }
 
 float Player::getVitesse() const

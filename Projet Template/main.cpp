@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "HUD.h"
 #include "Map.h"
 #include "Entity.h"
 #include "Player.h"
@@ -16,6 +17,8 @@ RenderWindow window(VideoMode(1440, 1080), "Zelda Like");
 
 Map gameMap;
 
+HUD hud;
+
 float deltaTime;
 View view = window.getView();
 Menu menu(window);
@@ -24,10 +27,10 @@ EntityManager* manager = EntityManager::getInstance();
 
 int main()
 {
-    
     manager->setPlayer(720, 540);
+    hud.setPlayerHealth(7);
 
-    //manager->addChaser(Vector2f(100, 100), 50);
+    manager->addChaser(Vector2f(100, 100), 50);
     //manager->addShooter(Vector2f(200, 200), 50.0f);
     manager->addItem(Vector2f(0, 500), 1);
 
@@ -65,6 +68,7 @@ int main()
             gameMap.draw(window);
             manager->update(window, deltaTime, view, gameMap.getWalls());
 
+            hud.draw(window);
             window.display();
         }
         while (isPause)
