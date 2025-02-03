@@ -12,6 +12,7 @@
 #include "EntityManager.h"
 #include "Katana.h"
 #include "Shuriken.h"
+#include "Stairs.h"
 
 RenderWindow window(VideoMode(1440, 1080), "Zelda Like");
 
