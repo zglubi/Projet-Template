@@ -16,6 +16,10 @@ private:
 	Texture PauseMenuBGTexture;
 	Sprite MainMenuBGSprite;
 	Texture MainMenuBGTexture;
+	Sprite GameOverBGSprite;
+	Texture GameOverBGTexture;
+	Sprite WinBGSprite;
+	Texture WinBGTexture;
 	Texture buttonPlayTexture;
 	Texture buttonExitTexture;
 	Texture buttonResumeTexture;
