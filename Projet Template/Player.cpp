@@ -294,13 +294,10 @@ void Player::katanaSlash(RenderWindow& window, vector<shared_ptr<Enemy>>& enemie
         enemyBounds.setOutlineColor(sf::Color::Green);
         enemyBounds.setOutlineThickness(1.0f);
         window.draw(enemyBounds);
-
-        cout << enemy->getSprite().getGlobalBounds().width << "      " << enemy->getSprite().getGlobalBounds().height << endl;
         
         if (katanaSlashSprite.getGlobalBounds().intersects(enemy->getSprite().getGlobalBounds()))
         {            
             enemy->setToBeDeleted(true);
-            cout << "slash" << endl;
         }
     }
 }
