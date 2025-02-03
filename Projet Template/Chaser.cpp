@@ -3,13 +3,15 @@
 
 Chaser::Chaser(Vector2f startPosition, float initialSpeed)
 	: initialSpeed(initialSpeed), Enemy(startPosition.x, startPosition.y, initialSpeed) {
-	if (!texture.loadFromFile("assets/Skeleton.png")) {
+	if (!texture.loadFromFile("assets/Enemies/Slime3/Slime3.png")) {
 		cout << "Failed to load enemy texture!" << endl;
 	}
+	sprite.setTextureRect(IntRect(0, 0, 16, 16));
 	sprite.setTexture(texture);
+	sprite.setScale(2, 2);
 	sprite.setOrigin(texture.getSize().x / 2.f, texture.getSize().y / 2.f);
 	sprite.setPosition(startPosition);
-	sprite.setScale(0.125, 0.125);
+	
 	moveX = 0;
 	moveY = 0;
 }
@@ -24,6 +26,21 @@ void Chaser::update(RenderWindow& window, float deltatime, View& view)
 
 	velocity.x = moveX * speed;
 	velocity.y = moveY * speed;
+
+
+	if (frame / 10 > 1)
+	{
+		frame = 0;
+	}
+	else
+	{
+		frame++;
+	}
+
+	sprite.setTextureRect(IntRect(0 , 0 + 16 * (frame / 10), 16, 16));
+
+
+
 	sprite.move(velocity * deltatime);
 
 	draw(window);
