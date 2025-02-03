@@ -187,11 +187,13 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
         }
 }
 
-void Player::draw(RenderWindow& window) {
+void Player::draw(RenderWindow& window)
+{
     window.draw(sprite);
 }
 
-void Player::update(RenderWindow& window, float deltatime, View& view) {
+void Player::update(RenderWindow& window, float deltatime, View& view)
+{
     for (auto& projectile : projectiles)
     {
         projectile->update(window, deltatime, view);
@@ -209,12 +211,6 @@ void Player::shoot(RenderWindow& window, View& view)
         projectiles.push_back(make_unique<Projectile>(projectileTexture, view.getCenter(), direction, 200, 10));
         cooldownProjectile.restart();
     }
-}
-
-void Player::meleeAttack(RenderWindow& window, View& view)
-{
-    std::cout << "Performing melee attack with Katana!" << std::endl;
-    // Add melee attack logic here
 }
 
 Vector2f normalize(const Vector2f& source) 

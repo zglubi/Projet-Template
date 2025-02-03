@@ -22,7 +22,6 @@ public:
     void draw(RenderWindow& window) override;
     void handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls, vector<shared_ptr<Enemy>>& enemies);
 	void shoot(RenderWindow& window, View& view);
-    void meleeAttack(RenderWindow& window, View& view);
     void katanaSlash(RenderWindow& window, vector<shared_ptr<Enemy>>& enemies);
     void addToInventory(int item);
 private:
