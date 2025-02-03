@@ -18,7 +18,6 @@ Menu::Menu(RenderWindow& window)
 	MainMenuBGSprite.setScale(scaleMX, scaleMY);
 
 	// Background du menu pause
-
 	PauseMenuBGTexture.loadFromFile("Assets/PauseMenuBG.jpg");
 	PauseMenuBGSprite.setTexture(PauseMenuBGTexture);
 	Vector2u windowSizeP = window.getSize();
@@ -31,18 +30,18 @@ Menu::Menu(RenderWindow& window)
 
 	// Boutons
 
-	buttonPlayTexture.loadFromFile("Assets/player.png");
+	buttonPlayTexture.loadFromFile("Assets/PlayButton.png");
 ;
-	buttonExitTexture.loadFromFile("Assets/player.png");
+	buttonExitTexture.loadFromFile("Assets/ExitButton.png");
 
-	buttonResumeTexture.loadFromFile("Assets/player.png");
+	buttonResumeTexture.loadFromFile("Assets/ResumeButton.png");
 
-	buttonOptionsTexture.loadFromFile("Assets/player.png");
+	buttonOptionsTexture.loadFromFile("Assets/OptionsButton.png");
 
 	buttons.push_back(Button(buttonPlayTexture, Vector2f(540, 200)));
-	buttons.push_back(Button(buttonExitTexture, Vector2f(540, 600)));
-	buttons.push_back(Button(buttonResumeTexture, Vector2f(540, 200)));
-	buttons.push_back(Button(buttonOptionsTexture, Vector2f(540, 400)));
+	buttons.push_back(Button(buttonExitTexture, Vector2f(620, 600)));
+	buttons.push_back(Button(buttonResumeTexture, Vector2f(620, 200)));
+	buttons.push_back(Button(buttonOptionsTexture, Vector2f(620, 400)));
 }
 
 void Menu::draw(RenderWindow& window)
@@ -126,6 +125,13 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 				{
 					window.close();
 					pause = false;
+				}
+				if (event.type == sf::Event::KeyPressed)
+				{
+					if (event.key.code == sf::Keyboard::Escape)
+					{
+						pause = false;
+					}
 				}
 			}
 
