@@ -14,7 +14,7 @@ private:
 
 	Font font;
 	Text title;
-	Text gameOver;
+	Text gameOverTexte;
 	Text win;
 
 	Sprite pauseMenuBGSprite;
@@ -39,4 +39,4 @@ public:
     int handleInput(const RenderWindow& window, Event event);
 };
 
-#endif
+#endif // MENU_H

@@ -7,7 +7,7 @@ using namespace sf;
 Menu::Menu(RenderWindow& window)
 {
 	// Background du menu principal
-	mainMenuBGTexture.loadFromFile("Assets/MainMenuBG.jpg");
+	mainMenuBGTexture.loadFromFile("Assets/Backgrounds/MainMenuBG.jpg");
 	mainMenuBGSprite.setTexture(mainMenuBGTexture);
 	Vector2u windowSizeM = window.getSize();
 	Vector2u textureSizeM = mainMenuBGTexture.getSize();
@@ -18,7 +18,7 @@ Menu::Menu(RenderWindow& window)
 	mainMenuBGSprite.setScale(scaleMX, scaleMY);
 
 	// Background du menu pause
-	pauseMenuBGTexture.loadFromFile("Assets/PauseMenuBG.jpg");
+	pauseMenuBGTexture.loadFromFile("Assets/Backgrounds/PauseMenuBG.jpg");
 	pauseMenuBGSprite.setTexture(pauseMenuBGTexture);
 	Vector2u windowSizeP = window.getSize();
 	Vector2u textureSizeP = pauseMenuBGTexture.getSize();
@@ -29,7 +29,7 @@ Menu::Menu(RenderWindow& window)
 	pauseMenuBGSprite.setScale(scalePX, scalePY);
 
 	// Background du Game Over
-	gameOverBGTexture.loadFromFile("Assets/GameOverBG.jpg");
+	gameOverBGTexture.loadFromFile("Assets/Backgrounds/GameOverBG.jpg");
 	gameOverBGSprite.setTexture(gameOverBGTexture);
 	Vector2u windowSizeG = window.getSize();
 	Vector2u textureSizeG = gameOverBGTexture.getSize();
@@ -40,7 +40,7 @@ Menu::Menu(RenderWindow& window)
 	gameOverBGSprite.setScale(scaleGX, scaleGY);
 
 	// Background du Win
-	winBGTexture.loadFromFile("Assets/WinBG.jpg");
+	winBGTexture.loadFromFile("Assets/Backgrounds/WinBG.jpg");
 	winBGSprite.setTexture(winBGTexture);
 	Vector2u windowSizeW = window.getSize();
 	Vector2u textureSizeW = winBGTexture.getSize();
@@ -50,22 +50,43 @@ Menu::Menu(RenderWindow& window)
 
 	winBGSprite.setScale(scaleWX, scaleWY);
 
-	// Titre
+	// Texte Titre
 	font.loadFromFile("Assets/SquadaOne-Regular.ttf");
+	title.setFont(font);
+	title.setString("Among us ?");
+	title.setCharacterSize(150);
+	title.setFillColor(Color::White);
+	title.setPosition(400, 200);
+
+	// Texte Game Over
+	font.loadFromFile("Assets/SquadaOne-Regular.ttf");
+	gameOverTexte.setFont(font);
+	gameOverTexte.setString("GAME OVER");
+	gameOverTexte.setCharacterSize(150);
+	gameOverTexte.setFillColor(Color::Red);
+	gameOverTexte.setPosition(400, 200);
+
+	// Texte Win
+	font.loadFromFile("Assets/SquadaOne-Regular.ttf");
+	win.setFont(font);
+	win.setString("You Win !");
+	win.setCharacterSize(150);
+	win.setFillColor(Color::Yellow);
+	win.setPosition(450, 200);
 
 	// Boutons
-	buttonPlayTexture.loadFromFile("Assets/PlayButton.png");
+	buttonPlayTexture.loadFromFile("Assets/Buttons/PlayButton.png");
 ;
-	buttonExitTexture.loadFromFile("Assets/ExitButton.png");
+	buttonExitTexture.loadFromFile("Assets/Buttons/ExitButton.png");
 
-	buttonResumeTexture.loadFromFile("Assets/ResumeButton.png");
+	buttonResumeTexture.loadFromFile("Assets/Buttons/ResumeButton.png");
 
-	buttonOptionsTexture.loadFromFile("Assets/OptionsButton.png");
+	buttonOptionsTexture.loadFromFile("Assets/Buttons/OptionsButton.png");
 
-	buttons.push_back(Button(buttonPlayTexture, Vector2f(540, 200)));
-	buttons.push_back(Button(buttonExitTexture, Vector2f(620, 600)));
+	buttons.push_back(Button(buttonPlayTexture, Vector2f(540, 450)));
+	buttons.push_back(Button(buttonExitTexture, Vector2f(620, 700)));
 	buttons.push_back(Button(buttonResumeTexture, Vector2f(620, 200)));
-	buttons.push_back(Button(buttonOptionsTexture, Vector2f(620, 400)));
+	buttons.push_back(Button(buttonOptionsTexture, Vector2f(620, 450)));
 }
 
 void Menu::draw(RenderWindow& window)
@@ -116,6 +137,7 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 			}
 			window.clear();
 			window.draw(mainMenuBGSprite);
+			window.draw(title);
 			buttons[0].draw(window);
 			buttons[1].draw(window);
 			window.display();
@@ -134,15 +156,15 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 				{
 					window.close();
 				}
-				if (buttons[2].isClicked(window, event))  // Bouton "Reprendre"
+				if (buttons[2].isClicked(window, event)) 
 				{
 					pause = false;
 				}
-				if (buttons[3].isClicked(window, event))  // Option inutilisée pour l'instant
+				if (buttons[3].isClicked(window, event)) 
 				{
-					// Code pour une option supplémentaire
+					// Code pour des options
 				}
-				if (buttons[1].isClicked(window, event))  // Bouton "Quitter"
+				if (buttons[1].isClicked(window, event)) 
 				{
 					window.close();
 					pause = false;
@@ -158,9 +180,9 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 
 			window.clear();
 			window.draw(pauseMenuBGSprite);
-			buttons[2].draw(window); // Reprendre
-			buttons[3].draw(window); // Option
-			buttons[1].draw(window); // Quitter
+			buttons[2].draw(window);
+			buttons[3].draw(window);
+			buttons[1].draw(window);
 			window.display();
 		}
 	}
@@ -177,7 +199,7 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 				{
 					window.close();
 				}
-				if (buttons[1].isClicked(window, event))  // Bouton "Quitter"
+				if (buttons[1].isClicked(window, event))
 				{
 					window.close();
 					gameOver = false;
@@ -192,7 +214,8 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 			}
 			window.clear();
 			window.draw(gameOverBGSprite);
-			buttons[1].draw(window); // Quitter
+			window.draw(gameOverTexte);
+			buttons[1].draw(window);
 			window.display();
 		}
 	}
@@ -209,7 +232,7 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 				{
 					window.close();
 				}
-				if (buttons[1].isClicked(window, event))  // Bouton "Quitter"
+				if (buttons[1].isClicked(window, event))
 				{
 					window.close();
 					Win = false;
@@ -224,7 +247,8 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 			}
 			window.clear();
 			window.draw(winBGSprite);
-			buttons[1].draw(window); // Quitter
+			window.draw(win);
+			buttons[1].draw(window);
 			window.display();
 		}
 	}
