@@ -297,3 +297,8 @@ void Player::katanaSlash(RenderWindow& window, vector<shared_ptr<Enemy>>& enemie
         }
     }
 }
+
+void Player::addToInventory(shared_ptr<Item> item)
+{
+    inventory.push_back(item);
+}
