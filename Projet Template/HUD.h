@@ -3,6 +3,7 @@
 #define HUD_H
 
 #include <iostream>
+#include <vector>
 #include <SFML/Graphics.hpp>
 using namespace sf;
 using namespace std;
@@ -16,6 +17,14 @@ private:
     // SFML objects for displaying the health as a texture
     Texture healthTexture;
     Sprite healthSprite;
+
+    // SFML objects for displaying the inventory as a texture
+    Texture inventoryTexture;
+    Sprite inventorySprite;
+
+	// SFML objects for displaying the mouse as a texture
+	Texture mouseTexture;
+	Sprite mouseSprite;
 
     // Private method to update the health sprite based on the player's health
     void updateHealthSprite();
@@ -35,6 +44,8 @@ public:
 
     // Function to draw the HUD to the window
     void draw(RenderWindow& window);
+
+	void inventoryDisplay(RenderWindow& window, vector<int> item);
 };
 
 #endif // !HUD_H

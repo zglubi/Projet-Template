@@ -12,6 +12,7 @@
 #include "EntityManager.h"
 #include "Katana.h"
 #include "Shuriken.h"
+#include "Stairs.h"
 
 RenderWindow window(VideoMode(1440, 1080), "Zelda Like");
 
@@ -27,6 +28,8 @@ EntityManager* manager = EntityManager::getInstance();
 
 int main()
 {
+
+    window.setFramerateLimit(120);
     manager->setPlayer(720, 540);
     hud.setPlayerHealth(7);
 
@@ -40,8 +43,8 @@ int main()
 
     bool isRunning = true;
     bool isPause = false;
-	bool GameOver = false;
-    bool Win = false;
+	bool gameOver = false;
+    bool win = false;
 
     // Affiche le menu principal avant de lancer le jeu
     menu.menuDisplay(window, 0);
@@ -72,18 +75,18 @@ int main()
             window.setView(view);
             continue; 
         }
-        if (GameOver)
+        if (gameOver)
         {
 			menu.menuDisplay(window, 2);
-			GameOver = false;
+			gameOver = false;
 			clock.restart();
 			window.setView(view);
             continue;
         }
-        if (Win)
+        if (win)
         {
             menu.menuDisplay(window, 3);
-            Win = false;
+            win = false;
             clock.restart();
             window.setView(view);
             continue;
