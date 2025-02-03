@@ -33,6 +33,7 @@ int main()
     manager->addChaser(Vector2f(100, 100), 50);
     //manager->addShooter(Vector2f(200, 200), 50.0f);
     manager->addItem(Vector2f(0, 500), 1);
+    manager->addItem(Vector2f(200, 700), 2);
 
     Clock clock;
     while (window.isOpen())

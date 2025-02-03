@@ -31,6 +31,7 @@ private:
     char hand1;
     char hand2;
     int dir;
+    vector<unique_ptr<Item>> inventory;
 
 	Texture projectileTexture;
 	vector<unique_ptr<Projectile>> projectiles;

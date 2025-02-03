@@ -8,6 +8,7 @@
 #include "Chaser.h"
 #include "Shooter.h"
 #include "Medipack.h"
+#include "Katana.h"
 #include <SFML/Graphics.hpp>
 #include "Wall.h"
 using namespace std;
