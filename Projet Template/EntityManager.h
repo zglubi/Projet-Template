@@ -33,8 +33,8 @@ public:
 	void setPlayer(float x, float y);
 	void update(RenderWindow& window, float deltatime, View& view, vector<unique_ptr<Wall>>& walls);
 
-	template <typename T>
-	void removeEntity(T enemies);
+	
+	void removeEntity();
 };
 
 #endif // ENTITYMANAGER_H

@@ -64,6 +64,7 @@ int main()
             window.clear();
             gameMap.draw(window);
             manager->update(window, deltaTime, view, gameMap.getWalls());
+            
 
             window.display();
         }
