@@ -4,6 +4,7 @@
 
 #include "Enemy.h"
 #include "Player.h"
+#include "HUD.h"
 #include <SFML/Graphics.hpp>
 
 class Chaser : public Enemy {
