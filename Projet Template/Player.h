@@ -20,7 +20,7 @@ public:
 
     void update(RenderWindow& window, float deltatime, View& view) override;
     void draw(RenderWindow& window) override;
-    void handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls, vector<shared_ptr<Enemy>>& enemies);
+    void handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls, vector<shared_ptr<Enemy>>& enemies, float deltatime);
 	void shoot(RenderWindow& window, View& view);
     void meleeAttack(RenderWindow& window, View& view);
     void katanaSlash(RenderWindow& window, vector<shared_ptr<Enemy>>& enemies);

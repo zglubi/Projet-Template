@@ -27,6 +27,8 @@ EntityManager* manager = EntityManager::getInstance();
 
 int main()
 {
+
+    window.setFramerateLimit(120);
     manager->setPlayer(720, 540);
     hud.setPlayerHealth(7);
 

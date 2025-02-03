@@ -28,7 +28,7 @@ void Chaser::update(RenderWindow& window, float deltatime, View& view)
 	velocity.y = moveY * speed;
 
 
-	if (frame / 10 > 1)
+	if (frame / 10 > 3)
 	{
 		frame = 0;
 	}
@@ -36,11 +36,28 @@ void Chaser::update(RenderWindow& window, float deltatime, View& view)
 	{
 		frame++;
 	}
-
-	sprite.setTextureRect(IntRect(0 , 0 + 16 * (frame / 10), 16, 16));
-
-
-
+	cout << moveX << endl;
+	cout << moveY << endl;
+	if (abs(moveX) > abs(moveY)) {
+		if (moveX > 0)
+		{
+			sprite.setTextureRect(IntRect(16 * 3, 0 + 16 * (frame / 10), 16, 16));
+		}
+		else
+		{
+			sprite.setTextureRect(IntRect(16 * 2, 0 + 16 * (frame / 10), 16, 16));
+		}
+	}
+	else{
+		if (moveY > 0)
+		{
+			sprite.setTextureRect(IntRect(0, 0 + 16 * (frame / 10), 16, 16));
+		}
+		else 
+		{
+			sprite.setTextureRect(IntRect(16, 0 + 16 * (frame / 10), 16, 16));
+		}
+	}
 	sprite.move(velocity * deltatime);
 
 	draw(window);

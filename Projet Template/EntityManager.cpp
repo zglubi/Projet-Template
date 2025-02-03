@@ -91,6 +91,6 @@ void EntityManager::update(RenderWindow& window, float deltatime, View& view, ve
 		item->interact(player);
 	}
 
-	player->handleInput(window, view, walls, enemies);
+	player->handleInput(window, view, walls, enemies, deltatime);
 }
 

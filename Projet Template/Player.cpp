@@ -33,7 +33,7 @@ Player::Player(int x, int y) : Entity(x, y), frame(0), frameKatanaSlash(0) {
     hand1 = 1;
     hand2 = 2;
 
-    vitesse = 0.125;
+    vitesse = 300;
 
     dir = 4;
 }
@@ -58,7 +58,7 @@ void Player::setSprite(const Sprite& newSprite)
     sprite = newSprite;
 }
 
-void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls, vector<shared_ptr<Enemy>>& enemies)
+void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls, vector<shared_ptr<Enemy>>& enemies, float deltatime)
 {
     float newX = x;
     float newY = y;
@@ -66,13 +66,13 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
         
         if (Keyboard::isKeyPressed(Keyboard::Q)) 
         {
-            newX -= vitesse;
+            newX -= vitesse * deltatime;
             dir = 2;
         }
         
         if (Keyboard::isKeyPressed(Keyboard::D))
         {
-            newX += vitesse;
+            newX += vitesse * deltatime;
             dir = 4;
         }
 
@@ -97,13 +97,13 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
 
         if (Keyboard::isKeyPressed(Keyboard::Z))
         {
-            newY -= vitesse;
+            newY -= vitesse * deltatime;
             dir = 1;
         }
         
         if (Keyboard::isKeyPressed(Keyboard::S))
         {
-            newY += vitesse;
+            newY += vitesse * deltatime;
             dir = 3;
         }
 
@@ -259,7 +259,7 @@ void Player::katanaSlash(RenderWindow& window, vector<shared_ptr<Enemy>>& enemie
         slashDir = normalize(slashDir);
     }
     
-    if (frameKatanaSlash / 80 > 3)
+    if (frameKatanaSlash / 10 > 3)
     {
         katanaAttack = false;
         frameKatanaSlash = 0;
@@ -272,7 +272,7 @@ void Player::katanaSlash(RenderWindow& window, vector<shared_ptr<Enemy>>& enemie
 
     katanaSlashSprite.setPosition(Vector2f(x, y) + (slashDir * 50));
     katanaSlashSprite.setRotation(calculateAngle(slashDir));
-    katanaSlashSprite.setTextureRect(IntRect(0 + 32 * (frameKatanaSlash / 80), 0, 32, 32));
+    katanaSlashSprite.setTextureRect(IntRect(0 + 32 * (frameKatanaSlash / 10), 0, 32, 32));
     window.draw(katanaSlashSprite);
 
     RectangleShape katanaBounds(sf::Vector2f(katanaSlashSprite.getGlobalBounds().width, katanaSlashSprite.getGlobalBounds().height));
