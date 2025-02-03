@@ -51,12 +51,14 @@ void EntityManager::addItem(Vector2f Position, int val)
 		shared_ptr<Katana> item = make_shared<Katana>(Position.x, Position.y);
 		items.push_back(item);
 		entities.push_back(item);
+		break;
 	}
 	case 3:
 	{
 		shared_ptr<Shuriken> item = make_shared<Shuriken>(Position.x, Position.y);
 		items.push_back(item);
 		entities.push_back(item);
+		break;
 	}
 	default:
 		break;
