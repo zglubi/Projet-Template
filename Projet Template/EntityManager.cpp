@@ -17,6 +17,7 @@ void EntityManager::addChaser(Vector2f startPosition, float initialSpeed)
 {
 	shared_ptr<Chaser> chaser = make_shared<Chaser>(startPosition, initialSpeed);
 	chasers.push_back(chaser);
+	enemies.push_back(chaser);
 	entities.push_back(chaser);
 }
 
@@ -24,6 +25,7 @@ void EntityManager::addShooter(Vector2f startPosition, float initialSpeed)
 {
 	shared_ptr<Shooter> shooter = make_shared<Shooter>(startPosition, initialSpeed);
 	shooters.push_back(shooter);
+	enemies.push_back(shooter);
 	entities.push_back(shooter);
 }
 
@@ -75,7 +77,7 @@ void EntityManager::update(RenderWindow& window, float deltatime, View& view, ve
 		shooter->draw(window);
 	}
 
-	player->handleInput(window, view, walls);
+	player->handleInput(window, view, walls, enemies);
 }
 
 template <typename T>

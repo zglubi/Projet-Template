@@ -5,6 +5,7 @@
 #include "Projectile.h"
 #include "Katana.h"
 #include "Shuriken.h"
+#include "Enemy.h"
 
 class Player : public Entity
 {
@@ -19,10 +20,10 @@ public:
 
     void update(RenderWindow& window, float deltatime, View& view) override;
     void draw(RenderWindow& window) override;
-    void handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls);
+    void handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls, vector<shared_ptr<Enemy>>& enemies);
 	void shoot(RenderWindow& window, View& view);
     void meleeAttack(RenderWindow& window, View& view);
-    void katanaSlash(RenderWindow& window);
+    void katanaSlash(RenderWindow& window, vector<shared_ptr<Enemy>>& enemies);
 private:
     int frame;
     float vitesse;
@@ -40,7 +41,7 @@ private:
     Sprite katanaSlashSprite;
     bool katanaAttack = false;
     Clock cooldownKatanaSlash;
-    int slashDir;
+    Vector2f slashDir;
 };
 
 #endif // !PLAYER_H
