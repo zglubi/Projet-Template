@@ -12,6 +12,7 @@
 #include "EntityManager.h"
 #include "Katana.h"
 #include "Shuriken.h"
+#include "Stairs.h"
 
 RenderWindow window(VideoMode(1440, 1080), "Zelda Like");
 
@@ -42,6 +43,8 @@ int main()
 
     bool isRunning = true;
     bool isPause = false;
+	bool gameOver = false;
+    bool win = false;
 
     // Affiche le menu principal avant de lancer le jeu
     menu.menuDisplay(window, 0);
@@ -60,11 +63,10 @@ int main()
             {
                 if (event.key.code == sf::Keyboard::Escape)
                 {
-                    isPause = !isPause;
+					isPause = !isPause;
                 }
             }
         }
-
         if (isPause)
         {
             menu.menuDisplay(window, 1);
@@ -72,6 +74,22 @@ int main()
 			clock.restart();
             window.setView(view);
             continue; 
+        }
+        if (gameOver)
+        {
+			menu.menuDisplay(window, 2);
+			gameOver = false;
+			clock.restart();
+			window.setView(view);
+            continue;
+        }
+        if (win)
+        {
+            menu.menuDisplay(window, 3);
+            win = false;
+            clock.restart();
+            window.setView(view);
+            continue;
         }
 
         // Mise à jour du deltaTime

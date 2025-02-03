@@ -13,6 +13,7 @@ public:
     float getVitesse() const;
     void setVitesse(float newVitesse);
     bool canmove = true;
+	bool isOnStairs = false;
     const Sprite& getSprite() const;
     void setSprite(const Sprite& newSprite);
 

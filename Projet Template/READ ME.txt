@@ -26,4 +26,9 @@ Il est plutôt simple, il cherche la position du sprite du joueur puis modifie s
 
 jour 2:
 Je me suis occupé à créer le second ennemi du jeu : le shooter. il se déplace vers le joueur et lui tire dessus à intervalle régulier
-j'ai également travailler sur l'implémentation des objets (notamment le katana et le shuriken) mais ce n'est pas encore oppérationel
+j'ai également travailler sur l'implémentation des objets (notamment le katana et le shuriken) mais ce n'est pas encore opérationnel
+
+jour 3:
+Je me suis occupé de créer la class HUD qui gère toute l'ui du joueur. Elle sert a afficher la vie du joueur et elle se met a jour selon les dégats/soint reçus par le joueur.
+Le hud affiche également l'inventaire et il se met a jour quand un objet est ramassé, il apparait alors dans la hotbar.
+J'ai aussi légèrement travaillé sur la carte en améliorant la classe stairs mais elle n'est pas encore fonctionnelle.
