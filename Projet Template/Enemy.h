@@ -13,7 +13,7 @@ public:
     Vector2f position;
     Vector2f velocity;
     float speed;
-
+    int frame = 0;
     Enemy(float x, float y, float speed);
     virtual void update(RenderWindow& window, float deltatime, View& view) = 0;
     virtual void draw(RenderWindow& window) = 0;
