@@ -22,6 +22,7 @@ void Katana::draw(RenderWindow& window) {
 void Katana::interact(shared_ptr<Player>& player) {
     if (player->getSprite().getGlobalBounds().intersects(sprite.getGlobalBounds()))
     {
+        player->addToInventory(2);
         setToBeDeleted(true);
     }
 }

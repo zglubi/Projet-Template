@@ -9,6 +9,7 @@
 #include "Shooter.h"
 #include "Medipack.h"
 #include "Katana.h"
+#include "Shuriken.h"
 #include <SFML/Graphics.hpp>
 #include "Wall.h"
 using namespace std;
