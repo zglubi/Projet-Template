@@ -10,8 +10,6 @@
 
 class Shooter : public Enemy {
 private:
-    Texture texture;
-    Sprite sprite;
     float initialSpeed;
     int moveX;
     int moveY;

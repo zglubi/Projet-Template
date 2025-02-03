@@ -72,16 +72,16 @@ void EntityManager::update(RenderWindow& window, float deltatime, View& view, ve
 	for (auto& item : items) {
 		item->interact(player);
 	}
-	for (auto& chaser : chasers)
-	{
-		chaser->moveUpdate(player);
-		chaser->update(window, deltatime, view);
-	}
-	for (auto& shooter : shooters)
-	{
-		shooter->moveUpdate(player);
-		shooter->update(window, deltatime, view);
-	}
+	//for (auto& chaser : chasers)
+	//{
+	//	chaser->moveUpdate(player);
+	//	chaser->update(window, deltatime, view);
+	//}
+	//for (auto& shooter : shooters)
+	//{
+	//	shooter->moveUpdate(player);
+	//	shooter->update(window, deltatime, view);
+	//}
 	for (auto& chaser : chasers)
 	{
 		chaser->draw(window);

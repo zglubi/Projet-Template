@@ -153,6 +153,7 @@
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Shooter.cpp" />
     <ClCompile Include="Shuriken.cpp" />
+    <ClCompile Include="Stairs.cpp" />
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +173,7 @@
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="Shooter.h" />
     <ClInclude Include="Shuriken.h" />
+    <ClInclude Include="Stairs.h" />
     <ClInclude Include="Wall.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
