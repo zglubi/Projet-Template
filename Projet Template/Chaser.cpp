@@ -2,7 +2,7 @@
 #include <iostream>
 
 Chaser::Chaser(Vector2f startPosition, float initialSpeed)
-	: Enemy(startPosition.x, startPosition.y, initialSpeed) {
+	: initialSpeed(initialSpeed), Enemy(startPosition.x, startPosition.y, initialSpeed) {
 	if (!texture.loadFromFile("assets/Skeleton.png")) {
 		cout << "Failed to load enemy texture!" << endl;
 	}
@@ -14,39 +14,19 @@ Chaser::Chaser(Vector2f startPosition, float initialSpeed)
 	moveY = 0;
 }
 
-void Chaser::moveUpdate(shared_ptr<Player> player)
-{
-	if (player->getSprite().getPosition().x > sprite.getPosition().x) 
-	{
-		moveX = 1;
-	}
-	else if (player->getSprite().getPosition().x < sprite.getPosition().x) 
-	{
-		moveX = -1;
-	}
-	else {
-		moveX = 0;
-	}
-
-	if (player->getSprite().getPosition().y > sprite.getPosition().y) 
-	{
-		moveY = 1;
-	}
-	else if (player->getSprite().getPosition().y < sprite.getPosition().y) 
-	{
-		moveY = -1;
-	}
-	else 
-	{
-		moveY = 0;
-	}
-}
 
 void Chaser::update(RenderWindow& window, float deltatime, View& view) 
 {
+	Vector2f playerPos = view.getCenter();
+	Vector2f enemyPos = sprite.getPosition();
+	moveX = (playerPos.x > enemyPos.x) - (playerPos.x < enemyPos.x);
+	moveY = (playerPos.y > enemyPos.y) - (playerPos.y < enemyPos.y);
+
 	velocity.x = moveX * speed;
 	velocity.y = moveY * speed;
 	sprite.move(velocity * deltatime);
+
+	draw(window);
 }
 
 void Chaser::draw(RenderWindow& window) {
