@@ -16,7 +16,6 @@ EntityManager* EntityManager::getInstance()
 void EntityManager::addChaser(Vector2f startPosition, float initialSpeed)
 {
 	shared_ptr<Chaser> chaser = make_shared<Chaser>(startPosition, initialSpeed);
-	chasers.push_back(chaser);
 	enemies.push_back(chaser);
 	entities.push_back(chaser);
 }
@@ -24,7 +23,6 @@ void EntityManager::addChaser(Vector2f startPosition, float initialSpeed)
 void EntityManager::addShooter(Vector2f startPosition, float initialSpeed)
 {
 	shared_ptr<Shooter> shooter = make_shared<Shooter>(startPosition, initialSpeed);
-	shooters.push_back(shooter);
 	enemies.push_back(shooter);
 	entities.push_back(shooter);
 }
@@ -66,6 +64,14 @@ void EntityManager::removeEntity()
 		std::remove_if(entities.begin(), entities.end(),
 			[](const std::shared_ptr<Entity>& entity) { return entity->isToBeDeleted(); }),
 		entities.end());
+	enemies.erase(
+		std::remove_if(enemies.begin(), enemies.end(),
+			[](const std::shared_ptr<Entity>& entity) { return entity->isToBeDeleted(); }),
+		enemies.end());
+	items.erase(
+		std::remove_if(items.begin(), items.end(),
+			[](const std::shared_ptr<Entity>& entity) { return entity->isToBeDeleted(); }),
+		items.end());
 }
 
 void EntityManager::update(RenderWindow& window, float deltatime, View& view, vector<unique_ptr<Wall>>& walls)
@@ -77,24 +83,6 @@ void EntityManager::update(RenderWindow& window, float deltatime, View& view, ve
 	removeEntity();
 	for (auto& item : items) {
 		item->interact(player);
-	}
-	//for (auto& chaser : chasers)
-	//{
-	//	chaser->moveUpdate(player);
-	//	chaser->update(window, deltatime, view);
-	//}
-	//for (auto& shooter : shooters)
-	//{
-	//	shooter->moveUpdate(player);
-	//	shooter->update(window, deltatime, view);
-	//}
-	for (auto& chaser : chasers)
-	{
-		chaser->draw(window);
-	}
-	for (auto& shooter : shooters)
-	{
-		shooter->draw(window);
 	}
 
 	player->handleInput(window, view, walls, enemies);

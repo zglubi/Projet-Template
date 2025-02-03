@@ -20,8 +20,6 @@ private:
 	static EntityManager* instance;
 	vector<shared_ptr<Entity>> entities;
 	vector<shared_ptr<Enemy>> enemies;
-	vector<shared_ptr<Chaser>> chasers;
-	vector<shared_ptr<Shooter>> shooters;
 	vector<shared_ptr<Item>> items;
 	shared_ptr<Player> player;
 

@@ -19,7 +19,7 @@ Menu::Menu(RenderWindow& window)
 
 	// Background du menu pause
 
-	PauseMenuBGTexture.loadFromFile("Assets/MenuBG.jpg");
+	PauseMenuBGTexture.loadFromFile("Assets/PauseMenuBG.jpg");
 	PauseMenuBGSprite.setTexture(PauseMenuBGTexture);
 	Vector2u windowSizeP = window.getSize();
 	Vector2u textureSizeP = PauseMenuBGTexture.getSize();
@@ -40,7 +40,7 @@ Menu::Menu(RenderWindow& window)
 	buttonOptionsTexture.loadFromFile("Assets/player.png");
 
 	buttons.push_back(Button(buttonPlayTexture, Vector2f(540, 200)));
-	buttons.push_back(Button(buttonExitTexture, Vector2f(540, 400)));
+	buttons.push_back(Button(buttonExitTexture, Vector2f(540, 600)));
 	buttons.push_back(Button(buttonResumeTexture, Vector2f(540, 200)));
 	buttons.push_back(Button(buttonOptionsTexture, Vector2f(540, 400)));
 }
@@ -103,31 +103,37 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 		bool pause = true;
 		while (pause)
 		{
+			window.setView(window.getDefaultView());
+
 			while (window.pollEvent(event))
 			{
 				if (event.type == Event::Closed)
 				{
 					window.close();
 				}
-				if (buttons[2].isClicked(window, event))
+
+				if (buttons[2].isClicked(window, event))  // Bouton "Reprendre"
 				{
 					pause = false;
 				}
-				if (buttons[3].isClicked(window, event))
-				{
 
+				if (buttons[3].isClicked(window, event))  // Option inutilisée pour l'instant
+				{
+					// Code pour une option supplémentaire
 				}
-				if (buttons[1].isClicked(window, event))
+
+				if (buttons[1].isClicked(window, event))  // Bouton "Quitter"
 				{
 					window.close();
-					menu = false;
+					pause = false;
 				}
 			}
+
 			window.clear();
 			window.draw(PauseMenuBGSprite);
-			buttons[2].draw(window);
-			buttons[3].draw(window);
-			buttons[1].draw(window);
+			buttons[2].draw(window); // Reprendre
+			buttons[3].draw(window); // Option
+			buttons[1].draw(window); // Quitter
 			window.display();
 		}
 	}

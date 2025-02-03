@@ -136,10 +136,6 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
             [](const std::unique_ptr<Projectile>& projectile) { return projectile->isToBeDeleted(); }),
         projectiles.end());
 
-    if (Keyboard::isKeyPressed(Keyboard::Escape))
-    {
-        window.close();
-    }
 
 		if (Mouse::isButtonPressed(Mouse::Left))
 		{
