@@ -18,4 +18,4 @@ private:
     Sprite buttonSprite;
 };
 
-#endif
+#endif // BUTTON_H
