@@ -33,17 +33,17 @@ HUD::HUD()
     inventorySprite.setPosition(70.f, 70.f);
     inventorySprite.setScale(0.5f, 0.5f);
 
-//    // Load the mouse texture from a file
-//    if (!inventoryTexture.loadFromFile("assets/mouse.png"))
-//    {
-//        // Handle error
-//        cerr << "Error loading mouse texture" << endl;
-//    }
-//
-//    // Initialize the mouse sprite
-//    mouseSprite.setTexture(mouseTexture);
-//    mouseSprite.setPosition(70.f, 70.f);
-//    mouseSprite.setScale(0.2f, 0.2f);
+	// Load the shuriken icon texture from a file
+
+	if (!shurikenIconTexture.loadFromFile("assets/Icons/Shuriken.png"))
+	{
+		// Handle error
+		cerr << "Error loading shuriken icon texture" << endl;
+	}
+
+	// Initialize the shuriken icon sprite
+	shurikenIconSprite.setTexture(shurikenIconTexture);
+	shurikenIconSprite.setScale(2.0f, 2.0f);
 }
 
 // Function to set the player's health
@@ -107,29 +107,16 @@ void HUD::updateHealthSprite()
 }
 
 // Function to display the inventory
-void HUD::inventoryDisplay(RenderWindow& window, vector<int> item)
-{
-	for (int i = 0; i < item.size(); i++)
-	{
-		if (item[i] == 1)
-		{
-			inventorySprite.setTextureRect(IntRect(0, 0, 32, 32));
-			inventorySprite.setPosition(70.f + i * 40.f, 70.f);
-			window.draw(inventorySprite);
-		}
-		else if (item[i] == 2)
-		{
-			inventorySprite.setTextureRect(IntRect(32, 0, 32, 32));
-			inventorySprite.setPosition(70.f + i * 40.f, 70.f);
-			window.draw(inventorySprite);
-		}
-		else if (item[i] == 3)
-		{
-			inventorySprite.setTextureRect(IntRect(64, 0, 32, 32));
-			inventorySprite.setPosition(70.f + i * 40.f, 70.f);
-			window.draw(inventorySprite);
-		}
-	}
+void HUD::inventoryDisplay(RenderWindow& window, vector<int> items) {
+    for (int i = 0; i < items.size(); i++) {
+        switch (items[i]) {
+		case 1:
+			shurikenIconSprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 560.f, window.getView().getCenter().y - window.getView().getSize().y / 2 + 912.f);
+			window.draw(shurikenIconSprite);
+			break;
+        }
+    }
+
 }
 
 // Function to draw the HUD to the window
@@ -140,4 +127,6 @@ void HUD::draw(RenderWindow& window)
 
     inventorySprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 550.f, window.getView().getCenter().y - window.getView().getSize().y / 2 + 900.f);
     window.draw(inventorySprite);
+
+	inventoryDisplay(window, { 1 });
 }

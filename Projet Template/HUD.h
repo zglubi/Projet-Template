@@ -26,6 +26,10 @@ private:
 	Texture mouseTexture;
 	Sprite mouseSprite;
 
+	// SFML objects for displaying the items as a texture
+	Texture shurikenIconTexture;
+	Sprite shurikenIconSprite;
+
     // Private method to update the health sprite based on the player's health
     void updateHealthSprite();
 
@@ -45,7 +49,7 @@ public:
     // Function to draw the HUD to the window
     void draw(RenderWindow& window);
 
-	void inventoryDisplay(RenderWindow& window, vector<int> item);
+	void inventoryDisplay(RenderWindow& window, vector<int> items);
 };
 
 #endif // !HUD_H
