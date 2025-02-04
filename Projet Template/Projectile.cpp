@@ -33,10 +33,12 @@ void Projectile::update(sf::RenderWindow& window, float deltatime, sf::View& vie
 	x += direction.x * speed * deltatime;
 	y += direction.y * speed * deltatime;
 	sprite.setPosition(x, y);
+	draw(window);
+}
 
-	
-
-	if (frame / 10 > nbframe-1)
+void Projectile::draw(sf::RenderWindow& window)
+{
+	if (frame / 10 > nbframe - 1)
 	{
 		frame = 0;
 	}
@@ -45,15 +47,7 @@ void Projectile::update(sf::RenderWindow& window, float deltatime, sf::View& vie
 		frame++;
 	}
 
-	sprite.setTextureRect(IntRect(0 + texture.getSize().x/nbframe * (frame / 10), 0, texture.getSize().x / nbframe, texture.getSize().x / nbframe));
-	RectangleShape rect = RectangleShape(Vector2f(10, 10));
-	rect.setPosition(x-5, y-5);
-	window.draw(rect);
-	draw(window);
-}
-
-void Projectile::draw(sf::RenderWindow& window)
-{
+	sprite.setTextureRect(IntRect(0 + texture.getSize().x / nbframe * (frame / 10), 0, texture.getSize().x / nbframe, texture.getSize().x / nbframe));
     window.draw(sprite);
 }
 

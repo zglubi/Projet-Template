@@ -11,15 +11,20 @@ sf::Vector2f operator*(const sf::Vector2f& vector, float scalar) {
 
 Player::Player(int x, int y) : Entity(x, y), frame(0), frameKatanaSlash(0) {
 
-    if (!texture.loadFromFile("assets\\player.png")) {
-        std::cerr << "Erreur : impossible de charger 'playersprite'" << std::endl;
+    
+    if (!texture.loadFromFile("assets/Player/SpriteSheet.png")) {
+        cout << "Failed to load enemy texture!" << endl;
     }
+    sprite.setTextureRect(IntRect(0, 0, 16, 16));
+    sprite.setTexture(texture);
+    sprite.setScale(2, 2);
+    sprite.setOrigin(sprite.getGlobalBounds().width / 2.f, sprite.getGlobalBounds().height / 2.f);
+    sprite.setPosition(x, y);
+
+
     if (!projectileTexture.loadFromFile("assets\\Projectiles\\Shuriken.png")) {
         std::cerr << "Erreur : impossible de charger 'playersprite'" << std::endl;
     }
-    sprite.setTexture(texture);
-    sprite.setOrigin(texture.getSize().x / 2.f, texture.getSize().y / 2.f);
-    sprite.setScale(Vector2f(2, 2));
 
     if (!katanaSlashTexture.loadFromFile("assets\\Slash\\katanaCurved.png"))
     {
@@ -189,6 +194,38 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
 
 void Player::draw(RenderWindow& window)
 {
+    if (Keyboard::isKeyPressed(Keyboard::Z) || Keyboard::isKeyPressed(Keyboard::Q) || Keyboard::isKeyPressed(Keyboard::S) || Keyboard::isKeyPressed(Keyboard::D))
+    {
+        if (frame / 10 > 3)
+        {
+            frame = 0;
+        }
+        else
+        {
+            frame++;
+        }
+    }
+    else frame = 0;
+    switch (dir){
+    case(1):{
+        sprite.setTextureRect(IntRect(16, 0 + 16 * (frame / 10), 16, 16));
+        break;}
+    case(2): {
+        sprite.setTextureRect(IntRect(32, 0 + 16 * (frame / 10), 16, 16));
+        break;
+    }case(3): {
+        sprite.setTextureRect(IntRect(0, 0 + 16 * (frame / 10), 16, 16));
+        break;
+    }case(4): {
+        sprite.setTextureRect(IntRect(48, 0 + 16 * (frame / 10), 16, 16));
+        break;
+    }
+    default:
+        break;
+    }
+
+     
+
     window.draw(sprite);
 }
 
