@@ -34,9 +34,14 @@ private:
 	Texture katanaIconTexture;
 	Sprite katanaIconSprite;
 
+    Texture mediPackIconTexture;
+    Sprite mediPackIconSprite;
+
+    Texture keyIconTexture;
+    Sprite keyIconSprite;
+
     // Private method to update the health sprite based on the player's health
     void updateHealthSprite();
-
 
 public:
     // Constructor to initialize the HUD
