@@ -10,7 +10,7 @@ private:
     bool isOnStairs = false;
 
 public:
-    Stairs(float x, float y, char t);
+    Stairs(float x, float y, Sprite sprite);
     void interact(std::shared_ptr<Player>& player) override;
     bool checkPlayerOnStairs(const Sprite& playerSprite);
 };
