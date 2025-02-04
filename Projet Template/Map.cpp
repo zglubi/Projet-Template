@@ -2,6 +2,47 @@
 #include <fstream>
 #include <iostream>
 
+
+Map::Map()
+{
+	tilesetFloor.loadFromFile("assets/map_assets/Tilesets/TilesetFloor.png");
+	
+	spriteSand.setTexture(tilesetFloor);
+	spriteSand.setTextureRect(IntRect(16, 16, 16, 16));
+
+	spriteGrass.setTexture(tilesetFloor);
+	spriteGrass.setTextureRect(IntRect(0, 192, 16, 16));
+
+
+
+
+
+	tilesetDesert.loadFromFile("assets/map_assets/Tilesets/TilesetDesert.png");
+
+	spriteHouse1.setTexture(tilesetDesert);
+	spriteHouse1.setTextureRect(IntRect(96, 64, 64, 64));
+
+	spriteWallH.setTexture(tilesetDesert);
+	spriteWallH.setTextureRect(IntRect(304, 64, 16, 48));
+
+	spriteWallV.setTexture(tilesetDesert);
+	spriteWallV.setTextureRect(IntRect(240, 176, 16, 16));
+
+
+	tilesetVillageA.loadFromFile("assets/map_assets/Tilesets/TilesetVillageAbandoned.png");
+
+
+	spritePillarA.setTexture(tilesetVillageA);
+	spritePillarA.setTextureRect(IntRect(32, 48, 16, 48));
+
+	spriteRockA.setTexture(tilesetVillageA);
+	spriteRockA.setTextureRect(IntRect(48, 80, 16, 16));
+
+
+	loadMap(1);
+}
+
+
 Texture Map::createColoredTexture(Color color, Vector2u size)
 {
 	Image image;
@@ -11,14 +52,7 @@ Texture Map::createColoredTexture(Color color, Vector2u size)
 	return texture;
 }
 
-Map::Map()
-{
-	textureGrass.loadFromFile("assets/map_assets/tileset_grass.png");
-	spriteGrass.setTexture(textureGrass);
-	spriteGrass.setTextureRect(IntRect(0, 0, 32, 32));
 
-	loadMap(1);
-}
 
 Map::~Map()
 {
@@ -42,8 +76,8 @@ void Map::draw(sf::RenderWindow& window)
 	{
 		for (int j = 0; j < map[i].size(); j++)
 		{
-			spriteGrass.setPosition(j * 32, i * 32);
-			window.draw(spriteGrass);
+			spriteSand.setPosition(j * 16, i * 16);
+			window.draw(spriteSand);
 		}
 	}
 

@@ -36,7 +36,7 @@ public:
 	vector<shared_ptr<Enemy>> getEnemies();
 	void removeEntity();
 	void checkPlayerEnemyCollision();
-
+	vector<int> getInventory();
 };
 
 #endif // ENTITYMANAGER_H
