@@ -18,7 +18,7 @@ Player::Player(int x, int y) : Entity(x, y), frame(0), frameKatanaSlash(0) {
     sprite.setTextureRect(IntRect(0, 0, 16, 16));
     sprite.setTexture(texture);
     sprite.setScale(2, 2);
-    sprite.setOrigin(sprite.getGlobalBounds().width / 2.f, sprite.getGlobalBounds().height / 2.f);
+    sprite.setOrigin(sprite.getLocalBounds().width / 2.f, sprite.getLocalBounds().height / 2.f);
     sprite.setPosition(x, y);
 
 
@@ -83,7 +83,7 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
 
     bool collisionDetected = false;
     for (auto& wall : walls) {
-        FloatRect playerBounds(newX - sprite.getGlobalBounds().width / 2, newY - sprite.getGlobalBounds().height / 4, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height * 3 / 4);
+        FloatRect playerBounds(newX - sprite.getGlobalBounds().width/2, newY - sprite.getGlobalBounds().height/2, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height);
         FloatRect wallBounds = wall->getSprite().getGlobalBounds();
 
         if (playerBounds.intersects(wallBounds)) {
@@ -114,7 +114,7 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
 
     collisionDetected = false;
     for (auto& wall : walls) {
-        FloatRect playerBounds(newX - sprite.getGlobalBounds().width / 2, newY - sprite.getGlobalBounds().height / 4, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height * 3 / 4);
+        FloatRect playerBounds(newX - sprite.getGlobalBounds().width /2, newY - sprite.getGlobalBounds().height/2, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height);
         FloatRect wallBounds = wall->getSprite().getGlobalBounds();
 
         if (playerBounds.intersects(wallBounds)) {
@@ -130,6 +130,8 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
         window.setView(view);
         sprite.setPosition(x, y);
     }
+
+
 
     for (auto& projectile : projectiles)
     {
@@ -224,8 +226,13 @@ void Player::draw(RenderWindow& window)
         break;
     }
 
-     
-
+    RectangleShape PBounds(sf::Vector2f(sprite.getGlobalBounds().width, sprite.getGlobalBounds().height));
+    PBounds.setPosition(x - sprite.getGlobalBounds().width/2, y - sprite.getGlobalBounds().height / 2);
+    PBounds.setFillColor(sf::Color::Transparent);
+    PBounds.setOutlineColor(sf::Color::Red);
+    PBounds.setOutlineThickness(1.0f);
+    window.draw(PBounds);
+    
     window.draw(sprite);
 }
 

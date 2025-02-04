@@ -62,6 +62,12 @@ Sprite Wall::getSprite()
 
 void Wall::draw(RenderWindow& window)
 {
+	RectangleShape PBounds(sf::Vector2f(sprite.getGlobalBounds().width, sprite.getGlobalBounds().height));
+	PBounds.setPosition(sprite.getGlobalBounds().left, sprite.getGlobalBounds().top);
+	PBounds.setFillColor(sf::Color::Transparent);
+	PBounds.setOutlineColor(sf::Color::Red);
+	PBounds.setOutlineThickness(1.0f);
+	window.draw(PBounds);
 	window.draw(sprite);
 }
 
