@@ -20,13 +20,16 @@ void Chaser::collisionPlayer(shared_ptr<Player>& player)
 {
 	if (sprite.getGlobalBounds().intersects(player->getSprite().getGlobalBounds()))
 	{
-		player->setToBeDeleted(true);
-		setToBeDeleted(true);
+		player->diminishHp(1);
+		hp -= 1;
 	}
 }
 
 void Chaser::update(RenderWindow& window, float deltatime, View& view) 
 {
+	if (hp <= 0 || hp > 10) {
+		setToBeDeleted(true);
+	}
 	Vector2f playerPos = view.getCenter();
 	Vector2f enemyPos = sprite.getPosition();
 	moveX = (playerPos.x > enemyPos.x) - (playerPos.x < enemyPos.x);

@@ -21,8 +21,8 @@ void Shooter::collisionPlayer(shared_ptr<Player>& player)
 {
 	if (sprite.getGlobalBounds().intersects(player->getSprite().getGlobalBounds())) 
     {
-		player->setToBeDeleted(true);
-		setToBeDeleted(true);
+		player->diminishHp(1);
+		hp -= 1;
 	}
     for (auto& projectile : projectiles)
 	{
