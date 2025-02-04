@@ -23,6 +23,7 @@ void Medipack::interact(shared_ptr<Player>& player) {
 
     if (player->getSprite().getGlobalBounds().intersects(sprite.getGlobalBounds()))
     {
+        player->addToInventory(3);
         setToBeDeleted(true);
     }
 }
