@@ -9,10 +9,11 @@ Map::Map()
 	
 	spriteSand.setTexture(tilesetFloor);
 	spriteSand.setTextureRect(IntRect(16, 16, 16, 16));
+	spriteSand.setScale(2, 2);
 
 	spriteGrass.setTexture(tilesetFloor);
 	spriteGrass.setTextureRect(IntRect(0, 192, 16, 16));
-
+	spriteGrass.setScale(2, 2);
 
 
 
@@ -20,13 +21,16 @@ Map::Map()
 	tilesetDesert.loadFromFile("assets/map_assets/Tilesets/TilesetDesert.png");
 
 	spriteHouse1.setTexture(tilesetDesert);
-	spriteHouse1.setTextureRect(IntRect(96, 64, 64, 64));
+	spriteHouse1.setTextureRect(IntRect(96, 48, 64, 64));
+	spriteHouse1.setScale(2, 2);
 
 	spriteWallH.setTexture(tilesetDesert);
 	spriteWallH.setTextureRect(IntRect(304, 64, 16, 48));
+	spriteWallH.setScale(2, 2);
 
 	spriteWallV.setTexture(tilesetDesert);
 	spriteWallV.setTextureRect(IntRect(240, 176, 16, 16));
+	spriteWallV.setScale(2, 2);
 
 
 	tilesetVillageA.loadFromFile("assets/map_assets/Tilesets/TilesetVillageAbandoned.png");
@@ -34,10 +38,11 @@ Map::Map()
 
 	spritePillarA.setTexture(tilesetVillageA);
 	spritePillarA.setTextureRect(IntRect(32, 48, 16, 48));
+	spritePillarA.setScale(2, 2);
 
 	spriteRockA.setTexture(tilesetVillageA);
 	spriteRockA.setTextureRect(IntRect(48, 80, 16, 16));
-
+	spriteRockA.setScale(2, 2);
 
 	loadMap(1);
 }
@@ -76,7 +81,7 @@ void Map::draw(sf::RenderWindow& window)
 	{
 		for (int j = 0; j < map[i].size(); j++)
 		{
-			spriteSand.setPosition(j * 16, i * 16);
+			spriteSand.setPosition(j * 32, i * 32);
 			window.draw(spriteSand);
 		}
 	}
@@ -108,31 +113,37 @@ void Map::loadMap(int mapNum)
 			row.push_back(line[i]);
 			switch (line[i])
 			{
-				case 'R':
-					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, 'R'));
+				case 'M':
+				{
+					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, spriteHouse1));
 					break;
-				case 'S':
-					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, 'S'));
+				}
+				case 'H':
+				{
+					cout << "test";
+					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, spriteWallH));
 					break;
-				case 's':
-					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, 's'));
+				}
+				case 'V':
+				{
+					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, spriteWallV));
 					break;
-				case 'E':
-					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, 'E'));
+				}
+				case 'p':
+				{
+					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, spritePillarA));
 					break;
-				case 'e':
-					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, 'e'));
+				}
+				case 'r':
+				{
+					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, spriteRockA));
 					break;
-				case 'Q':
-					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, 'Q'));
-					break;
-				case 'q':
-					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, 'q'));
-					break;
+				}
 				default:
 					break;
 			}
 		}
 		map.push_back(row);
 	}
+
 }
