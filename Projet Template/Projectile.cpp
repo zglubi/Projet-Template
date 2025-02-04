@@ -39,7 +39,6 @@ void Projectile::update(sf::RenderWindow& window, float deltatime, sf::View& vie
 	y += direction.y * speed * deltatime;
 	sprite.setPosition(x, y);
 	draw(window);
-}
 
 	if (frame / 10 > maxFrame - 1)
 	{
