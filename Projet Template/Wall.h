@@ -8,12 +8,9 @@ using namespace std;
 
 class Wall : public Entity
 {
-private:
-	Texture texture;
-	Sprite sprite;
-	char type;
 public:
-	Wall(float x, float y, char t);
+
+	Wall(float x, float y, Sprite sprite);
 	~Wall();
 	Sprite getSprite();
 

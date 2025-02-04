@@ -13,17 +13,20 @@ class Map
 private:
 
 	Texture tilesetFloor;
+
 	Sprite spriteGrass;
 	Sprite spriteSand;
 
 
 	Texture tilesetDesert;
+
 	Sprite spriteHouse1;
 	Sprite spriteWallH;
 	Sprite spriteWallV;
 
 
 	Texture tilesetVillageA;
+
 	Sprite	spritePillarA;
 	Sprite	spriteRockA;
 

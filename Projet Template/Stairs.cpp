@@ -1,7 +1,7 @@
 #include "Stairs.h"
 #include "Player.h"
 
-Stairs::Stairs(float x, float y, char t) : Wall(x, y, t), isOnStairs(false)
+Stairs::Stairs(float x, float y, Sprite sprite) : Wall(x, y, sprite), isOnStairs(false)
 {
 }
 
