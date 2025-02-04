@@ -11,11 +11,23 @@ using namespace sf;
 class Map
 {
 private:
-	Texture textureGrass;
-	Sprite spriteGrass;
 
-	Texture textureRock;
-	Sprite spriteRock;
+	Texture tilesetFloor;
+	Sprite spriteGrass;
+	Sprite spriteSand;
+
+
+	Texture tilesetDesert;
+	Sprite spriteHouse1;
+	Sprite spriteWallH;
+	Sprite spriteWallV;
+
+
+	Texture tilesetVillageA;
+	Sprite	spritePillarA;
+	Sprite	spriteRockA;
+
+
 
 	Texture createColoredTexture(Color color, Vector2u size);
 
