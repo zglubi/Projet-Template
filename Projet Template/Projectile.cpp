@@ -18,7 +18,7 @@ Projectile::Projectile(Texture t, Vector2f position, Vector2f direction, float s
 	texture = t;
 	sprite.setTexture(texture);
 	
-	sprite.setTextureRect(IntRect(0, 0, texture.getSize().x / nbframe, texture.getSize().y));
+	sprite.setTextureRect(IntRect(0, 0, texture.getSize().x / maxF, texture.getSize().y));
 	sprite.setOrigin(sprite.getLocalBounds().width / 2.f, sprite.getLocalBounds().height / 2.f);
 	sprite.setScale(Vector2f(2, 2));
 	sprite.setPosition(position);
@@ -38,7 +38,6 @@ void Projectile::update(sf::RenderWindow& window, float deltatime, sf::View& vie
 	x += direction.x * speed * deltatime;
 	y += direction.y * speed * deltatime;
 	sprite.setPosition(x, y);
-	draw(window);
 
 	if (frame / 10 > maxFrame - 1)
 	{
@@ -50,6 +49,8 @@ void Projectile::update(sf::RenderWindow& window, float deltatime, sf::View& vie
 	}
 
 	sprite.setTextureRect(IntRect(0 + width * (frame / 10), 0, width, height));
+
+	draw(window);
 }
 
 void Projectile::draw(sf::RenderWindow& window)
