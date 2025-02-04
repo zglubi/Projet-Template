@@ -35,9 +35,6 @@ Player::Player(int x, int y) : Entity(x, y), frame(0), frameKatanaSlash(0) {
     katanaSlashSprite.setOrigin(Vector2f(katanaSlashSprite.getLocalBounds().width / 2, katanaSlashSprite.getLocalBounds().height / 2));
     katanaSlashSprite.setScale(Vector2f(2, 2));
 
-    hand1 = 1;
-    hand2 = 2;
-
     vitesse = 300;
 
     dir = 4;
@@ -158,46 +155,53 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
 
 	if (Mouse::isButtonPressed(Mouse::Left))
 	{
-        switch (hand1)
+        if (inventory.size() > 0)
         {
-        case 0:
-            break;
-        case 1:
-            if (cooldownProjectile.getElapsedTime().asSeconds() > 0.5)
+            switch (inventory[0])
             {
-                shoot(window, view);
+            case 0:
+                break;
+            case 1:
+                if (cooldownProjectile.getElapsedTime().asSeconds() > 0.5)
+                {
+                    shoot(window, view);
+                }
+                break;
+            case 2:
+                if (cooldownKatanaSlash.getElapsedTime().asSeconds() > 1)
+                {
+                    cooldownKatanaSlash.restart();
+                    katanaAttack = true;
+                    attacking = true;
+                }
+                break;
             }
-            break;
-        case 2:
-            if (cooldownKatanaSlash.getElapsedTime().asSeconds() > 1)
-            {
-                cooldownKatanaSlash.restart();
-                katanaAttack = true;
-            }
-            break;
         }
 	}
 
     if (Mouse::isButtonPressed(Mouse::Right))
     {
-        switch (hand2)
+        if (inventory.size() > 1)
         {
-        case 0:
-            break;
-        case 1:
-            if (cooldownProjectile.getElapsedTime().asSeconds() > 0.5)
+            switch (inventory[1])
             {
-                shoot(window, view);
+            case 0:
+                break;
+            case 1:
+                if (cooldownProjectile.getElapsedTime().asSeconds() > 0.5)
+                {
+                    shoot(window, view);
+                }
+                break;
+            case 2:
+                if (cooldownKatanaSlash.getElapsedTime().asSeconds() > 1)
+                {
+                    cooldownKatanaSlash.restart();
+                    katanaAttack = true;
+                    attacking = true;
+                }
+                break;
             }
-            break;
-        case 2:
-            if (cooldownKatanaSlash.getElapsedTime().asSeconds() > 1)
-            {
-                cooldownKatanaSlash.restart();
-                katanaAttack = true;
-                attacking = true;
-            }
-            break;
         }
     }
 
@@ -343,4 +347,9 @@ void Player::katanaSlash(RenderWindow& window, vector<shared_ptr<Enemy>>& enemie
 void Player::addToInventory(int item)
 {
     inventory.push_back(item);
+}
+
+vector<int> Player::getInventory()
+{
+	return inventory;
 }

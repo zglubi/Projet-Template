@@ -9,7 +9,7 @@ Teo (Entity) :J'ai commencé par faire la classe entity pour que le player, les 
 le constructeur update et draw des méthodes qui seront override dans les classes qui herite de entity. Ensuite j'ai fait player qui utilise entity avec l'attribut vitesse en plus et sa fonction update permet de bouger la camera avec ZQSD.
 
 
-Emilien (Map) : 
+Emilien (Map/Player attack) : 
 J'ai d'abord commencé par ajouter deux sprite et deux textures pour l'herbe et la pierre qui servira de mur.
 J'ai fait une fonction pour donner comme texture aux sprite un rectangle de couleur pour ne pas avoir à trouver des assets.
 J'ai ensuite initialisé dans le constructeur les textures et sprites.
@@ -17,6 +17,8 @@ Après cela j'ai fait une fonction pour charger la map depuis un fichier txt et 
 Puis j'ai fait la fonction draw de ma class map qui repositionne et draw les sprite en fonction de la valeur de cette case dans mon fichier txt qui correspond à la map.
 Enfin j'ai trouvé un tileset simple pour pouvoir déjà donner une texture à la map et en avoir fini avec cela.
 J'ai ensuite créé une classe Wall pour pouvoir gérer les murs à part dans la classe Map et aussi pouvoir mieux gérer les collisions avec le joueur.
+Ensuite j'ai fait les attaques basiques du Player en ajoutant les shuriken et le katana. J'ai fait une classe projectile pour pouvoir mieux les gérer en leur donnant une direction et en gérant les animations dedans. J'ai fait en sorte que la direction du shuriken soit un vector normalisé de la différence entre la position de la souris et celle du player. Ensuite pour l'attaque du katana j'ai ajouté un calcul d'angle pour pouvoir faire une animation plus réaliste et que l'animation parte dans le sens où le player tape. 
+Après cela, j'ai fait le EntityManager pour pouvoir mieux gérer toutes les entités car il commençait à en avoir beaucoup. J'ai fait des méthodes pour crér chaque type d'entité et les effacer.
 
 Thomas(Enemy/Chaser) : 
 une fois mon problème réglé, je me suis occupé de coder la classe enemy (dérivée de entity) qui servira de base a toute les entités hostiles du jeu.

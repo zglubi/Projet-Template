@@ -25,12 +25,11 @@ public:
 	void shoot(RenderWindow& window, View& view);
     void katanaSlash(RenderWindow& window, vector<shared_ptr<Enemy>>& enemies);
     void addToInventory(int item);
+	vector<int> getInventory();
 private:
     int frame;
     float vitesse;
     Sprite sprite;
-    char hand1;
-    char hand2;
     int dir;
     bool attacking;
     vector<int> inventory;

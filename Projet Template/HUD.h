@@ -24,10 +24,19 @@ private:
 
 	// SFML objects for displaying the mouse as a texture
 	Texture mouseTexture;
-	Sprite mouseSprite;
+	Sprite mouseLeftSprite;
+    Sprite mouseRightSprite;
+
+	// SFML objects for displaying the items as a texture
+	Texture shurikenIconTexture;
+	Sprite shurikenIconSprite;
+
+	Texture katanaIconTexture;
+	Sprite katanaIconSprite;
 
     // Private method to update the health sprite based on the player's health
     void updateHealthSprite();
+
 
 public:
     // Constructor to initialize the HUD
@@ -43,9 +52,9 @@ public:
     void healthDown(int amount);
 
     // Function to draw the HUD to the window
-    void draw(RenderWindow& window);
+    void draw(RenderWindow& window, vector<int> inventory);
 
-	void inventoryDisplay(RenderWindow& window, vector<int> item);
+	void inventoryDisplay(RenderWindow& window, vector<int> items);
 };
 
 #endif // !HUD_H

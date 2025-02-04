@@ -33,8 +33,8 @@ int main()
     manager->setPlayer(720, 540);
     hud.setPlayerHealth(7);
 
-    manager->addChaser(Vector2f(100, 100), 50);
-    manager->addShooter(Vector2f(200, 200), 50.0f);
+    /*manager->addChaser(Vector2f(100, 100), 50);
+    manager->addShooter(Vector2f(200, 200), 50.0f);*/
     manager->addItem(Vector2f(0, 500), 1);
     manager->addItem(Vector2f(200, 700), 2);
     manager->addItem(Vector2f(800, 300), 3);
@@ -45,6 +45,7 @@ int main()
     bool isPause = false;
 	bool gameOver = false;
     bool win = false;
+	bool isOptions = false;
 
     // Affiche le menu principal avant de lancer le jeu
     menu.menuDisplay(window, 0);
@@ -91,6 +92,15 @@ int main()
             window.setView(view);
             continue;
         }
+		if (isOptions)
+		{
+			cout << "Options" << endl;
+			menu.menuDisplay(window, 4);
+			isOptions = false;
+			clock.restart();
+			window.setView(view);
+			continue;
+		}
 
         // Mise à jour du deltaTime
         deltaTime = clock.restart().asSeconds();
@@ -99,7 +109,7 @@ int main()
         window.clear();
         gameMap.draw(window);
         manager->update(window, deltaTime, view, gameMap.getWalls());
-        hud.draw(window);
+        hud.draw(window, manager->getInventory());
         window.display();
     }
 
