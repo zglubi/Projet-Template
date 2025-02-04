@@ -17,24 +17,29 @@ Projectile::Projectile(Texture t, Vector2f position, Vector2f direction, float s
 	this->damage = damage;
 	texture = t;
 	sprite.setTexture(texture);
-	sprite.setPosition(position);
-	sprite.setOrigin(texture.getSize().x / 2.f, texture.getSize().y / 2.f);
+	
+	sprite.setTextureRect(IntRect(0, 0, texture.getSize().x / nbframe, texture.getSize().y));
+	sprite.setOrigin(sprite.getLocalBounds().width / 2.f, sprite.getLocalBounds().height / 2.f);
 	sprite.setScale(Vector2f(2, 2));
+	sprite.setPosition(position);
 	frame = 0;
 	maxFrame = maxF;
 	height = h;
 	width = w;
+	float angle = std::atan2(direction.y, direction.x) * 180 / 3.14159f;
+	sprite.setRotation(angle+90);
 }
 
 Projectile::~Projectile() {}
 
 void Projectile::update(sf::RenderWindow& window, float deltatime, sf::View& view)
 {
+
 	x += direction.x * speed * deltatime;
 	y += direction.y * speed * deltatime;
 	sprite.setPosition(x, y);
-
 	draw(window);
+}
 
 	if (frame / 10 > maxFrame - 1)
 	{

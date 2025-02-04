@@ -3,16 +3,18 @@
 Shooter::Shooter(Vector2f startPosition, float initialSpeed)
     : Enemy(startPosition.x, startPosition.y, initialSpeed), initialSpeed(initialSpeed), moveX(0), moveY(0), fireCooldown(1.3f), fireTimer(0.0f)
 {
-    if (!texture.loadFromFile("assets/Ninja_Adventure_Asset_Pack/Actor/Characters/NinjaBlue2/Faceset.png")) {
+    if (!texture.loadFromFile("assets/Enemies/Snake3/Snake3.png")) {
         cerr << "Error loading shooter texture" << endl;
     }
     sprite.setTexture(texture);
-    if (!projectileTexture.loadFromFile("assets/Projectiles/Kunai.png")) {
+    if (!projectileTexture.loadFromFile("assets/Projectiles/BigEnergyBall.png")) {
         cerr << "Error loading shooter texture" << endl;
     }
-    sprite.setPosition(startPosition);
-    sprite.setOrigin(16, 16);
+    sprite.setTextureRect(IntRect(0, 0, 16, 16));
+    sprite.setTexture(texture);
     sprite.setScale(2, 2);
+    sprite.setOrigin(sprite.getGlobalBounds().width / 2.f, sprite.getGlobalBounds().height / 2.f);
+    sprite.setPosition(startPosition);
 }
 
 void Shooter::collisionPlayer(shared_ptr<Player>& player)
@@ -37,6 +39,37 @@ void Shooter::update(RenderWindow& window, float deltatime, View& view)
 
     enemyPos.x += moveX * initialSpeed * deltatime;
     enemyPos.y += moveY * initialSpeed * deltatime;
+    float distanceX = abs(playerPos.x - enemyPos.x);
+    float distanceY = abs(playerPos.y - enemyPos.y);
+
+    if (frame / 10 > 3)
+    {
+        frame = 0;
+    }
+    else
+    {
+        frame++;
+    }
+
+    if (distanceX > distanceY) {
+        if (moveX > 0) {
+
+            sprite.setTextureRect(IntRect(16 * 3, 0 + 16 * (frame / 10), 16, 16));
+        }
+        else {
+            sprite.setTextureRect(IntRect(16 * 2, 0 + 16 * (frame / 10), 16, 16));
+        }
+    }
+    else {
+        if (moveY > 0) {
+
+            sprite.setTextureRect(IntRect(0, 0 + 16 * (frame / 10), 16, 16));
+        }
+        else {
+
+            sprite.setTextureRect(IntRect(16, 0 + 16 * (frame / 10), 16, 16));
+        }
+    }
     sprite.setPosition(enemyPos);
 
     // Update the fire timer
