@@ -129,7 +129,7 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 	bool pause = true;
 	bool gameOver = true;
 	bool Win = true;
-	bool Options = true;
+	bool Options = false;
 	Event event;
 	while (type < 5)
 	{
@@ -192,6 +192,7 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 					if (buttons[3].isClicked(window, event))
 					{
 						type = 4;
+						Options = true;
 						pause = false;
 					}
 					if (buttons[1].isClicked(window, event))
@@ -199,9 +200,9 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 						window.close();
 						pause = false;
 					}
-					if (event.type == sf::Event::KeyPressed)
+					if (event.type == Event::KeyPressed)
 					{
-						if (event.key.code == sf::Keyboard::Escape)
+						if (event.key.code == Keyboard::Escape)
 						{
 							type = 5;
 							pause = false;
@@ -301,11 +302,10 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 						type = 1;
 						pause = true;
 						Options = false;
-
 					}
-					if (event.type == sf::Event::KeyPressed)
+					if (event.type == Event::KeyPressed)
 					{
-						if (event.key.code == sf::Keyboard::Escape)
+						if (event.key.code == Keyboard::Escape)
 						{
 							type = 1;
 							pause = true;
