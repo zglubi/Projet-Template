@@ -15,6 +15,19 @@ Shooter::Shooter(Vector2f startPosition, float initialSpeed)
     sprite.setScale(2, 2);
 }
 
+void Shooter::collisionPlayer(shared_ptr<Player>& player)
+{
+	if (sprite.getGlobalBounds().intersects(player->getSprite().getGlobalBounds())) 
+    {
+		player->setToBeDeleted(true);
+		setToBeDeleted(true);
+	}
+    for (auto& projectile : projectiles)
+	{
+		projectile->collisionPlayer(player);
+	}
+}
+
 void Shooter::update(RenderWindow& window, float deltatime, View& view)
 {
     Vector2f playerPos = view.getCenter();
@@ -61,6 +74,8 @@ void Shooter::update(RenderWindow& window, float deltatime, View& view)
 
 }
 
+
+
 void Shooter::draw(RenderWindow& window)
 {
     window.draw(sprite);
@@ -77,5 +92,5 @@ void Shooter::fireProjectile(Vector2f direction)
     Vector2f startPosition = sprite.getPosition();
     float speed = 300.0f; // Example speed value
     float damage = 10.0f; // Example damage value
-    projectiles.emplace_back(std::make_unique<Projectile>(projectileTexture, startPosition, direction, speed, damage));
+    projectiles.emplace_back(std::make_unique<Projectile>(projectileTexture, startPosition, direction, speed, damage, 1, 14, 5));
 }

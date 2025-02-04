@@ -20,7 +20,7 @@ private:
 
 public:
     Shooter(Vector2f startPosition, float initialSpeed);
-    void moveUpdate(shared_ptr<Player> player);
+    void collisionPlayer(shared_ptr<Player>& player) override;
     void update(RenderWindow& window, float deltatime, View& view) override;
     void draw(RenderWindow& window) override;
     void fireProjectile(Vector2f direction); // New method to fire projectiles

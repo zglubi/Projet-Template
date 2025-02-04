@@ -32,6 +32,7 @@ private:
     char hand1;
     char hand2;
     int dir;
+    bool attacking;
     vector<int> inventory;
 
 	Texture projectileTexture;

@@ -1,6 +1,8 @@
 #include "Projectile.h"
+#include "Player.h"
+#include "Enemy.h"
 
-Projectile::Projectile(Texture t, Vector2f position, Vector2f direction, float speed, float damage) : Entity(position.x, position.y)
+Projectile::Projectile(Texture t, Vector2f position, Vector2f direction, float speed, float damage, size_t maxF, size_t w, size_t h) : Entity(position.x, position.y)
 {
 	if (abs(direction.x) > abs(direction.y))
 	{
@@ -19,6 +21,9 @@ Projectile::Projectile(Texture t, Vector2f position, Vector2f direction, float s
 	sprite.setOrigin(texture.getSize().x / 2.f, texture.getSize().y / 2.f);
 	sprite.setScale(Vector2f(2, 2));
 	frame = 0;
+	maxFrame = maxF;
+	height = h;
+	width = w;
 }
 
 Projectile::~Projectile() {}
@@ -31,7 +36,7 @@ void Projectile::update(sf::RenderWindow& window, float deltatime, sf::View& vie
 
 	draw(window);
 
-	if (frame / 10 > 1)
+	if (frame / 10 > maxFrame - 1)
 	{
 		frame = 0;
 	}
@@ -40,7 +45,7 @@ void Projectile::update(sf::RenderWindow& window, float deltatime, sf::View& vie
 		frame++;
 	}
 
-	sprite.setTextureRect(IntRect(0 + 16 * (frame / 10), 0, 16, 16));
+	sprite.setTextureRect(IntRect(0 + width * (frame / 10), 0, width, height));
 }
 
 void Projectile::draw(sf::RenderWindow& window)
@@ -75,6 +80,27 @@ void Projectile::collision(std::vector<unique_ptr<Wall>>& walls)
 	}
 }
 
+void Projectile::collisionEnemies(std::vector<shared_ptr<Enemy>>& enemies)
+{
+	for (size_t i = 0; i < enemies.size(); i++)
+	{
+		if (sprite.getGlobalBounds().intersects(enemies[i]->getSprite().getGlobalBounds()))
+		{
+			enemies[i]->setToBeDeleted(true);
+			setToBeDeleted(true);
+			break;
+		}
+	}
+}
+
+void Projectile::collisionPlayer(shared_ptr<Player>& player)
+{
+	if (sprite.getGlobalBounds().intersects(player->getSprite().getGlobalBounds()))
+	{
+		player->setToBeDeleted(true);
+		setToBeDeleted(true);
+	}
+}
 
 Vector2f Projectile::getPosition()
 {

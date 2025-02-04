@@ -16,6 +16,14 @@ Chaser::Chaser(Vector2f startPosition, float initialSpeed)
 	moveY = 0;
 }
 
+void Chaser::collisionPlayer(shared_ptr<Player>& player)
+{
+	if (sprite.getGlobalBounds().intersects(player->getSprite().getGlobalBounds()))
+	{
+		player->setToBeDeleted(true);
+		setToBeDeleted(true);
+	}
+}
 
 void Chaser::update(RenderWindow& window, float deltatime, View& view) 
 {

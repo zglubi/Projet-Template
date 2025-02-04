@@ -101,6 +101,12 @@ void EntityManager::update(RenderWindow& window, float deltatime, View& view, ve
     {
         entity->update(window, deltatime, view);
     }
+
+    for (auto& enemy : enemies)
+	{
+		enemy->collisionPlayer(player);
+	}
+
     removeEntity();
     for (auto& item : items) {
         item->interact(player);
