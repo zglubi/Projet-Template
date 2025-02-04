@@ -133,7 +133,7 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 	Event event;
 	while (type < 5)
 	{
-		if (type == 0)
+		if (type == 0) // Menu Principal
 		{
 			while (menu)
 			{
@@ -149,9 +149,9 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 						window.close();
 						menu = false;
 					}
-					if (event.type == sf::Event::KeyPressed)
+					if (event.type == Event::KeyPressed)
 					{
-						if (event.key.code == sf::Keyboard::Escape)
+						if (event.key.code == Keyboard::Escape)
 						{
 							window.close();
 							menu = false;
@@ -172,7 +172,7 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 				window.display();
 			}
 		}
-		if (type == 1)
+		if (type == 1) // Menu Pause
 		{
 			while (pause)
 			{
@@ -218,7 +218,7 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 				window.display();
 			}
 		}
-		if (type == 2)
+		if (type == 2) // Game Over
 		{
 			while (gameOver)
 			{
@@ -235,9 +235,9 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 						window.close();
 						gameOver = false;
 					}
-					if (event.type == sf::Event::KeyPressed)
+					if (event.type == Event::KeyPressed)
 					{
-						if (event.key.code == sf::Keyboard::Escape)
+						if (event.key.code == Keyboard::Escape)
 						{
 							type = 5;
 							gameOver = false;
@@ -251,7 +251,7 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 				window.display();
 			}
 		}
-		if (type == 3)
+		if (type == 3) // Win
 		{
 			bool Win = true;
 			while (Win)
@@ -269,9 +269,9 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 						window.close();
 						Win = false;
 					}
-					if (event.type == sf::Event::KeyPressed)
+					if (event.type == Event::KeyPressed)
 					{
-						if (event.key.code == sf::Keyboard::Escape)
+						if (event.key.code == Keyboard::Escape)
 						{
 							type = 5;
 							Win = false;
@@ -285,7 +285,7 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 				window.display();
 			}
 		}
-		if (type == 4)
+		if (type == 4) // Options
 		{
 			while (Options)
 			{
