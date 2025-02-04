@@ -14,6 +14,7 @@
 #include "Shuriken.h"
 #include "Stairs.h"
 
+
 RenderWindow window(VideoMode(1440, 1080), "Zelda Like");
 
 Map gameMap;
