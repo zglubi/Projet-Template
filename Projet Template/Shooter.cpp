@@ -125,5 +125,5 @@ void Shooter::fireProjectile(Vector2f direction)
     Vector2f startPosition = sprite.getPosition();
     float speed = 300.0f; // Example speed value
     float damage = 10.0f; // Example damage value
-    projectiles.emplace_back(std::make_unique<Projectile>(projectileTexture, startPosition, direction, speed, damage, 1, 14, 5));
+    projectiles.emplace_back(std::make_unique<Projectile>(projectileTexture, startPosition, direction, speed, damage, 4, 24, 24));
 }
