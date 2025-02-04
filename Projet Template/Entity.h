@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "RandomNumber.h"
 using namespace sf;
 using namespace std;
 

@@ -23,6 +23,7 @@ private:
 	vector<shared_ptr<Enemy>> enemies;
 	vector<shared_ptr<Item>> items;
 	shared_ptr<Player> player;
+	size_t mobCap;
 
 	EntityManager();
 public:

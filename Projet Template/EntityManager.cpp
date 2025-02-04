@@ -1,6 +1,9 @@
 #include "EntityManager.h"
 
-EntityManager::EntityManager() {}
+EntityManager::EntityManager() 
+{
+    mobCap = 5;
+}
 
 EntityManager* EntityManager::instance = nullptr;
 
@@ -113,10 +116,37 @@ void EntityManager::update(RenderWindow& window, float deltatime, View& view, ve
     }
 
 	player->handleInput(window, view, walls, enemies, deltatime);
-    checkPlayerEnemyCollision(); // Appel de la nouvelle méthode
+    checkPlayerEnemyCollision();
+    spawnEnemy();
 }
 
 void EntityManager::spawnEnemy()
 {
-
+    if (player->getWilderness() && enemies.size() < mobCap)
+    {
+        bool spawning = false;
+        Vector2f posEnemy;
+        while (!spawning)
+        {
+            posEnemy = { static_cast<float>(randomNumber(player->getSprite().getPosition().x - 1500, player->getSprite().getPosition().x + 1500)), static_cast<float>(randomNumber(player->getSprite().getPosition().y - 1500, player->getSprite().getPosition().y + 1500)) };
+            if (posEnemy.x > player->getSprite().getPosition().x - 500 && posEnemy.x < player->getSprite().getPosition().x + 500 && posEnemy.y > player->getSprite().getPosition().y - 500 && posEnemy.y < player->getSprite().getPosition().y + 500)
+            {
+                continue;
+            }
+            else
+            {
+				spawning = true;
+            }
+        }
+        int type = randomNumber(1, 2);
+        switch (type)
+        {
+        case 1:
+            addChaser(posEnemy, 100);
+            break;
+        case 2:
+            addShooter(posEnemy, 100);
+            break;
+        }
+    }
 }

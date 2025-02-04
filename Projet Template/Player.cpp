@@ -269,7 +269,7 @@ void Player::shoot(RenderWindow& window, View& view)
 
     if (direction.x != 0 || direction.y != 0)
     {
-        projectiles.push_back(make_unique<Projectile>(projectileTexture, view.getCenter(), direction, 200, 10, 2, 16, 16));
+        projectiles.push_back(make_unique<Projectile>(projectileTexture, view.getCenter(), direction, 600, 10, 2, 16, 16));
         cooldownProjectile.restart();
     }
 }
@@ -352,4 +352,9 @@ void Player::addToInventory(int item)
 vector<int> Player::getInventory()
 {
 	return inventory;
+}
+
+bool Player::getWilderness() const
+{
+    return isWilderness;
 }

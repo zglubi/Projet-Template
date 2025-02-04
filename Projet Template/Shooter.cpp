@@ -34,13 +34,28 @@ void Shooter::update(RenderWindow& window, float deltatime, View& view)
 {
     Vector2f playerPos = view.getCenter();
     Vector2f enemyPos = sprite.getPosition();
-    moveX = (playerPos.x > enemyPos.x) - (playerPos.x < enemyPos.x);
-    moveY = (playerPos.y > enemyPos.y) - (playerPos.y < enemyPos.y);
+    float distanceX = abs(playerPos.x - enemyPos.x);
+    float distanceY = abs(playerPos.y - enemyPos.y);
+    float distance = sqrt(distanceX * distanceX + distanceY * distanceY);
+
+    if (distance > 500.0f) {
+        // S'approcher du joueur
+        moveX = (playerPos.x > enemyPos.x) - (playerPos.x < enemyPos.x);
+        moveY = (playerPos.y > enemyPos.y) - (playerPos.y < enemyPos.y);
+    }
+    else if (distance < 450.0f) {
+        // Reculer du joueur
+        moveX = (playerPos.x < enemyPos.x) - (playerPos.x > enemyPos.x);
+        moveY = (playerPos.y < enemyPos.y) - (playerPos.y > enemyPos.y);
+    }
+    else {
+        // Ne pas bouger
+        moveX = 0;
+        moveY = 0;
+    }
 
     enemyPos.x += moveX * initialSpeed * deltatime;
     enemyPos.y += moveY * initialSpeed * deltatime;
-    float distanceX = abs(playerPos.x - enemyPos.x);
-    float distanceY = abs(playerPos.y - enemyPos.y);
 
     if (frame / 10 > 3)
     {
@@ -53,7 +68,6 @@ void Shooter::update(RenderWindow& window, float deltatime, View& view)
 
     if (distanceX > distanceY) {
         if (moveX > 0) {
-
             sprite.setTextureRect(IntRect(16 * 3, 0 + 16 * (frame / 10), 16, 16));
         }
         else {
@@ -62,11 +76,9 @@ void Shooter::update(RenderWindow& window, float deltatime, View& view)
     }
     else {
         if (moveY > 0) {
-
             sprite.setTextureRect(IntRect(0, 0 + 16 * (frame / 10), 16, 16));
         }
         else {
-
             sprite.setTextureRect(IntRect(16, 0 + 16 * (frame / 10), 16, 16));
         }
     }
@@ -104,8 +116,8 @@ void Shooter::update(RenderWindow& window, float deltatime, View& view)
         }),
         projectiles.end());
     draw(window);
-
 }
+
 
 
 
