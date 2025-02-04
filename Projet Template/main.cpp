@@ -94,7 +94,6 @@ int main()
         }
 		if (isOptions)
 		{
-			cout << "Options" << endl;
 			menu.menuDisplay(window, 4);
 			isOptions = false;
 			clock.restart();

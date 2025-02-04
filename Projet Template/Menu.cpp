@@ -131,172 +131,193 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 	bool Win = true;
 	bool Options = true;
 	Event event;
-	if (type == 0)
+	while (type < 5)
 	{
-		while (menu)
+		if (type == 0)
 		{
-			while (window.pollEvent(event))
+			while (menu)
 			{
-				if (event.type == Event::Closed)
+				while (window.pollEvent(event))
 				{
-					window.close();
-					menu = false;
-				}
-				if (buttons[1].isClicked(window, event))
-				{
-					window.close();
-					menu = false;
-				}
+					if (event.type == Event::Closed)
+					{
+						window.close();
+						menu = false;
+					}
+					if (buttons[1].isClicked(window, event))
+					{
+						window.close();
+						menu = false;
+					}
+					if (event.type == sf::Event::KeyPressed)
+					{
+						if (event.key.code == sf::Keyboard::Escape)
+						{
+							window.close();
+							menu = false;
+						}
+					}
 
-				else if (buttons[0].isClicked(window, event))
-				{
-					menu = false;
+					else if (buttons[0].isClicked(window, event))
+					{
+						type = 5;
+						menu = false;
+					}
 				}
+				window.clear();
+				window.draw(mainMenuBGSprite);
+				window.draw(title);
+				buttons[0].draw(window);
+				buttons[1].draw(window);
+				window.display();
 			}
-			window.clear();
-			window.draw(mainMenuBGSprite);
-			window.draw(title);
-			buttons[0].draw(window);
-			buttons[1].draw(window);
-			window.display();
 		}
-	}
-	if (type == 1)
-	{
-		while (pause)
+		if (type == 1)
 		{
-			window.setView(window.getDefaultView());
-
-			while (window.pollEvent(event))
+			while (pause)
 			{
-				if (event.type == Event::Closed)
-				{
-					window.close();
-				}
-				if (buttons[2].isClicked(window, event)) 
-				{
-					pause = false;
-				}
-				if (buttons[3].isClicked(window, event)) 
-				{
+				window.setView(window.getDefaultView());
 
-				}
-				if (buttons[1].isClicked(window, event)) 
+				while (window.pollEvent(event))
 				{
-					window.close();
-					pause = false;
-				}
-				if (event.type == sf::Event::KeyPressed)
-				{
-					if (event.key.code == sf::Keyboard::Escape)
+					if (event.type == Event::Closed)
+					{
+						window.close();
+					}
+					if (buttons[2].isClicked(window, event))
 					{
 						pause = false;
+						type = 5;
+					}
+					if (buttons[3].isClicked(window, event))
+					{
+						type = 4;
+						pause = false;
+					}
+					if (buttons[1].isClicked(window, event))
+					{
+						window.close();
+						pause = false;
+					}
+					if (event.type == sf::Event::KeyPressed)
+					{
+						if (event.key.code == sf::Keyboard::Escape)
+						{
+							type = 5;
+							pause = false;
+						}
 					}
 				}
+
+				window.clear();
+				window.draw(pauseMenuBGSprite);
+				buttons[2].draw(window);
+				buttons[3].draw(window);
+				buttons[1].draw(window);
+				window.display();
 			}
-
-			window.clear();
-			window.draw(pauseMenuBGSprite);
-			buttons[2].draw(window);
-			buttons[3].draw(window);
-			buttons[1].draw(window);
-			window.display();
 		}
-	}
-	if (type == 2)
-	{
-		while (gameOver)
+		if (type == 2)
 		{
-			window.setView(window.getDefaultView());
-
-			while (window.pollEvent(event))
+			while (gameOver)
 			{
-				if (event.type == Event::Closed)
+				window.setView(window.getDefaultView());
+
+				while (window.pollEvent(event))
 				{
-					window.close();
-				}
-				if (buttons[1].isClicked(window, event))
-				{
-					window.close();
-					gameOver = false;
-				}
-				if (event.type == sf::Event::KeyPressed)
-				{
-					if (event.key.code == sf::Keyboard::Escape)
+					if (event.type == Event::Closed)
 					{
+						window.close();
+					}
+					if (buttons[1].isClicked(window, event))
+					{
+						window.close();
 						gameOver = false;
 					}
-				}
-			}
-			window.clear();
-			window.draw(gameOverBGSprite);
-			window.draw(gameOverTexte);
-			buttons[1].draw(window);
-			window.display();
-		}
-	}
-	if (type == 3)
-	{
-		bool Win = true;
-		while (Win)
-		{
-			window.setView(window.getDefaultView());
-
-			while (window.pollEvent(event))
-			{
-				if (event.type == Event::Closed)
-				{
-					window.close();
-				}
-				if (buttons[1].isClicked(window, event))
-				{
-					window.close();
-					Win = false;
-				}
-				if (event.type == sf::Event::KeyPressed)
-				{
-					if (event.key.code == sf::Keyboard::Escape)
+					if (event.type == sf::Event::KeyPressed)
 					{
+						if (event.key.code == sf::Keyboard::Escape)
+						{
+							type = 5;
+							gameOver = false;
+						}
+					}
+				}
+				window.clear();
+				window.draw(gameOverBGSprite);
+				window.draw(gameOverTexte);
+				buttons[1].draw(window);
+				window.display();
+			}
+		}
+		if (type == 3)
+		{
+			bool Win = true;
+			while (Win)
+			{
+				window.setView(window.getDefaultView());
+
+				while (window.pollEvent(event))
+				{
+					if (event.type == Event::Closed)
+					{
+						window.close();
+					}
+					if (buttons[1].isClicked(window, event))
+					{
+						window.close();
 						Win = false;
 					}
-				}
-			}
-			window.clear();
-			window.draw(winBGSprite);
-			window.draw(win);
-			buttons[1].draw(window);
-			window.display();
-		}
-	}
-	if (type == 4)
-	{
-		while (Options)
-		{
-			window.setView(window.getDefaultView());
-
-			while (window.pollEvent(event))
-			{
-				if (event.type == Event::Closed)
-				{
-					window.close();
-				}
-				if (buttons[4].isClicked(window, event))
-				{
-					Options = false;
-				}
-				if (event.type == sf::Event::KeyPressed)
-				{
-					if (event.key.code == sf::Keyboard::Escape)
+					if (event.type == sf::Event::KeyPressed)
 					{
-						Options = false;
-						pause = true;
+						if (event.key.code == sf::Keyboard::Escape)
+						{
+							type = 5;
+							Win = false;
+						}
 					}
 				}
+				window.clear();
+				window.draw(winBGSprite);
+				window.draw(win);
+				buttons[1].draw(window);
+				window.display();
 			}
-			window.clear();
-			window.draw(optionsMenuBGSprite);
-			buttons[4].draw(window);
-			window.display();
+		}
+		if (type == 4)
+		{
+			while (Options)
+			{
+				window.setView(window.getDefaultView());
+
+				while (window.pollEvent(event))
+				{
+					if (event.type == Event::Closed)
+					{
+						window.close();
+					}
+					if (buttons[4].isClicked(window, event))
+					{
+						type = 1;
+						pause = true;
+						Options = false;
+
+					}
+					if (event.type == sf::Event::KeyPressed)
+					{
+						if (event.key.code == sf::Keyboard::Escape)
+						{
+							type = 1;
+							pause = true;
+							Options = false;
+						}
+					}
+				}
+				window.clear();
+				window.draw(optionsMenuBGSprite);
+				buttons[4].draw(window);
+				window.display();
+			}
 		}
 	}
 }
