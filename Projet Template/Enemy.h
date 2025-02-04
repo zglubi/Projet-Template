@@ -13,6 +13,7 @@ class Enemy : public Entity
 public:
     Vector2f position;
     Vector2f velocity;
+    size_t hp;
     float speed;
     int frame = 0;
     Enemy(float x, float y, float speed);

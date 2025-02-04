@@ -86,21 +86,6 @@ void EntityManager::removeEntity()
         std::remove_if(items.begin(), items.end(),
             [](const std::shared_ptr<Entity>& entity) { return entity->isToBeDeleted(); }),
         items.end());
-
-    if (player->toBeDeleted == true)
-        player = nullptr;
-}
-
-void EntityManager::checkPlayerEnemyCollision()
-{
-    for (auto& enemy : enemies)
-    {
-        if (player->getSprite().getGlobalBounds().intersects(enemy->getSprite().getGlobalBounds()))
-        {
-            player->setToBeDeleted(true);
-            break;
-        }
-    }
 }
 
 void EntityManager::update(RenderWindow& window, float deltatime, View& view, vector<unique_ptr<Wall>>& walls)
@@ -117,12 +102,12 @@ void EntityManager::update(RenderWindow& window, float deltatime, View& view, ve
 
     dispawnEnemy();
     removeEntity();
-    for (auto& item : items) {
+    for (auto& item : items) 
+    {
         item->interact(player);
     }
 
 	player->handleInput(window, view, walls, enemies, deltatime);
-    checkPlayerEnemyCollision();
     spawnEnemy();
 }
 
