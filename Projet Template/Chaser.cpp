@@ -25,6 +25,11 @@ void Chaser::collisionPlayer(shared_ptr<Player>& player)
 	}
 }
 
+void Chaser::collisionWall(vector<unique_ptr<Wall>>& walls)
+{
+
+}
+
 void Chaser::update(RenderWindow& window, float deltatime, View& view) 
 {
 	if (hp <= 0 || hp > 10) {

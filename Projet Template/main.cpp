@@ -115,7 +115,7 @@ int main()
         gameMap.draw(window);
         manager->update(window, deltaTime, view, gameMap.getWalls());
 
-        hud.draw(window, manager->getInventory());
+        hud.draw(window, manager->getInventory(), manager->getPlayer()->getHp());
         window.display();
     }
 

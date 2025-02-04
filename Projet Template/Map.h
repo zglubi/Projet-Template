@@ -30,8 +30,6 @@ private:
 	Sprite	spritePillarA;
 	Sprite	spriteRockA;
 
-
-
 	Texture createColoredTexture(Color color, Vector2u size);
 
 	vector<vector<char>> map;

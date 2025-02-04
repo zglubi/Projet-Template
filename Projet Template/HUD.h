@@ -18,6 +18,9 @@ private:
     Texture healthTexture;
     Sprite healthSprite;
 
+    Texture healthBarBorderTexture;
+	Sprite healthBarBorderSprite;
+
     // SFML objects for displaying the inventory as a texture
     Texture inventoryTexture;
     Sprite inventorySprite;
@@ -57,7 +60,7 @@ public:
     void healthDown(int amount);
 
     // Function to draw the HUD to the window
-    void draw(RenderWindow& window, vector<int> inventory);
+    void draw(RenderWindow& window, vector<int> inventory, size_t hp);
 
 	void inventoryDisplay(RenderWindow& window, vector<int> items);
 };

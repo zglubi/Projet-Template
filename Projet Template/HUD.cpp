@@ -7,19 +7,26 @@ HUD::HUD()
     playerHealth = 7;
 
     // Load the health texture from a file
-    if (!healthTexture.loadFromFile("assets/Hud/health_texture.png"))
+    if (!healthTexture.loadFromFile("assets\\Hud\\Health\\bar.png"))
     {
         // Handle error
         cerr << "Error loading health texture" << endl;
     }
 
     // Initialize the health sprite
-    healthSprite.setTextureRect(IntRect(5, 2, 37, 14));
+    healthSprite.setTextureRect(IntRect(8, 54, 78, 6));
     healthSprite.setPosition(20.f, 20.f);
-    healthSprite.setScale(3, 3);
+    healthSprite.setScale(4.1, 4.1);
     healthSprite.setTexture(healthTexture);
-    // Update the health sprite based on the player's health
-    updateHealthSprite();
+
+    if (!healthBarBorderTexture.loadFromFile("assets\\Hud\\Health\\border.png"))
+    {
+		cerr << "Error loading health bar border texture" << endl;
+    }
+    healthBarBorderSprite.setTexture(healthBarBorderTexture);
+    healthBarBorderSprite.setPosition(20.f, 20.f);
+    healthBarBorderSprite.setScale(4, 4);
+    healthBarBorderSprite.setTextureRect(IntRect(6, 65, 83, 11));
 
     // Load the inventory texture from a file
     if (!inventoryTexture.loadFromFile("assets/Hud/Inventory.png"))
@@ -124,38 +131,7 @@ void HUD::healthDown(int amount)
 // Private method to update the health sprite based on the player's health
 void HUD::updateHealthSprite()
 {
-    if (playerHealth == 7)
-    {
-        healthSprite.setTextureRect(IntRect(5, 2, 37, 14));
-    }
-    else if (playerHealth == 6)
-    {
-        healthSprite.setTextureRect(IntRect(5, 53, 37, 14));
-    }
-    else if (playerHealth == 5)
-    {
-        healthSprite.setTextureRect(IntRect(5, 101, 37, 14));
-    }
-    else if (playerHealth == 4)
-    {
-        healthSprite.setTextureRect(IntRect(5, 149, 37, 14));
-    }
-    else if (playerHealth == 3)
-    {
-        healthSprite.setTextureRect(IntRect(5, 197, 37, 14));
-    }
-    else if (playerHealth == 2)
-    {
-        healthSprite.setTextureRect(IntRect(5, 245, 37, 14));
-    }
-    else if (playerHealth == 1)
-    {
-        healthSprite.setTextureRect(IntRect(5, 293, 37, 14));
-    }
-    else if (playerHealth == 0)
-    {
-        healthSprite.setTextureRect(IntRect(5, 341, 37, 14));
-    }
+    healthSprite.setTextureRect(IntRect(8, 54, 78, 6));
 }
 
 // Function to display the inventory
@@ -186,10 +162,14 @@ void HUD::inventoryDisplay(RenderWindow& window, vector<int> items) {
 }
 
 // Function to draw the HUD to the window
-void HUD::draw(RenderWindow& window, vector<int> inventory)
+void HUD::draw(RenderWindow& window, vector<int> inventory, size_t hp)
 {
-    healthSprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 20.f, window.getView().getCenter().y - window.getView().getSize().y / 2 + 20.f);
+    healthSprite.setTextureRect(IntRect(8, 54, static_cast<float>(78 * (static_cast<float>(hp) / static_cast<float>(100))), 6));
+    healthSprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 588.f, window.getView().getCenter().y - window.getView().getSize().y / 2 + 834.f);
     window.draw(healthSprite);
+
+    healthBarBorderSprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 580.f, window.getView().getCenter().y - window.getView().getSize().y / 2 + 830.f);
+    window.draw(healthBarBorderSprite);
 
     inventorySprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 550.f, window.getView().getCenter().y - window.getView().getSize().y / 2 + 900.f);
     window.draw(inventorySprite);
