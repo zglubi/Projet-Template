@@ -34,6 +34,8 @@ public:
 	void setPlayer(float x, float y);
 	void update(RenderWindow& window, float deltatime, View& view, vector<unique_ptr<Wall>>& walls);
 	vector<shared_ptr<Enemy>> getEnemies();
+
+	void spawnEnemy();
 	void removeEntity();
 	void checkPlayerEnemyCollision();
 };

@@ -115,3 +115,8 @@ void EntityManager::update(RenderWindow& window, float deltatime, View& view, ve
 	player->handleInput(window, view, walls, enemies, deltatime);
     checkPlayerEnemyCollision(); // Appel de la nouvelle méthode
 }
+
+void EntityManager::spawnEnemy()
+{
+
+}
