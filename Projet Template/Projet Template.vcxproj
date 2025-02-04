@@ -145,6 +145,7 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Katana.cpp" />
+    <ClCompile Include="Key.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Medipack.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="Interactable.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Katana.h" />
+    <ClInclude Include="Key.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Medipack.h" />
     <ClInclude Include="Menu.h" />
