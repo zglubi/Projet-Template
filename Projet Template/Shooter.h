@@ -5,6 +5,7 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "Projectile.h"
+#include "Wall.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 
@@ -21,6 +22,7 @@ private:
 public:
     Shooter(Vector2f startPosition, float initialSpeed);
     void collisionPlayer(shared_ptr<Player>& player) override;
+    void collisionWall(vector<unique_ptr<Wall>>& walls) override;
     void update(RenderWindow& window, float deltatime, View& view) override;
     void draw(RenderWindow& window) override;
     void fireProjectile(Vector2f direction); // New method to fire projectiles

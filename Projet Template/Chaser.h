@@ -17,6 +17,7 @@ public:
     Chaser(Vector2f startPosition, float initialSpeed);
 
     void collisionPlayer(shared_ptr<Player>& player) override;
+    void collisionWall(vector<unique_ptr<Wall>>& walls) override;
     void update(RenderWindow& window, float deltatime, View& view) override;
     void draw(RenderWindow& window) override;
 };

@@ -30,6 +30,14 @@ void Shooter::collisionPlayer(shared_ptr<Player>& player)
 	}
 }
 
+void Shooter::collisionWall(vector<unique_ptr<Wall>>& walls) 
+{
+    for (auto& projectile : projectiles)
+    {
+        projectile->collision(walls);
+    }
+}
+
 void Shooter::update(RenderWindow& window, float deltatime, View& view)
 {
     Vector2f playerPos = view.getCenter();
