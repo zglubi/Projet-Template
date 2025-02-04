@@ -20,7 +20,7 @@ J'ai ensuite créé une classe Wall pour pouvoir gérer les murs à part dans la
 Ensuite j'ai fait les attaques basiques du Player en ajoutant les shuriken et le katana. J'ai fait une classe projectile pour pouvoir mieux les gérer en leur donnant une direction et en gérant les animations dedans. J'ai fait en sorte que la direction du shuriken soit un vector normalisé de la différence entre la position de la souris et celle du player. Ensuite pour l'attaque du katana j'ai ajouté un calcul d'angle pour pouvoir faire une animation plus réaliste et que l'animation parte dans le sens où le player tape. 
 Après cela, j'ai fait le EntityManager pour pouvoir mieux gérer toutes les entités car il commençait à en avoir beaucoup. J'ai fait des méthodes pour crér chaque type d'entité et les effacer.
 
-Thomas(Enemy/Chaser) : 
+Thomas : 
 une fois mon problème réglé, je me suis occupé de coder la classe enemy (dérivée de entity) qui servira de base a toute les entités hostiles du jeu.
 Elle donne les caractéristiques de tout les ennemis (position, vitesse, vélocité…).
 J'ai ensuite codé le premier ennemi fonctionnel du jeu, le chaser(dérivé de enemy).
@@ -34,3 +34,5 @@ jour 3:
 Je me suis occupé de créer la class HUD qui gère toute l'ui du joueur. Elle sert a afficher la vie du joueur et elle se met a jour selon les dégats/soint reçus par le joueur.
 Le hud affiche également l'inventaire et il se met a jour quand un objet est ramassé, il apparait alors dans la hotbar.
 J'ai aussi légèrement travaillé sur la carte en améliorant la classe stairs mais elle n'est pas encore fonctionnelle.
+
+jour 4: j'ai amélioré la classe Hud, maintenant les objets rammasés par le joueur s'affichent dans la hotbar, le medipack et les clés ont été ajoutés dans l'inventaire
