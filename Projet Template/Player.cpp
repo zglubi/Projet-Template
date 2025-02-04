@@ -344,3 +344,8 @@ void Player::addToInventory(int item)
 {
     inventory.push_back(item);
 }
+
+vector<int> Player::getInventory()
+{
+	return inventory;
+}
