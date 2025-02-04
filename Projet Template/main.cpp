@@ -94,7 +94,6 @@ int main()
         }
 		if (isOptions)
 		{
-			cout << "Options" << endl;
 			menu.menuDisplay(window, 4);
 			isOptions = false;
 			clock.restart();
@@ -109,7 +108,7 @@ int main()
         window.clear();
         gameMap.draw(window);
         manager->update(window, deltaTime, view, gameMap.getWalls());
-        hud.draw(window);
+        hud.draw(window, manager->getInventory());
         window.display();
     }
 

@@ -39,7 +39,7 @@ public:
 	void spawnEnemy();
 	void removeEntity();
 	void checkPlayerEnemyCollision();
-
+	vector<int> getInventory();
 };
 
 #endif // ENTITYMANAGER_H
