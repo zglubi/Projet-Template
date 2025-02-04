@@ -120,7 +120,6 @@ void Map::loadMap(int mapNum)
 				}
 				case 'H':
 				{
-					cout << "test";
 					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, spriteWallH));
 					break;
 				}
