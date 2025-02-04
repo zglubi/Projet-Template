@@ -45,6 +45,7 @@ int main()
     bool isPause = false;
 	bool gameOver = false;
     bool win = false;
+	bool isOptions = false;
 
     // Affiche le menu principal avant de lancer le jeu
     menu.menuDisplay(window, 0);
@@ -91,6 +92,15 @@ int main()
             window.setView(view);
             continue;
         }
+		if (isOptions)
+		{
+			cout << "Options" << endl;
+			menu.menuDisplay(window, 4);
+			isOptions = false;
+			clock.restart();
+			window.setView(view);
+			continue;
+		}
 
         // Mise à jour du deltaTime
         deltaTime = clock.restart().asSeconds();

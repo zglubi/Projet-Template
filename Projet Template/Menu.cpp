@@ -50,13 +50,24 @@ Menu::Menu(RenderWindow& window)
 
 	winBGSprite.setScale(scaleWX, scaleWY);
 
+	// Background du menu Options
+	optionsMenuBGTexture.loadFromFile("Assets/Backgrounds/OptionsMenuBG.jpg");
+	optionsMenuBGSprite.setTexture(optionsMenuBGTexture);
+	Vector2u windowSizeO = window.getSize();
+	Vector2u textureSizeO = optionsMenuBGTexture.getSize();
+
+	float scaleOX = static_cast<float>(windowSizeO.x) / textureSizeO.x;
+	float scaleOY = static_cast<float>(windowSizeO.y) / textureSizeO.y;
+
+	optionsMenuBGSprite.setScale(scaleOX, scaleOY);
+
 	// Texte Titre
 	font.loadFromFile("Assets/SquadaOne-Regular.ttf");
 	title.setFont(font);
-	title.setString("Among us ?");
+	title.setString("Ninja Quest");
 	title.setCharacterSize(150);
 	title.setFillColor(Color::White);
-	title.setPosition(400, 200);
+	title.setPosition(380, 200);
 
 	// Texte Game Over
 	font.loadFromFile("Assets/SquadaOne-Regular.ttf");
@@ -83,10 +94,13 @@ Menu::Menu(RenderWindow& window)
 
 	buttonOptionsTexture.loadFromFile("Assets/Buttons/OptionsButton.png");
 
+	buttonReturnTexture.loadFromFile("Assets/Buttons/ReturnButton.png");
+
 	buttons.push_back(Button(buttonPlayTexture, Vector2f(540, 450)));
 	buttons.push_back(Button(buttonExitTexture, Vector2f(620, 700)));
 	buttons.push_back(Button(buttonResumeTexture, Vector2f(620, 200)));
 	buttons.push_back(Button(buttonOptionsTexture, Vector2f(620, 450)));
+	buttons.push_back(Button(buttonReturnTexture, Vector2f(50, 50)));
 }
 
 void Menu::draw(RenderWindow& window)
@@ -112,6 +126,10 @@ int Menu::handleInput(const RenderWindow& window, Event event)
 void Menu::menuDisplay(RenderWindow& window, int type)
 {
 	bool menu = true;
+	bool pause = true;
+	bool gameOver = true;
+	bool Win = true;
+	bool Options = true;
 	Event event;
 	if (type == 0)
 	{
@@ -145,7 +163,6 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 	}
 	if (type == 1)
 	{
-		bool pause = true;
 		while (pause)
 		{
 			window.setView(window.getDefaultView());
@@ -162,7 +179,7 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 				}
 				if (buttons[3].isClicked(window, event)) 
 				{
-					// Code pour des options
+
 				}
 				if (buttons[1].isClicked(window, event)) 
 				{
@@ -188,7 +205,6 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 	}
 	if (type == 2)
 	{
-		bool gameOver = true;
 		while (gameOver)
 		{
 			window.setView(window.getDefaultView());
@@ -249,6 +265,37 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 			window.draw(winBGSprite);
 			window.draw(win);
 			buttons[1].draw(window);
+			window.display();
+		}
+	}
+	if (type == 4)
+	{
+		while (Options)
+		{
+			window.setView(window.getDefaultView());
+
+			while (window.pollEvent(event))
+			{
+				if (event.type == Event::Closed)
+				{
+					window.close();
+				}
+				if (buttons[4].isClicked(window, event))
+				{
+					Options = false;
+				}
+				if (event.type == sf::Event::KeyPressed)
+				{
+					if (event.key.code == sf::Keyboard::Escape)
+					{
+						Options = false;
+						pause = true;
+					}
+				}
+			}
+			window.clear();
+			window.draw(optionsMenuBGSprite);
+			buttons[4].draw(window);
 			window.display();
 		}
 	}
