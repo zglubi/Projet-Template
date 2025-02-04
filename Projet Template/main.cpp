@@ -33,8 +33,8 @@ int main()
     manager->setPlayer(720, 540);
     hud.setPlayerHealth(7);
 
-    manager->addChaser(Vector2f(100, 100), 50);
-    manager->addShooter(Vector2f(200, 200), 50.0f);
+    /*manager->addChaser(Vector2f(100, 100), 50);
+    manager->addShooter(Vector2f(200, 200), 50.0f);*/
     manager->addItem(Vector2f(0, 500), 1);
     manager->addItem(Vector2f(200, 700), 2);
     manager->addItem(Vector2f(800, 300), 3);
@@ -109,7 +109,7 @@ int main()
         window.clear();
         gameMap.draw(window);
         manager->update(window, deltaTime, view, gameMap.getWalls());
-        hud.draw(window);
+        hud.draw(window, manager->getInventory());
         window.display();
     }
 

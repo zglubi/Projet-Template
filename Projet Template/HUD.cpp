@@ -56,6 +56,24 @@ HUD::HUD()
 	// Initialize the katana icon sprite
 	katanaIconSprite.setTexture(katanaIconTexture);
 	katanaIconSprite.setScale(2.0f, 2.0f);
+
+	// Load the mouse texture from a file
+	if (!mouseTexture.loadFromFile("assets/Hud/mouse.png"))
+	{
+		// Handle error
+		cerr << "Error loading mouse texture" << endl;
+	}
+
+	// Initialize the mouse sprite
+    mouseLeftSprite.setTextureRect(IntRect(210, 78, 54, 81));
+    mouseLeftSprite.setPosition(20.f, 20.f);
+    mouseLeftSprite.setScale(0.3, 0.3);
+    mouseLeftSprite.setTexture(mouseTexture);
+
+    mouseRightSprite.setTextureRect(IntRect(398, 78, 54, 81));
+    mouseRightSprite.setPosition(20.f, 20.f);
+    mouseRightSprite.setScale(0.3, 0.3);
+    mouseRightSprite.setTexture(mouseTexture);
 }
 
 // Function to set the player's health
@@ -139,7 +157,7 @@ void HUD::inventoryDisplay(RenderWindow& window, vector<int> items) {
 }
 
 // Function to draw the HUD to the window
-void HUD::draw(RenderWindow& window)
+void HUD::draw(RenderWindow& window, vector<int> inventory)
 {
     healthSprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 20.f, window.getView().getCenter().y - window.getView().getSize().y / 2 + 20.f);
     window.draw(healthSprite);
@@ -147,5 +165,11 @@ void HUD::draw(RenderWindow& window)
     inventorySprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 550.f, window.getView().getCenter().y - window.getView().getSize().y / 2 + 900.f);
     window.draw(inventorySprite);
 
-	inventoryDisplay(window, { 1,2 });
+    mouseLeftSprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 572.f, window.getView().getCenter().y - window.getView().getSize().y / 2 + 875.f);
+    window.draw(mouseLeftSprite);
+
+    mouseRightSprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 642.f, window.getView().getCenter().y - window.getView().getSize().y / 2 + 875.f);
+    window.draw(mouseRightSprite);
+
+	inventoryDisplay(window, inventory);
 }
