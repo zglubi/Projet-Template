@@ -208,7 +208,7 @@ void Player::shoot(RenderWindow& window, View& view)
 
     if (direction.x != 0 || direction.y != 0)
     {
-        projectiles.push_back(make_unique<Projectile>(projectileTexture, view.getCenter(), direction, 200, 10));
+        projectiles.push_back(make_unique<Projectile>(projectileTexture, view.getCenter(), direction, 200, 10, 2));
         cooldownProjectile.restart();
     }
 }

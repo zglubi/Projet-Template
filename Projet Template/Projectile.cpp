@@ -1,6 +1,6 @@
 #include "Projectile.h"
 
-Projectile::Projectile(Texture t, Vector2f position, Vector2f direction, float speed, float damage) : Entity(position.x, position.y)
+Projectile::Projectile(Texture t, Vector2f position, Vector2f direction, float speed, float damage, int nbframe) : nbframe(nbframe), Entity(position.x, position.y)
 {
 	if (abs(direction.x) > abs(direction.y))
 	{
@@ -15,23 +15,28 @@ Projectile::Projectile(Texture t, Vector2f position, Vector2f direction, float s
 	this->damage = damage;
 	texture = t;
 	sprite.setTexture(texture);
-	sprite.setPosition(position);
-	sprite.setOrigin(texture.getSize().x / 2.f, texture.getSize().y / 2.f);
+	
+	sprite.setTextureRect(IntRect(0, 0, texture.getSize().x / nbframe, texture.getSize().y));
+	sprite.setOrigin(sprite.getLocalBounds().width / 2.f, sprite.getLocalBounds().height / 2.f);
 	sprite.setScale(Vector2f(2, 2));
+	sprite.setPosition(position);
 	frame = 0;
+	float angle = std::atan2(direction.y, direction.x) * 180 / 3.14159f;
+	sprite.setRotation(angle+90);
 }
 
 Projectile::~Projectile() {}
 
 void Projectile::update(sf::RenderWindow& window, float deltatime, sf::View& view)
 {
+
 	x += direction.x * speed * deltatime;
 	y += direction.y * speed * deltatime;
 	sprite.setPosition(x, y);
 
-	draw(window);
+	
 
-	if (frame / 10 > 1)
+	if (frame / 10 > nbframe-1)
 	{
 		frame = 0;
 	}
@@ -40,7 +45,11 @@ void Projectile::update(sf::RenderWindow& window, float deltatime, sf::View& vie
 		frame++;
 	}
 
-	sprite.setTextureRect(IntRect(0 + 16 * (frame / 10), 0, 16, 16));
+	sprite.setTextureRect(IntRect(0 + texture.getSize().x/nbframe * (frame / 10), 0, texture.getSize().x / nbframe, texture.getSize().x / nbframe));
+	RectangleShape rect = RectangleShape(Vector2f(10, 10));
+	rect.setPosition(x-5, y-5);
+	window.draw(rect);
+	draw(window);
 }
 
 void Projectile::draw(sf::RenderWindow& window)

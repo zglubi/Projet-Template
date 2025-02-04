@@ -12,9 +12,9 @@ private:
 	float damage;
 	Vector2f direction;
 	size_t frame;
-
+	int nbframe;
 public:
-	Projectile(Texture t, Vector2f position, Vector2f direction, float speed, float damage);
+	Projectile(Texture t, Vector2f position, Vector2f direction, float speed, float damage, int nbframe);
 	~Projectile();
 	void update(RenderWindow& window, float deltatime, View& view) override;
 	void collision(std::vector<unique_ptr<Wall>>& walls);
