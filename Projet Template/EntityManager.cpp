@@ -2,7 +2,7 @@
 
 EntityManager::EntityManager() 
 {
-    mobCap = 5;
+    mobCap = 10;
 }
 
 EntityManager* EntityManager::instance = nullptr;
@@ -35,6 +35,11 @@ void EntityManager::setPlayer(float x, float y)
     shared_ptr<Player> player = make_shared<Player>(x, y);
     this->player = player;
     entities.push_back(player);
+}
+
+shared_ptr<Player> EntityManager::getPlayer()
+{
+    return player;
 }
 
 void EntityManager::addItem(Vector2f Position, int val)
@@ -110,6 +115,7 @@ void EntityManager::update(RenderWindow& window, float deltatime, View& view, ve
 		enemy->collisionPlayer(player);
 	}
 
+    dispawnEnemy();
     removeEntity();
     for (auto& item : items) {
         item->interact(player);
@@ -133,7 +139,7 @@ void EntityManager::spawnEnemy()
         Vector2f posEnemy;
         while (!spawning)
         {
-            posEnemy = { static_cast<float>(randomNumber(player->getSprite().getPosition().x - 1500, player->getSprite().getPosition().x + 1500)), static_cast<float>(randomNumber(player->getSprite().getPosition().y - 1500, player->getSprite().getPosition().y + 1500)) };
+            posEnemy = { static_cast<float>(randomNumber(player->getSprite().getPosition().x - 3000, player->getSprite().getPosition().x + 3000)), static_cast<float>(randomNumber(player->getSprite().getPosition().y - 3000, player->getSprite().getPosition().y + 3000)) };
             if (posEnemy.x > player->getSprite().getPosition().x - 500 && posEnemy.x < player->getSprite().getPosition().x + 500 && posEnemy.y > player->getSprite().getPosition().y - 500 && posEnemy.y < player->getSprite().getPosition().y + 500)
             {
                 continue;
@@ -153,5 +159,17 @@ void EntityManager::spawnEnemy()
             addShooter(posEnemy, 100);
             break;
         }
+    }
+}
+
+void EntityManager::dispawnEnemy()
+{
+    for (auto& enemy : enemies)
+    {
+        if (enemy->getSprite().getPosition().x > player->getSprite().getPosition().x + 3000 || enemy->getSprite().getPosition().x < player->getSprite().getPosition().x - 3000 ||
+			enemy->getSprite().getPosition().y > player->getSprite().getPosition().y + 3000 || enemy->getSprite().getPosition().y < player->getSprite().getPosition().y - 3000)
+		{
+			enemy->setToBeDeleted(true);
+		}
     }
 }

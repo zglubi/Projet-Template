@@ -33,10 +33,12 @@ public:
 	void addShooter(Vector2f startPosition, float initialSpeed);
 	void addItem(Vector2f Position, int val);
 	void setPlayer(float x, float y);
+	shared_ptr<Player> getPlayer();
 	void update(RenderWindow& window, float deltatime, View& view, vector<unique_ptr<Wall>>& walls);
 	vector<shared_ptr<Enemy>> getEnemies();
 
 	void spawnEnemy();
+	void dispawnEnemy();
 	void removeEntity();
 	void checkPlayerEnemyCollision();
 	vector<int> getInventory();

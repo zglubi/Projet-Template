@@ -52,6 +52,11 @@ int main()
 
     while (window.isOpen())
     {
+        if (manager->getPlayer()->getHp() <= 0 || manager->getPlayer()->getHp() > 800)
+        {
+            gameOver = true;
+        }
+        
         Event event;
         while (window.pollEvent(event))
         {
@@ -108,6 +113,7 @@ int main()
         window.clear();
         gameMap.draw(window);
         manager->update(window, deltaTime, view, gameMap.getWalls());
+
         hud.draw(window, manager->getInventory());
         window.display();
     }

@@ -27,10 +27,12 @@ public:
     void addToInventory(int item);
 	vector<int> getInventory();
     bool getWilderness() const;
+    void diminishHp(int damage);
+    size_t getHp() const;
 private:
     int frame;
     float vitesse;
-    Sprite sprite;
+    size_t hp;
     int dir;
     bool attacking;
     vector<int> inventory;

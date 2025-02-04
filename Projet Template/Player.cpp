@@ -9,7 +9,7 @@ sf::Vector2f operator*(const sf::Vector2f& vector, float scalar) {
     return sf::Vector2f(vector.x * scalar, vector.y * scalar);
 }
 
-Player::Player(int x, int y) : Entity(x, y), frame(0), frameKatanaSlash(0) {
+Player::Player(int x, int y) : Entity(x, y), hp(100), frame(0), frameKatanaSlash(0) {
 
     
     if (!texture.loadFromFile("assets/Player/SpriteSheet.png")) {
@@ -255,6 +255,7 @@ void Player::draw(RenderWindow& window)
 
 void Player::update(RenderWindow& window, float deltatime, View& view)
 {
+    
     for (auto& projectile : projectiles)
     {
         projectile->update(window, deltatime, view);
@@ -358,3 +359,10 @@ bool Player::getWilderness() const
 {
     return isWilderness;
 }
+
+void Player::diminishHp(int damage)
+{
+    hp -= damage;
+}
+
+size_t Player::getHp() const { return hp; }

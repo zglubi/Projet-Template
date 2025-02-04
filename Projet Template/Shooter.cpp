@@ -43,7 +43,7 @@ void Shooter::update(RenderWindow& window, float deltatime, View& view)
         moveX = (playerPos.x > enemyPos.x) - (playerPos.x < enemyPos.x);
         moveY = (playerPos.y > enemyPos.y) - (playerPos.y < enemyPos.y);
     }
-    else if (distance < 450.0f) {
+    else if (distance < 400.0f) {
         // Reculer du joueur
         moveX = (playerPos.x < enemyPos.x) - (playerPos.x > enemyPos.x);
         moveY = (playerPos.y < enemyPos.y) - (playerPos.y > enemyPos.y);
@@ -110,9 +110,9 @@ void Shooter::update(RenderWindow& window, float deltatime, View& view)
     // Remove projectiles that go out of the window bounds (optional)
     projectiles.erase(std::remove_if(projectiles.begin(), projectiles.end(),
         [&window](const std::unique_ptr<Projectile>& projectile) {
-            return projectile->getSprite().getPosition().x < 0 || projectile->getSprite().getPosition().y < 0 ||
+            return (projectile->getSprite().getPosition().x < 0 || projectile->getSprite().getPosition().y < 0 ||
                 projectile->getSprite().getPosition().x > window.getSize().x ||
-                projectile->getSprite().getPosition().y > window.getSize().y;
+                projectile->getSprite().getPosition().y > window.getSize().y) || projectile->toBeDeleted;
         }),
         projectiles.end());
     draw(window);
@@ -135,7 +135,7 @@ void Shooter::draw(RenderWindow& window)
 void Shooter::fireProjectile(Vector2f direction)
 {
     Vector2f startPosition = sprite.getPosition();
-    float speed = 300.0f; // Example speed value
-    float damage = 10.0f; // Example damage value
+    float speed = 300.0f;
+    float damage = 10.0f;
     projectiles.emplace_back(std::make_unique<Projectile>(projectileTexture, startPosition, direction, speed, damage, 4, 24, 24));
 }
