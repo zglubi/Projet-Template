@@ -38,6 +38,7 @@ public:
 	void spawnEnemy();
 	void removeEntity();
 	void checkPlayerEnemyCollision();
+
 };
 
 #endif // ENTITYMANAGER_H

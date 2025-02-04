@@ -44,6 +44,18 @@ HUD::HUD()
 	// Initialize the shuriken icon sprite
 	shurikenIconSprite.setTexture(shurikenIconTexture);
 	shurikenIconSprite.setScale(2.0f, 2.0f);
+    
+	// Load the katana icon texture from a file
+
+	if (!katanaIconTexture.loadFromFile("assets/Icons/Katana.png"))
+	{
+		// Handle error
+		cerr << "Error loading katana icon texture" << endl;
+	}
+
+	// Initialize the katana icon sprite
+	katanaIconSprite.setTexture(katanaIconTexture);
+	katanaIconSprite.setScale(2.0f, 2.0f);
 }
 
 // Function to set the player's health
@@ -111,10 +123,17 @@ void HUD::inventoryDisplay(RenderWindow& window, vector<int> items) {
     for (int i = 0; i < items.size(); i++) {
         switch (items[i]) {
 		case 1:
-			shurikenIconSprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 560.f, window.getView().getCenter().y - window.getView().getSize().y / 2 + 912.f);
+			shurikenIconSprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 562.f, window.getView().getCenter().y - window.getView().getSize().y / 2 + 912.f);
 			window.draw(shurikenIconSprite);
 			break;
         }
+        switch (items[i]) {
+        case 2:
+            katanaIconSprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 632.f, window.getView().getCenter().y - window.getView().getSize().y / 2 + 912.f);
+            window.draw(katanaIconSprite);
+            break;
+        }
+
     }
 
 }
@@ -128,5 +147,5 @@ void HUD::draw(RenderWindow& window)
     inventorySprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 550.f, window.getView().getCenter().y - window.getView().getSize().y / 2 + 900.f);
     window.draw(inventorySprite);
 
-	inventoryDisplay(window, { 1 });
+	inventoryDisplay(window, { 1,2 });
 }

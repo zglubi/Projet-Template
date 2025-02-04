@@ -25,6 +25,7 @@ public:
 	void shoot(RenderWindow& window, View& view);
     void katanaSlash(RenderWindow& window, vector<shared_ptr<Enemy>>& enemies);
     void addToInventory(int item);
+	vector<int> getInventory();
 private:
     int frame;
     float vitesse;

@@ -25,10 +25,13 @@ private:
 	Texture gameOverBGTexture;
 	Sprite winBGSprite;
 	Texture winBGTexture;
+	Sprite optionsMenuBGSprite;
+	Texture optionsMenuBGTexture;
 	Texture buttonPlayTexture;
 	Texture buttonExitTexture;
 	Texture buttonResumeTexture;
 	Texture buttonOptionsTexture;
+	Texture buttonReturnTexture;
     vector<Button> buttons;
 
 public:

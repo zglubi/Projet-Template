@@ -30,6 +30,9 @@ private:
 	Texture shurikenIconTexture;
 	Sprite shurikenIconSprite;
 
+	Texture katanaIconTexture;
+	Sprite katanaIconSprite;
+
     // Private method to update the health sprite based on the player's health
     void updateHealthSprite();
 
