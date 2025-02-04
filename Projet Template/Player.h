@@ -30,8 +30,6 @@ private:
     int frame;
     float vitesse;
     Sprite sprite;
-    char hand1;
-    char hand2;
     int dir;
     bool attacking;
     vector<int> inventory;
