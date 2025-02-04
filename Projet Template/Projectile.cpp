@@ -102,7 +102,7 @@ void Projectile::collisionPlayer(shared_ptr<Player>& player)
 {
 	if (sprite.getGlobalBounds().intersects(player->getSprite().getGlobalBounds()))
 	{
-		player->setToBeDeleted(true);
+		player->diminishHp(damage);
 		setToBeDeleted(true);
 	}
 }

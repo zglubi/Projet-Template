@@ -66,14 +66,36 @@ HUD::HUD()
 
 	// Initialize the mouse sprite
     mouseLeftSprite.setTextureRect(IntRect(210, 78, 54, 81));
-    mouseLeftSprite.setPosition(20.f, 20.f);
     mouseLeftSprite.setScale(0.3, 0.3);
     mouseLeftSprite.setTexture(mouseTexture);
 
     mouseRightSprite.setTextureRect(IntRect(398, 78, 54, 81));
-    mouseRightSprite.setPosition(20.f, 20.f);
     mouseRightSprite.setScale(0.3, 0.3);
     mouseRightSprite.setTexture(mouseTexture);
+
+    // Load the medipack texture from a file
+    if (!mediPackIconTexture.loadFromFile("assets/Icons/Heal.png"))
+    {
+        // Handle error
+        cerr << "Error loading medipack texture" << endl;
+    }
+
+    // Initialize the medipack sprite
+
+    mediPackIconSprite.setTexture(mediPackIconTexture);
+    mediPackIconSprite.setScale(2.0f, 2.0f);
+    
+    // load the key texture  from a file
+    if (!keyIconTexture.loadFromFile("assets/Icons/GoldenKey.png"))
+    {
+        // Handle error
+        cerr << "Error loading key icon texture" << endl;
+    }
+
+    // Initialize the key sprite
+
+    keyIconSprite.setTexture(keyIconTexture);
+    keyIconSprite.setScale(2.0f, 2.0f);
 }
 
 // Function to set the player's health
@@ -140,15 +162,22 @@ void HUD::updateHealthSprite()
 void HUD::inventoryDisplay(RenderWindow& window, vector<int> items) {
     for (int i = 0; i < items.size(); i++) {
         switch (items[i]) {
-		case 1:
-			shurikenIconSprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 562.f, window.getView().getCenter().y - window.getView().getSize().y / 2 + 912.f);
-			window.draw(shurikenIconSprite);
-			break;
-        }
-        switch (items[i]) {
+        case 1:
+            shurikenIconSprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 562.f, window.getView().getCenter().y - window.getView().getSize().y / 2 + 912.f);
+            window.draw(shurikenIconSprite);
+            break;
         case 2:
             katanaIconSprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 632.f, window.getView().getCenter().y - window.getView().getSize().y / 2 + 912.f);
             window.draw(katanaIconSprite);
+            break;
+
+        case 3:
+            mediPackIconSprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 702.f, window.getView().getCenter().y - window.getView().getSize().y / 2 + 912.f);
+            window.draw(mediPackIconSprite);
+            break;
+        case 4:
+            keyIconSprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 772.f, window.getView().getCenter().y - window.getView().getSize().y / 2 + 912.f);
+            window.draw(keyIconSprite);
             break;
         }
 

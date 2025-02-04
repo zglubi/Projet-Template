@@ -33,8 +33,8 @@ int main()
     manager->setPlayer(720, 540);
     hud.setPlayerHealth(7);
 
-    /*manager->addChaser(Vector2f(100, 100), 50);
-    manager->addShooter(Vector2f(200, 200), 50.0f);*/
+    //manager->addChaser(Vector2f(100, 100), 50);
+    //manager->addShooter(Vector2f(200, 200), 50.0f);
     manager->addItem(Vector2f(0, 500), 1);
     manager->addItem(Vector2f(200, 700), 2);
     manager->addItem(Vector2f(800, 300), 3);
@@ -52,6 +52,11 @@ int main()
 
     while (window.isOpen())
     {
+        if (manager->getPlayer()->getHp() <= 0 || manager->getPlayer()->getHp() > 800)
+        {
+            gameOver = true;
+        }
+        
         Event event;
         while (window.pollEvent(event))
         {
@@ -94,7 +99,6 @@ int main()
         }
 		if (isOptions)
 		{
-			cout << "Options" << endl;
 			menu.menuDisplay(window, 4);
 			isOptions = false;
 			clock.restart();
@@ -109,6 +113,7 @@ int main()
         window.clear();
         gameMap.draw(window);
         manager->update(window, deltaTime, view, gameMap.getWalls());
+
         hud.draw(window, manager->getInventory());
         window.display();
     }

@@ -26,13 +26,17 @@ public:
     void katanaSlash(RenderWindow& window, vector<shared_ptr<Enemy>>& enemies);
     void addToInventory(int item);
 	vector<int> getInventory();
+    bool getWilderness() const;
+    void diminishHp(int damage);
+    size_t getHp() const;
 private:
     int frame;
     float vitesse;
-    Sprite sprite;
+    size_t hp;
     int dir;
     bool attacking;
     vector<int> inventory;
+    bool isWilderness = true;
 
 	Texture projectileTexture;
 	vector<unique_ptr<Projectile>> projectiles;

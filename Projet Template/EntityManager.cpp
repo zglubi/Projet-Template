@@ -1,6 +1,9 @@
 #include "EntityManager.h"
 
-EntityManager::EntityManager() {}
+EntityManager::EntityManager() 
+{
+    mobCap = 10;
+}
 
 EntityManager* EntityManager::instance = nullptr;
 
@@ -32,6 +35,11 @@ void EntityManager::setPlayer(float x, float y)
     shared_ptr<Player> player = make_shared<Player>(x, y);
     this->player = player;
     entities.push_back(player);
+}
+
+shared_ptr<Player> EntityManager::getPlayer()
+{
+    return player;
 }
 
 void EntityManager::addItem(Vector2f Position, int val)
@@ -107,16 +115,61 @@ void EntityManager::update(RenderWindow& window, float deltatime, View& view, ve
 		enemy->collisionPlayer(player);
 	}
 
+    dispawnEnemy();
     removeEntity();
     for (auto& item : items) {
         item->interact(player);
     }
 
 	player->handleInput(window, view, walls, enemies, deltatime);
-    checkPlayerEnemyCollision(); // Appel de la nouvelle méthode
+    checkPlayerEnemyCollision();
+    spawnEnemy();
 }
 
 vector<int> EntityManager::getInventory()
 {
 	return player->getInventory();
+}
+
+void EntityManager::spawnEnemy()
+{
+    if (player->getWilderness() && enemies.size() < mobCap)
+    {
+        bool spawning = false;
+        Vector2f posEnemy;
+        while (!spawning)
+        {
+            posEnemy = { static_cast<float>(randomNumber(player->getSprite().getPosition().x - 3000, player->getSprite().getPosition().x + 3000)), static_cast<float>(randomNumber(player->getSprite().getPosition().y - 3000, player->getSprite().getPosition().y + 3000)) };
+            if (posEnemy.x > player->getSprite().getPosition().x - 500 && posEnemy.x < player->getSprite().getPosition().x + 500 && posEnemy.y > player->getSprite().getPosition().y - 500 && posEnemy.y < player->getSprite().getPosition().y + 500)
+            {
+                continue;
+            }
+            else
+            {
+				spawning = true;
+            }
+        }
+        int type = randomNumber(1, 2);
+        switch (type)
+        {
+        case 1:
+            addChaser(posEnemy, 100);
+            break;
+        case 2:
+            addShooter(posEnemy, 100);
+            break;
+        }
+    }
+}
+
+void EntityManager::dispawnEnemy()
+{
+    for (auto& enemy : enemies)
+    {
+        if (enemy->getSprite().getPosition().x > player->getSprite().getPosition().x + 3000 || enemy->getSprite().getPosition().x < player->getSprite().getPosition().x - 3000 ||
+			enemy->getSprite().getPosition().y > player->getSprite().getPosition().y + 3000 || enemy->getSprite().getPosition().y < player->getSprite().getPosition().y - 3000)
+		{
+			enemy->setToBeDeleted(true);
+		}
+    }
 }
