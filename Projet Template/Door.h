@@ -7,7 +7,7 @@
 class Door : public Wall
 {
 public:
-	bool isOpen;
+	bool isOpen = true;
 	Door(Texture& texture, float x, float y, int nextlvl, bool isOpen, int type);
 	~Door();
 	Sprite getSprite();
