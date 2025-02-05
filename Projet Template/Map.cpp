@@ -42,8 +42,12 @@ void Map::draw(sf::RenderWindow& window)
 	{
 		for (int j = 0; j < map[i].size(); j++)
 		{
+			if (j < 57)
 			spriteSand.setPosition(j * 32, i * 32);
+			else
+			spriteGrass.setPosition(j * 32, i * 32);
 			window.draw(spriteSand);
+			window.draw(spriteGrass);
 		}
 	}
 
@@ -79,6 +83,16 @@ void Map::loadMap(int mapNum)
 					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, spriteHouse1));
 					break;
 				}
+				case 'm':
+				{
+					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, spriteHouse2));
+					break;
+				}
+				case 'C':
+				{
+					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, spriteHouse3));
+					break;
+				}
 				case 'H':
 				{
 					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, spriteWallH));
@@ -87,6 +101,31 @@ void Map::loadMap(int mapNum)
 				case 'V':
 				{
 					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, spriteWallV));
+					break;
+				}
+				case 'T':
+				{
+					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, spriteTower));
+					break;
+				}
+				case 'F':
+				{
+					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, spriteWallT));
+					break;
+				}
+				case 'A':
+				{
+					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, spriteTree));
+					break;
+				}
+				case 'S':
+				{
+					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, spriteShop));
+					break;
+				}
+				case 'W':
+				{
+					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, spriteWell));
 					break;
 				}
 				case 'p':

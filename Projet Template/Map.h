@@ -21,8 +21,15 @@ private:
 	Texture tilesetDesert;
 
 	Sprite spriteHouse1;
+	Sprite spriteHouse2;
+	Sprite spriteHouse3;
+	Sprite spriteTower;
+	Sprite spriteWallT;
 	Sprite spriteWallH;
 	Sprite spriteWallV;
+	Sprite spriteTree;
+	Sprite spriteShop;
+	Sprite spriteWell;
 
 
 	Texture tilesetVillageA;
