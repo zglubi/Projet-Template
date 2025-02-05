@@ -9,31 +9,19 @@ sf::Vector2f operator*(const sf::Vector2f& vector, float scalar) {
     return sf::Vector2f(vector.x * scalar, vector.y * scalar);
 }
 
-Player::Player(int x, int y) : Entity(x, y), hp(100), frame(0), frameKatanaSlash(0) {
-
-    
-    if (!texture.loadFromFile("assets/Player/SpriteSheet.png")) {
-        cout << "Failed to load enemy texture!" << endl;
-    }
+Player::Player(Texture& texture, Texture& projectileTexture, Texture& katanaSlashTexture, int x, int y) : Entity(texture, x, y), hp(100), frame(0), frameKatanaSlash(0) 
+{
     sprite.setTextureRect(IntRect(0, 0, 16, 16));
-    sprite.setTexture(texture);
     sprite.setScale(2, 2);
     sprite.setOrigin(sprite.getLocalBounds().width / 2.f, sprite.getLocalBounds().height / 2.f);
-    sprite.setPosition(x, y);
 
 
-    if (!projectileTexture.loadFromFile("assets\\Projectiles\\Shuriken.png")) {
-        std::cerr << "Erreur : impossible de charger 'playersprite'" << std::endl;
-    }
-
-    if (!katanaSlashTexture.loadFromFile("assets\\Slash\\katanaCurved.png"))
-    {
-        std::cerr << "Erreur : impossible de charger 'playersprite'" << std::endl;
-    }
     katanaSlashSprite.setTexture(katanaSlashTexture);
     katanaSlashSprite.setTextureRect(IntRect(0 , 0, 32, 32));
     katanaSlashSprite.setOrigin(Vector2f(katanaSlashSprite.getLocalBounds().width / 2, katanaSlashSprite.getLocalBounds().height / 2));
     katanaSlashSprite.setScale(Vector2f(2, 2));
+
+    projectileTexture = projectileTexture;
 
     vitesse = 300;
 
@@ -50,11 +38,6 @@ float Player::getVitesse() const
 void Player::setVitesse(float newVitesse)
 {
     vitesse = newVitesse;
-}
-
-const Sprite& Player::getSprite() const
-{
-    return sprite;
 }
 
 void Player::setSprite(const Sprite& newSprite)

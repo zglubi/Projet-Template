@@ -46,6 +46,8 @@ public:
 	void draw(sf::RenderWindow& window);
 
 	void loadMap(int mapNum);
+
+	void setTextures(vector<Texture>& textures);
 };
 
 

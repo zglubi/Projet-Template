@@ -14,7 +14,7 @@ private:
     int moveY;
 
 public:
-    Chaser(Vector2f startPosition, float initialSpeed);
+    Chaser(Texture& texture, Vector2f startPosition, float initialSpeed);
 
     void collisionPlayer(shared_ptr<Player>& player) override;
     void collisionWall(vector<unique_ptr<Wall>>& walls) override;

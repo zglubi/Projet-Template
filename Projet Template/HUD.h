@@ -11,8 +11,6 @@ using namespace std;
 class HUD
 {
 private:
-    // Member variables to store the player's health
-    int playerHealth;
 
     // SFML objects for displaying the health as a texture
     Texture healthTexture;
@@ -50,19 +48,12 @@ public:
     // Constructor to initialize the HUD
     HUD();
 
-    // Function to set the player's health
-    void setPlayerHealth(int health);
-
-    // Function to increase the player's health
-    void healthUp(int amount);
-
-    // Function to decrease the player's health
-    void healthDown(int amount);
-
     // Function to draw the HUD to the window
     void draw(RenderWindow& window, vector<int> inventory, size_t hp);
 
 	void inventoryDisplay(RenderWindow& window, vector<int> items);
+
+    void setTextures(vector<Texture>& textures);
 };
 
 #endif // !HUD_H

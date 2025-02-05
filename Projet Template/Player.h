@@ -14,10 +14,9 @@ public:
     void setVitesse(float newVitesse);
     bool canmove = true;
 	bool isOnStairs = false;
-    const Sprite& getSprite() const;
     void setSprite(const Sprite& newSprite);
 
-    Player(int x, int y);
+    Player(Texture& texture, Texture& projectileTexture, Texture& katanaSlashTexture, int x, int y);
 
     void update(RenderWindow& window, float deltatime, View& view) override;
     void draw(RenderWindow& window) override;

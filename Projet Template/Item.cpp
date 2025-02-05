@@ -1,6 +1,6 @@
 #include "Item.h"
 
-Item::Item(float x, float y) : Entity(x, y) {}
+Item::Item(Texture& texture, float x, float y) : Entity(texture, x, y) {}
 
 
 Item::~Item(){}	

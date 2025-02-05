@@ -23,7 +23,7 @@ private:
 	size_t width;
 
 public:
-	Projectile(Texture t, Vector2f position, Vector2f direction, float speed, float damage, size_t maxF, size_t w, size_t h);
+	Projectile(Texture& texture, Vector2f position, Vector2f direction, float speed, float damage, size_t maxF, size_t w, size_t h);
 	~Projectile();
 	void update(RenderWindow& window, float deltatime, View& view) override;
 	void collision(std::vector<unique_ptr<Wall>>& walls);

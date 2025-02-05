@@ -1,8 +1,10 @@
 #include "Katana.h"
 #include <iostream>
 
-Katana::Katana(float x, float y) : Item(x, y) {
-    if (!texture.loadFromFile("assets\\Items\\Weapons\\Katana.png")) {
+Katana::Katana(Texture& texture, float x, float y) : Item(texture, x, y) 
+{
+    if (!texture.loadFromFile("assets\\Items\\Weapons\\Katana.png")) 
+    {
         cerr << "Error loading shooter texture" << endl;
     }
     sprite.setTexture(texture);

@@ -1,20 +1,13 @@
 #include "Shooter.h"
 
-Shooter::Shooter(Vector2f startPosition, float initialSpeed)
-    : Enemy(startPosition.x, startPosition.y, initialSpeed), initialSpeed(initialSpeed), moveX(0), moveY(0), fireCooldown(1.3f), fireTimer(0.0f)
+Shooter::Shooter(Texture& texture, Texture& projTexture, Vector2f startPosition, float initialSpeed)
+    : Enemy(texture, startPosition.x, startPosition.y, initialSpeed), initialSpeed(initialSpeed), moveX(0), moveY(0), fireCooldown(1.3f), fireTimer(0.0f)
 {
-    if (!texture.loadFromFile("assets/Enemies/Snake3/Snake3.png")) {
-        cerr << "Error loading shooter texture" << endl;
-    }
-    sprite.setTexture(texture);
-    if (!projectileTexture.loadFromFile("assets/Projectiles/BigEnergyBall.png")) {
-        cerr << "Error loading shooter texture" << endl;
-    }
+    projectileTexture = projTexture;
+
     sprite.setTextureRect(IntRect(0, 0, 16, 16));
-    sprite.setTexture(texture);
     sprite.setScale(2, 2);
     sprite.setOrigin(sprite.getGlobalBounds().width / 2.f, sprite.getGlobalBounds().height / 2.f);
-    sprite.setPosition(startPosition);
 }
 
 void Shooter::collisionPlayer(shared_ptr<Player>& player)

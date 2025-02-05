@@ -1,16 +1,12 @@
 #include "Chaser.h"
 #include <iostream>
 
-Chaser::Chaser(Vector2f startPosition, float initialSpeed)
-	: initialSpeed(initialSpeed), Enemy(startPosition.x, startPosition.y, initialSpeed) {
-	if (!texture.loadFromFile("assets/Enemies/Slime3/Slime3.png")) {
-		cout << "Failed to load enemy texture!" << endl;
-	}
+Chaser::Chaser(Texture& texture, Vector2f startPosition, float initialSpeed)
+	: initialSpeed(initialSpeed), Enemy(texture, startPosition.x, startPosition.y, initialSpeed) 
+{
 	sprite.setTextureRect(IntRect(0, 0, 16, 16));
-	sprite.setTexture(texture);
 	sprite.setScale(2, 2);
 	sprite.setOrigin(sprite.getGlobalBounds().width / 2.f, sprite.getGlobalBounds().height / 2.f);
-	sprite.setPosition(startPosition);
 	
 	moveX = 0;
 	moveY = 0;

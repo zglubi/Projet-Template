@@ -5,45 +5,6 @@
 
 Map::Map()
 {
-	tilesetFloor.loadFromFile("assets/map_assets/Tilesets/TilesetFloor.png");
-	
-	spriteSand.setTexture(tilesetFloor);
-	spriteSand.setTextureRect(IntRect(16, 16, 16, 16));
-	spriteSand.setScale(2, 2);
-
-	spriteGrass.setTexture(tilesetFloor);
-	spriteGrass.setTextureRect(IntRect(0, 192, 16, 16));
-	spriteGrass.setScale(2, 2);
-
-
-
-
-	tilesetDesert.loadFromFile("assets/map_assets/Tilesets/TilesetDesert.png");
-
-	spriteHouse1.setTexture(tilesetDesert);
-	spriteHouse1.setTextureRect(IntRect(96, 48, 64, 64));
-	spriteHouse1.setScale(2, 2);
-
-	spriteWallH.setTexture(tilesetDesert);
-	spriteWallH.setTextureRect(IntRect(304, 64, 16, 48));
-	spriteWallH.setScale(2, 2);
-
-	spriteWallV.setTexture(tilesetDesert);
-	spriteWallV.setTextureRect(IntRect(240, 176, 16, 16));
-	spriteWallV.setScale(2, 2);
-
-
-	tilesetVillageA.loadFromFile("assets/map_assets/Tilesets/TilesetVillageAbandoned.png");
-
-
-	spritePillarA.setTexture(tilesetVillageA);
-	spritePillarA.setTextureRect(IntRect(32, 48, 16, 48));
-	spritePillarA.setScale(2, 2);
-
-	spriteRockA.setTexture(tilesetVillageA);
-	spriteRockA.setTextureRect(IntRect(48, 80, 16, 16));
-	spriteRockA.setScale(2, 2);
-
 	loadMap(1);
 }
 
@@ -145,4 +106,40 @@ void Map::loadMap(int mapNum)
 		map.push_back(row);
 	}
 
+}
+
+void Map::setTextures(vector<Texture>& textures)
+{
+	tilesetFloor = textures[0];
+	tilesetDesert = textures[1];
+	tilesetVillageA = textures[2];
+
+
+	spriteSand.setTexture(tilesetFloor);
+	spriteSand.setTextureRect(IntRect(16, 16, 16, 16));
+	spriteSand.setScale(2, 2);
+
+	spriteGrass.setTexture(tilesetFloor);
+	spriteGrass.setTextureRect(IntRect(0, 192, 16, 16));
+	spriteGrass.setScale(2, 2);
+
+	spriteHouse1.setTexture(tilesetDesert);
+	spriteHouse1.setTextureRect(IntRect(96, 48, 64, 64));
+	spriteHouse1.setScale(2, 2);
+
+	spriteWallH.setTexture(tilesetDesert);
+	spriteWallH.setTextureRect(IntRect(304, 64, 16, 48));
+	spriteWallH.setScale(2, 2);
+
+	spriteWallV.setTexture(tilesetDesert);
+	spriteWallV.setTextureRect(IntRect(240, 176, 16, 16));
+	spriteWallV.setScale(2, 2);
+
+	spritePillarA.setTexture(tilesetVillageA);
+	spritePillarA.setTextureRect(IntRect(32, 48, 16, 48));
+	spritePillarA.setScale(2, 2);
+
+	spriteRockA.setTexture(tilesetVillageA);
+	spriteRockA.setTextureRect(IntRect(48, 80, 16, 16));
+	spriteRockA.setScale(2, 2);
 }

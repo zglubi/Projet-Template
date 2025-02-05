@@ -2,7 +2,7 @@
 #include "Player.h"
 #include "Enemy.h"
 
-Projectile::Projectile(Texture t, Vector2f position, Vector2f direction, float speed, float damage, size_t maxF, size_t w, size_t h) : Entity(position.x, position.y)
+Projectile::Projectile(Texture& texture, Vector2f position, Vector2f direction, float speed, float damage, size_t maxF, size_t w, size_t h) : Entity(texture, position.x, position.y)
 {
 	if (abs(direction.x) > abs(direction.y))
 	{
@@ -15,13 +15,12 @@ Projectile::Projectile(Texture t, Vector2f position, Vector2f direction, float s
 	this->direction = direction;
 	this->speed = speed;
 	this->damage = damage;
-	texture = t;
 	sprite.setTexture(texture);
 	
 	sprite.setTextureRect(IntRect(0, 0, texture.getSize().x / maxF, texture.getSize().y));
 	sprite.setOrigin(sprite.getLocalBounds().width / 2.f, sprite.getLocalBounds().height / 2.f);
 	sprite.setScale(Vector2f(2, 2));
-	sprite.setPosition(position);
+
 	frame = 0;
 	maxFrame = maxF;
 	height = h;

@@ -1,6 +1,6 @@
 #include "Key.h"
 
-Key::Key(float x, float y) : Item(x, y) {
+Key::Key(Texture& texture, float x, float y) : Item(texture, x, y) {
     if (!texture.loadFromFile("assets/Items/GoldKey.png")) {
         std::cerr << "Erreur : impossible de charger 'Key'" << std::endl;
     }

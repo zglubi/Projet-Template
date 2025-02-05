@@ -25,6 +25,16 @@ private:
 	shared_ptr<Player> player;
 	size_t mobCap;
 
+	Texture playerTexture;
+	Texture chaserTexture;
+	Texture shooterTexture;
+	Texture medipackTexture;
+	Texture katanaTexture;
+	Texture shurikenTexture;
+	Texture playerProjectileTexture;
+	Texture katanaSlashTexture;
+	Texture shooterProjectileTexture;
+
 	EntityManager();
 public:
 	static EntityManager* getInstance();
@@ -37,10 +47,11 @@ public:
 	void update(RenderWindow& window, float deltatime, View& view, vector<unique_ptr<Wall>>& walls);
 	vector<shared_ptr<Enemy>> getEnemies();
 
+	void setTextures(vector<Texture>& textures);
+
 	void spawnEnemy();
 	void dispawnEnemy();
 	void removeEntity();
-	void checkPlayerEnemyCollision();
 	vector<int> getInventory();
 };
 

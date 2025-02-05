@@ -10,9 +10,10 @@
 #include "Shooter.h"
 #include "Medipack.h"
 #include "EntityManager.h"
+#include "ThreadManager.h"
+#include "TextureManager.h"
 #include "Katana.h"
 #include "Shuriken.h"
-#include "Stairs.h"
 
 
 RenderWindow window(VideoMode(1440, 1080), "Zelda Like");
@@ -27,12 +28,17 @@ Menu menu(window);
 
 EntityManager* manager = EntityManager::getInstance();
 
+TextureManager textureManager = TextureManager();
+
 int main()
 {
+    gameMap.setTextures(textureManager.getTexturesMap());
+    manager->setTextures(textureManager.getTexturesEntities());
+    hud.setTextures(textureManager.getTexturesHud());
+
 
     window.setFramerateLimit(120);
     manager->setPlayer(720, 540);
-    hud.setPlayerHealth(7);
 
     //manager->addChaser(Vector2f(100, 100), 50);
     //manager->addShooter(Vector2f(200, 200), 50.0f);

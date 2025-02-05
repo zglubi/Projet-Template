@@ -1,6 +1,6 @@
 #include "Door.h"
 
-Door::Door(float x, float y, Sprite spriteopen, Sprite spriteclose, int nextlvl, bool isOpen) : Wall(x, y, spriteclose)
+Door::Door(Texture& texture, float x, float y, Sprite spriteopen, Sprite spriteclose, int nextlvl, bool isOpen) : Wall(texture, x, y, spriteclose)
 {
 	if (isOpen) {
 		sprite = spriteopen;

@@ -20,7 +20,7 @@ private:
     float fireTimer; // Timer to track time since last shot
 
 public:
-    Shooter(Vector2f startPosition, float initialSpeed);
+    Shooter(Texture& texture, Texture& projTexture, Vector2f startPosition, float initialSpeed);
     void collisionPlayer(shared_ptr<Player>& player) override;
     void collisionWall(vector<unique_ptr<Wall>>& walls) override;
     void update(RenderWindow& window, float deltatime, View& view) override;

@@ -1,7 +1,7 @@
 #include "Boss.h"
 
-Boss::Boss(Vector2f startPosition, float initialSpeed)
-    : Enemy(startPosition.x, startPosition.y, initialSpeed), initialSpeed(initialSpeed), moveX(0), moveY(0), fireCooldown(1.3f), fireTimer(0.0f) 
+Boss::Boss(Texture& texture, Vector2f startPosition, float initialSpeed)
+    : Enemy(texture, startPosition.x, startPosition.y, initialSpeed), initialSpeed(initialSpeed), moveX(0), moveY(0), fireCooldown(1.3f), fireTimer(0.0f) 
 {
 	if (!texture.loadFromFile("assets/Enemies/Boss/Boss.png")) {
 		//cout << "Failed to load enemy texture!" << endl;

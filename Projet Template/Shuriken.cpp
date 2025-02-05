@@ -1,7 +1,7 @@
 #include "Shuriken.h"
 #include <iostream>
 
-Shuriken::Shuriken(float x, float y) : Item(x, y) {
+Shuriken::Shuriken(Texture& texture, float x, float y) : Item(texture, x, y) {
     if (!texture.loadFromFile("assets/Projectiles/Shuriken.png")) {
         cerr << "Error loading Shuriken texture" << endl;
     }

@@ -1,6 +1,6 @@
 #include "Medipack.h"
 
-Medipack::Medipack(float x, float y) : Item(x, y) {
+Medipack::Medipack(Texture& texture, float x, float y) : Item(texture, x, y) {
     if (!texture.loadFromFile("assets/Items/Medipack.png")) {
         std::cerr << "Erreur : impossible de charger 'Medipack'" << std::endl;
     }

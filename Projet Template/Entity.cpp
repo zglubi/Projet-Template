@@ -1,6 +1,10 @@
 #include "Entity.h"
 
-Entity::Entity(float x, float y) : x(x), y(y) {}
+Entity::Entity(Texture& texture, float x, float y) : x(x), y(y) 
+{
+	sprite.setTexture(texture);
+	sprite.setPosition(x, y);
+}
 
 
 Sprite& Entity::getSprite() {

@@ -19,7 +19,7 @@ public:
 	float x;
 	float y;
 
-	Entity(float x, float y);
+	Entity(Texture& texture, float x, float y);
 	virtual void update(RenderWindow& window, float deltatime, View& view) = 0;
 	virtual void draw(RenderWindow& window) = 0;
 

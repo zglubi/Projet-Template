@@ -18,21 +18,21 @@ EntityManager* EntityManager::getInstance()
 
 void EntityManager::addChaser(Vector2f startPosition, float initialSpeed)
 {
-    shared_ptr<Chaser> chaser = make_shared<Chaser>(startPosition, initialSpeed);
+    shared_ptr<Chaser> chaser = make_shared<Chaser>(chaserTexture, startPosition, initialSpeed);
     enemies.push_back(chaser);
     entities.push_back(chaser);
 }
 
 void EntityManager::addShooter(Vector2f startPosition, float initialSpeed)
 {
-    shared_ptr<Shooter> shooter = make_shared<Shooter>(startPosition, initialSpeed);
+    shared_ptr<Shooter> shooter = make_shared<Shooter>(shooterTexture, startPosition, initialSpeed);
     enemies.push_back(shooter);
     entities.push_back(shooter);
 }
 
 void EntityManager::setPlayer(float x, float y)
 {
-    shared_ptr<Player> player = make_shared<Player>(x, y);
+    shared_ptr<Player> player = make_shared<Player>(playerTexture, playerProjectileTexture, katanaSlashTexture, x, y);
     this->player = player;
     entities.push_back(player);
 }
@@ -48,21 +48,21 @@ void EntityManager::addItem(Vector2f Position, int val)
     {
     case (1):
     {
-        shared_ptr<Item> item = make_shared<Medipack>(Position.x, Position.y);
+        shared_ptr<Item> item = make_shared<Medipack>(medipackTexture, Position.x, Position.y);
         items.push_back(item);
         entities.push_back(item);
         break;
     }
     case 2:
     {
-        shared_ptr<Katana> item = make_shared<Katana>(Position.x, Position.y);
+        shared_ptr<Katana> item = make_shared<Katana>(katanaTexture, Position.x, Position.y);
         items.push_back(item);
         entities.push_back(item);
         break;
     }
     case 3:
     {
-        shared_ptr<Shuriken> item = make_shared<Shuriken>(Position.x, Position.y);
+        shared_ptr<Shuriken> item = make_shared<Shuriken>(shurikenTexture, Position.x, Position.y);
         items.push_back(item);
         entities.push_back(item);
         break;
@@ -114,6 +114,19 @@ void EntityManager::update(RenderWindow& window, float deltatime, View& view, ve
 vector<int> EntityManager::getInventory()
 {
 	return player->getInventory();
+}
+
+void EntityManager::setTextures(vector<Texture>& textures)
+{
+    playerTexture = textures[0];
+    chaserTexture = textures[1];
+	shooterTexture = textures[2];
+    medipackTexture = textures[3];
+	katanaTexture = textures[4];
+	shurikenTexture = textures[5];
+    playerProjectileTexture = textures[6];
+    katanaSlashTexture = textures[7];
+    shooterProjectileTexture = textures[8];
 }
 
 void EntityManager::spawnEnemy()
