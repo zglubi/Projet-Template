@@ -80,32 +80,7 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
             newX += vitesse * deltatime;
             dir = 4;
         }
-    }
 
-    bool collisionDetected = false;
-    for (auto& wall : walls) 
-    {
-        FloatRect playerBounds(newX - sprite.getGlobalBounds().width / 2, newY - sprite.getGlobalBounds().height / 4, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height * 3 / 4);
-        FloatRect wallBounds = wall->getSprite().getGlobalBounds();
-
-        if (playerBounds.intersects(wallBounds))
-        {
-            collisionDetected = true;
-            break;
-        }
-    }
-
-    if (!collisionDetected) 
-    {
-        x = newX;
-        y = newY;
-        view.setCenter(x, y);
-        window.setView(view);
-        sprite.setPosition(x, y);
-    }
-
-    if (!attacking)
-    {
         if (Keyboard::isKeyPressed(Keyboard::Z))
         {
             newY -= vitesse * deltatime;
@@ -119,28 +94,48 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
         }
     }
 
-    collisionDetected = false;
-    for (auto& wall : walls) {
-        FloatRect playerBounds(newX - sprite.getGlobalBounds().width /2, newY - sprite.getGlobalBounds().height/2, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height);
-        FloatRect wallBounds = wall->getSprite().getGlobalBounds();
-
-        if (playerBounds.intersects(wallBounds)) {
-            collisionDetected = true;
+    // Vérification des collisions horizontales (x)
+    bool collisionX = false;
+    for (auto& wall : walls)
+    {
+        FloatRect playerBounds(newX - sprite.getGlobalBounds().width / 2, y - sprite.getGlobalBounds().height / 4, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height * 3 / 4);
+        if (playerBounds.intersects(wall->getSprite().getGlobalBounds()))
+        {
+            collisionX = true;
             break;
         }
     }
 
-    if (!collisionDetected) 
+    // Mise à jour de x si pas de collision
+    if (!collisionX)
     {
         x = newX;
-        y = newY;
-        view.setCenter(x, y);
-        window.setView(view);
-        sprite.setPosition(x, y);
     }
 
+    // Vérification des collisions verticales (y)
+    bool collisionY = false;
+    for (auto& wall : walls)
+    {
+        FloatRect playerBounds(x - sprite.getGlobalBounds().width / 2, newY - sprite.getGlobalBounds().height / 4, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height * 3 / 4);
+        if (playerBounds.intersects(wall->getSprite().getGlobalBounds()))
+        {
+            collisionY = true;
+            break;
+        }
+    }
 
+    // Mise à jour de y si pas de collision
+    if (!collisionY)
+    {
+        y = newY;
+    }
 
+    // Mises à jour de la vue et de la position du sprite
+    view.setCenter(x, y);
+    window.setView(view);
+    sprite.setPosition(x, y);
+
+    // Mise à jour des projectiles et des attaques
     for (auto& projectile : projectiles)
     {
         projectile->collision(walls);
@@ -152,41 +147,13 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
             [](const std::unique_ptr<Projectile>& projectile) { return projectile->isToBeDeleted(); }),
         projectiles.end());
 
-
-	if (Mouse::isButtonPressed(Mouse::Left))
-	{
+    // Gestion des attaques
+    if (Mouse::isButtonPressed(Mouse::Left))
+    {
         if (inventory.size() > 0)
         {
             switch (inventory[0])
             {
-            case 0:
-                break;
-            case 1:
-                if (cooldownProjectile.getElapsedTime().asSeconds() > 0.5)
-                {
-                    shoot(window, view);
-                }
-                break;
-            case 2:
-                if (cooldownKatanaSlash.getElapsedTime().asSeconds() > 1)
-                {
-                    cooldownKatanaSlash.restart();
-                    katanaAttack = true;
-                    attacking = true;
-                }
-                break;
-            }
-        }
-	}
-
-    if (Mouse::isButtonPressed(Mouse::Right))
-    {
-        if (inventory.size() > 1)
-        {
-            switch (inventory[1])
-            {
-            case 0:
-                break;
             case 1:
                 if (cooldownProjectile.getElapsedTime().asSeconds() > 0.5)
                 {

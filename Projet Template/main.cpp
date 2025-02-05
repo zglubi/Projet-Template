@@ -31,7 +31,7 @@ int main()
 {
 
     window.setFramerateLimit(120);
-    manager->setPlayer(720, 540);
+    manager->setPlayer(1000, 740);
     hud.setPlayerHealth(7);
 
     //manager->addChaser(Vector2f(100, 100), 50);
