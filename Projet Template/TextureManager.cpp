@@ -1,11 +1,15 @@
 #include "TextureManager.h"
 
 
-TextureManager::TextureManager()
+TextureManager::TextureManager() {}
+
+TextureManager::~TextureManager() {}
+
+void TextureManager::loadTextures1()
 {
-	tilesetFloor.loadFromFile("assets/map_assets/Tilesets/TilesetFloor.png");
-	tilesetDesert.loadFromFile("assets/map_assets/Tilesets/TilesetDesert.png");
-	tilesetVillageA.loadFromFile("assets/map_assets/Tilesets/TilesetVillageAbandoned.png");
+    tilesetFloor.loadFromFile("assets/map_assets/Tilesets/TilesetFloor.png");
+    tilesetDesert.loadFromFile("assets/map_assets/Tilesets/TilesetDesert.png");
+    tilesetVillageA.loadFromFile("assets/map_assets/Tilesets/TilesetVillageAbandoned.png");
 
     healthTexture.loadFromFile("assets\\Hud\\Health\\bar.png");
     healthBarBorderTexture.loadFromFile("assets\\Hud\\Health\\border.png");
@@ -15,7 +19,10 @@ TextureManager::TextureManager()
     mouseTexture.loadFromFile("assets/Hud/mouse.png");
     mediPackIconTexture.loadFromFile("assets/Icons/Heal.png");
     keyIconTexture.loadFromFile("assets/Icons/GoldenKey.png");
+}
 
+void TextureManager::loadTextures2()
+{
     playerTexture.loadFromFile("assets/Player/SpriteSheet.png");
     chaserTexture.loadFromFile("assets/Enemies/Slime3/Slime3.png");
     shooterTexture.loadFromFile("assets/Enemies/Snake3/Snake3.png");
@@ -25,13 +32,10 @@ TextureManager::TextureManager()
     playerProjectileTexture.loadFromFile("assets\\Projectiles\\Shuriken.png");
     katanaSlashTexture.loadFromFile("assets\\Slash\\katanaCurved.png");
     shooterProjectileTexture.loadFromFile("assets/Projectiles/BigEnergyBall.png");
+	bossTexture.loadFromFile("assets/Enemies/Slime3/Slime3.png");
+	bossProjectileTexture.loadFromFile("assets\\Projectiles\\Shuriken.png");
+	bossSlashTexture.loadFromFile("assets\\Slash\\katanaCurved.png");
 }
-
-TextureManager::~TextureManager()
-{
-
-}
-
 
 vector<Texture>& TextureManager::getTexturesMap()
 {
@@ -68,5 +72,8 @@ vector<Texture>& TextureManager::getTexturesEntities()
 	textures.push_back(playerProjectileTexture);
 	textures.push_back(katanaSlashTexture);
 	textures.push_back(shooterProjectileTexture);
+	textures.push_back(bossTexture);
+	textures.push_back(bossProjectileTexture);
+	textures.push_back(bossSlashTexture);
 	return textures;
 }

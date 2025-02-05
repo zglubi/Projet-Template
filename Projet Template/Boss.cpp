@@ -1,17 +1,13 @@
 #include "Boss.h"
 
-Boss::Boss(Texture& texture, Vector2f startPosition, float initialSpeed)
+Boss::Boss(Texture& texture, Texture& projTexture, Vector2f startPosition, float initialSpeed)
     : Enemy(texture, startPosition.x, startPosition.y, initialSpeed), initialSpeed(initialSpeed), moveX(0), moveY(0), fireCooldown(1.3f), fireTimer(0.0f) 
 {
-	if (!texture.loadFromFile("assets/Enemies/Boss/Boss.png")) {
-		//cout << "Failed to load enemy texture!" << endl;
-	}
+	projectileTexture = projTexture;
 
 	sprite.setTextureRect(IntRect(0, 0, 25, 25));
-	sprite.setTexture(texture);
 	sprite.setScale(2, 2);
 	sprite.setOrigin(sprite.getGlobalBounds().width / 2.f, sprite.getGlobalBounds().height / 2.f);
-	sprite.setPosition(startPosition);
 
 	moveX = 0;
 	moveY = 0;
@@ -37,8 +33,6 @@ void Boss::update(RenderWindow& window, float deltatime, View& view)
 	float distanceX = abs(playerPos.x - enemyPos.x);
 	float distanceY = abs(playerPos.y - enemyPos.y);
 	float distance = sqrt(distanceX * distanceX + distanceY * distanceY);
-
-
 }
 
 void Boss::draw(RenderWindow& window) 

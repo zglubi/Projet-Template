@@ -3,10 +3,7 @@
 #include <iostream>
 
 
-Map::Map()
-{
-	loadMap(1);
-}
+Map::Map() {}
 
 
 Texture Map::createColoredTexture(Color color, Vector2u size)

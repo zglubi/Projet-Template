@@ -34,6 +34,9 @@ private:
 	Texture playerProjectileTexture;
 	Texture katanaSlashTexture;
 	Texture shooterProjectileTexture;
+	Texture bossTexture;
+	Texture bossProjectileTexture;
+	Texture bossSlashTexture;
 
 	EntityManager();
 public:

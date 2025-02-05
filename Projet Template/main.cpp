@@ -15,7 +15,6 @@
 #include "Katana.h"
 #include "Shuriken.h"
 
-
 RenderWindow window(VideoMode(1440, 1080), "Zelda Like");
 
 Map gameMap;
@@ -30,18 +29,36 @@ EntityManager* manager = EntityManager::getInstance();
 
 TextureManager textureManager = TextureManager();
 
+ThreadManager threadManager;
+
 int main()
 {
+    // Charger les textures en arrière-plan
+    auto future1 = threadManager.addTask([&]() {
+        textureManager.loadTextures1();
+        std::cout << "Textures 1 chargées en arrière-plan" << std::endl;
+        });
+
+    auto future2 = threadManager.addTask([&]() {
+        textureManager.loadTextures2();
+        std::cout << "Textures 2 chargées en arrière-plan" << std::endl;
+        });
+
+    auto future3 = threadManager.addTask([&]() {
+        gameMap.loadMap(1);
+        std::cout << "Map 1 chargée en arrière-plan" << std::endl;
+        });
+
+    // Attendre que les textures soient chargées avant de continuer
+    threadManager.waitAll();
+
     gameMap.setTextures(textureManager.getTexturesMap());
     manager->setTextures(textureManager.getTexturesEntities());
     hud.setTextures(textureManager.getTexturesHud());
 
-
     window.setFramerateLimit(120);
     manager->setPlayer(1000, 740);
 
-    //manager->addChaser(Vector2f(100, 100), 50);
-    //manager->addShooter(Vector2f(200, 200), 50.0f);
     manager->addItem(Vector2f(0, 500), 1);
     manager->addItem(Vector2f(200, 700), 2);
     manager->addItem(Vector2f(800, 300), 3);
@@ -50,9 +67,9 @@ int main()
 
     bool isRunning = true;
     bool isPause = false;
-	bool gameOver = false;
+    bool gameOver = false;
     bool win = false;
-	bool isOptions = false;
+    bool isOptions = false;
 
     // Affiche le menu principal avant de lancer le jeu
     menu.menuDisplay(window, 0);
@@ -63,7 +80,7 @@ int main()
         {
             gameOver = true;
         }
-        
+
         Event event;
         while (window.pollEvent(event))
         {
@@ -76,24 +93,24 @@ int main()
             {
                 if (event.key.code == sf::Keyboard::Escape)
                 {
-					isPause = !isPause;
+                    isPause = !isPause;
                 }
             }
         }
         if (isPause)
         {
             menu.menuDisplay(window, 1);
-            isPause = false; 
-			clock.restart();
+            isPause = false;
+            clock.restart();
             window.setView(view);
-            continue; 
+            continue;
         }
         if (gameOver)
         {
-			menu.menuDisplay(window, 2);
-			gameOver = false;
-			clock.restart();
-			window.setView(view);
+            menu.menuDisplay(window, 2);
+            gameOver = false;
+            clock.restart();
+            window.setView(view);
             continue;
         }
         if (win)
@@ -104,14 +121,14 @@ int main()
             window.setView(view);
             continue;
         }
-		if (isOptions)
-		{
-			menu.menuDisplay(window, 4);
-			isOptions = false;
-			clock.restart();
-			window.setView(view);
-			continue;
-		}
+        if (isOptions)
+        {
+            menu.menuDisplay(window, 4);
+            isOptions = false;
+            clock.restart();
+            window.setView(view);
+            continue;
+        }
 
         // Mise à jour du deltaTime
         deltaTime = clock.restart().asSeconds();

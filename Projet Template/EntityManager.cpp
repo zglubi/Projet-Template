@@ -127,6 +127,9 @@ void EntityManager::setTextures(vector<Texture>& textures)
     playerProjectileTexture = textures[6];
     katanaSlashTexture = textures[7];
     shooterProjectileTexture = textures[8];
+    bossTexture = textures[9];
+    bossProjectileTexture = textures[10];
+    bossSlashTexture = textures[11];
 }
 
 void EntityManager::spawnEnemy()

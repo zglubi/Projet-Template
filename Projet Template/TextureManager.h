@@ -9,6 +9,10 @@ public:
 	TextureManager();
 	~TextureManager();
 
+	void loadTextures1();
+
+	void loadTextures2();
+
 	vector<Texture>& getTexturesMap();
 
 	vector<Texture>& getTexturesHud();
@@ -38,5 +42,8 @@ private:
 	Texture playerProjectileTexture;
 	Texture katanaSlashTexture;
 	Texture shooterProjectileTexture;
+	Texture bossTexture;
+	Texture bossProjectileTexture;
+	Texture bossSlashTexture;
 };
 

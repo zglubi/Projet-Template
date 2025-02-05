@@ -18,7 +18,7 @@ private:
     float fireTimer;
 
 public:
-    Boss(Texture& texture, Vector2f startPosition, float initialSpeed);
+    Boss(Texture& texture, Texture& projTexture, Vector2f startPosition, float initialSpeed);
     void collisionPlayer(shared_ptr<Player>& player) override;
     void update(RenderWindow& window, float deltatime, View& view) override;
     void draw(RenderWindow& window) override;
