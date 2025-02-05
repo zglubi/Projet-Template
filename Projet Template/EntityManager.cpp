@@ -25,7 +25,7 @@ void EntityManager::addChaser(Vector2f startPosition, float initialSpeed)
 
 void EntityManager::addShooter(Vector2f startPosition, float initialSpeed)
 {
-    shared_ptr<Shooter> shooter = make_shared<Shooter>(shooterTexture, startPosition, initialSpeed);
+    shared_ptr<Shooter> shooter = make_shared<Shooter>(shooterTexture, shooterProjectileTexture, startPosition, initialSpeed);
     enemies.push_back(shooter);
     entities.push_back(shooter);
 }

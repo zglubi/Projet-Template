@@ -16,7 +16,7 @@ public:
 	bool isOnStairs = false;
     void setSprite(const Sprite& newSprite);
 
-    Player(Texture& texture, Texture& projectileTexture, Texture& katanaSlashTexture, int x, int y);
+    Player(Texture& texture, Texture& projTexture, Texture& katanaSlashTexture, int x, int y);
 
     void update(RenderWindow& window, float deltatime, View& view) override;
     void draw(RenderWindow& window) override;
@@ -28,6 +28,8 @@ public:
     bool getWilderness() const;
     void diminishHp(int damage);
     size_t getHp() const;
+    void hpUp();
+
 private:
     int frame;
     float vitesse;

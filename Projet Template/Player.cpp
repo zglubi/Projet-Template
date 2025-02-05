@@ -9,7 +9,7 @@ sf::Vector2f operator*(const sf::Vector2f& vector, float scalar) {
     return sf::Vector2f(vector.x * scalar, vector.y * scalar);
 }
 
-Player::Player(Texture& texture, Texture& projectileTexture, Texture& katanaSlashTexture, int x, int y) : Entity(texture, x, y), hp(100), frame(0), frameKatanaSlash(0) 
+Player::Player(Texture& texture, Texture& projTexture, Texture& katanaSlashTexture, int x, int y) : Entity(texture, x, y), hp(100), frame(0), frameKatanaSlash(0) 
 {
     sprite.setTextureRect(IntRect(0, 0, 16, 16));
     sprite.setScale(2, 2);
@@ -21,7 +21,7 @@ Player::Player(Texture& texture, Texture& projectileTexture, Texture& katanaSlas
     katanaSlashSprite.setOrigin(Vector2f(katanaSlashSprite.getLocalBounds().width / 2, katanaSlashSprite.getLocalBounds().height / 2));
     katanaSlashSprite.setScale(Vector2f(2, 2));
 
-    projectileTexture = projectileTexture;
+    projectileTexture = projTexture;
 
     vitesse = 300;
 
@@ -150,6 +150,72 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
                     katanaAttack = true;
                     attacking = true;
                 }
+                break;
+            case 3:
+                hpUp();
+                inventory.erase(std::remove(inventory.begin(), inventory.end(), 3), inventory.end());
+                break;
+            default:
+                break;
+            }
+        }
+    }
+
+    if (Mouse::isButtonPressed(Mouse::Right))
+    {
+        if (inventory.size() > 1)
+        {
+            switch (inventory[1])
+            {
+            case 1:
+                if (cooldownProjectile.getElapsedTime().asSeconds() > 0.5)
+                {
+                    shoot(window, view);
+                }
+                break;
+            case 2:
+                if (cooldownKatanaSlash.getElapsedTime().asSeconds() > 1)
+                {
+                    cooldownKatanaSlash.restart();
+                    katanaAttack = true;
+                    attacking = true;
+                }
+                break;
+            case 3:
+                hpUp();
+                inventory.erase(std::remove(inventory.begin(), inventory.end(), 3), inventory.end());
+                break;
+            default:
+                break;
+            }
+        }
+    }
+
+    if (Keyboard::isKeyPressed(Keyboard::Num1))
+    {
+        if (inventory.size() > 2)
+        {
+            switch (inventory[2])
+            {
+            case 1:
+                if (cooldownProjectile.getElapsedTime().asSeconds() > 0.5)
+                {
+                    shoot(window, view);
+                }
+                break;
+            case 2:
+                if (cooldownKatanaSlash.getElapsedTime().asSeconds() > 1)
+                {
+                    cooldownKatanaSlash.restart();
+                    katanaAttack = true;
+                    attacking = true;
+                }
+                break;
+            case 3:
+                hpUp();
+                inventory.erase(std::remove(inventory.begin(), inventory.end(), 3), inventory.end());
+                break;
+            default:
                 break;
             }
         }
@@ -316,3 +382,5 @@ void Player::diminishHp(int damage)
 }
 
 size_t Player::getHp() const { return hp; }
+
+void Player::hpUp() { hp += 10; }
