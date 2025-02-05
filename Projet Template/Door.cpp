@@ -2,11 +2,6 @@
 
 Door::Door(Texture& texture, float x, float y, int nextlvl, bool isOpen, int type) : Wall(texture, x, y, type)
 {
-	if (isOpen) {
-		sprite = spriteopen;
-	}
-	else sprite = spriteclose;
-	
 	sprite.setPosition(x, y);
 }
 
@@ -21,5 +16,4 @@ Sprite Door::getSprite()
 
 void Door::open() {
 	isOpen = true;
-	sprite = spriteopen;
 }
