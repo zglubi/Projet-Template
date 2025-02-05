@@ -10,7 +10,7 @@ public:
 	bool isOpen;
 	Sprite spriteclose;
 	Sprite spriteopen;
-	Door(Texture& texture, float x, float y, Sprite spriteopen, Sprite spriteclose, int nextlvl, bool isOpen);
+	Door(Texture& texture, float x, float y, Sprite spriteopen, Sprite spriteclose, int nextlvl, bool isOpen, int type);
 	~Door();
 	Sprite getSprite();
 	void open();

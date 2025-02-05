@@ -1,6 +1,6 @@
 #include "Wall.h"
 
-Wall::Wall(Texture& texture, float x, float ye) : Entity(texture, x, y)
+Wall::Wall(Texture& texture, float x, float y, int type) : Entity(texture, x, y)
 {
 	sprite.setPosition(x, y);
 }

@@ -56,92 +56,50 @@ void Map::draw(sf::RenderWindow& window)
 
 void Map::loadMap(int mapNum)
 {
-	walls.clear();
-	
-	string path = "maps/map" + to_string(mapNum) + ".txt";
-	
-	ifstream file(path);
-	if (!file.is_open())
-	{
-		cout << "Error: file not found" << endl;
-		return;
-	}
-	string line;
-	while (getline(file, line))
-	{
-		vector<char> row;
-		for (int i = 0; i < line.size(); i++)
-		{
-			row.push_back(line[i]);
-			switch (line[i])
-			{
-				case 'M':
-				{
-					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, spriteHouse1));
-					break;
-				}
-				case 'm':
-				{
-					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, spriteHouse2));
-					break;
-				}
-				case 'C':
-				{
-					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, spriteHouse3));
-					break;
-				}
-				case 'H':
-				{
-					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, spriteWallH));
-					break;
-				}
-				case 'V':
-				{
-					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, spriteWallV));
-					break;
-				}
-				case 'T':
-				{
-					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, spriteTower));
-					break;
-				}
-				case 'F':
-				{
-					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, spriteWallT));
-					break;
-				}
-				case 'A':
-				{
-					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, spriteTree));
-					break;
-				}
-				case 'S':
-				{
-					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, spriteShop));
-					break;
-				}
-				case 'W':
-				{
-					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, spriteWell));
-					break;
-				}
-				case 'p':
-				{
-					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, spritePillarA));
-					break;
-				}
-				case 'r':
-				{
-					walls.push_back(make_unique<Wall>(i * 32, map.size() * 32, spriteRockA));
-					break;
-				}
-				default:
-					break;
-			}
-		}
-		map.push_back(row);
-	}
+    walls.clear();
+    map.clear();
+    string path = "maps/map" + to_string(mapNum) + ".txt";
 
+    ifstream file(path);
+    if (!file.is_open())
+    {
+        cout << "Error: file not found" << endl;
+        return;
+    }
+
+    string line;
+    while (getline(file, line))
+    {
+        vector<char> row;
+        for (size_t i = 0; i < line.size(); i += 2)
+        {
+            if (i + 1 >= line.size())
+            {
+                cout << "Warning: Uneven characters in map file. Skipping last character." << endl;
+                break;
+            }
+
+            string tileCode = line.substr(i, 2);
+            int tileValue = stoi(tileCode);
+
+            row.push_back(tileCode[0]);
+            if (tileValue > 29)
+            {
+                walls.push_back(make_unique<Wall>(tilesetDesert, i / 2 * 32, map.size() * 32, tileValue));
+            }
+            
+            else if (tileValue > 40)
+            {
+                walls.push_back(make_unique<Wall>(tilesetVillageA, i / 2 * 32, map.size() * 32, tileValue));
+            }
+            
+            else
+            {
+                cout << "Warning: Unknown tile code '" << tileCode << "' at position " << i << "." << endl;
+            }
+        }
+        map.push_back(row);
+    }
 }
 
 void Map::setTextures(vector<Texture>& textures)
@@ -159,6 +117,8 @@ void Map::setTextures(vector<Texture>& textures)
 	spriteGrass.setTextureRect(IntRect(0, 192, 16, 16));
 	spriteGrass.setScale(2, 2);
 
+
+
 	spriteHouse1.setTexture(tilesetDesert);
 	spriteHouse1.setTextureRect(IntRect(96, 48, 64, 64));
 	spriteHouse1.setScale(2, 2);
@@ -170,6 +130,8 @@ void Map::setTextures(vector<Texture>& textures)
 	spriteWallV.setTexture(tilesetDesert);
 	spriteWallV.setTextureRect(IntRect(240, 176, 16, 16));
 	spriteWallV.setScale(2, 2);
+
+
 
 	spritePillarA.setTexture(tilesetVillageA);
 	spritePillarA.setTextureRect(IntRect(32, 48, 16, 48));

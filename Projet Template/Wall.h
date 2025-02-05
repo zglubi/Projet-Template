@@ -10,7 +10,7 @@ class Wall : public Entity
 {
 public:
 
-	Wall(Texture& texture, float x, float y);
+	Wall(Texture& texture, float x, float y, int type);
 	~Wall();
 	Sprite getSprite();
 
