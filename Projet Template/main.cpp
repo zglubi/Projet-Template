@@ -82,6 +82,13 @@ int main()
         {
             gameOver = true;
         }
+        else if (manager->getBoss())
+		{
+			if (manager->getBoss()->getHp() <= 0)
+			{
+				win = true;
+			}
+		}
 
         Event event;
         while (window.pollEvent(event))

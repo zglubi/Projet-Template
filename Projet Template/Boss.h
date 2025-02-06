@@ -11,6 +11,7 @@
 class Boss : public Enemy {
 private:
     float initialSpeed;
+    int hp = 100;
     int moveX;
     int moveY;
     vector<unique_ptr<Projectile>> projectiles;
@@ -37,6 +38,8 @@ public:
     void fireProjectile(Vector2f direction);
     void attack(RenderWindow& window, shared_ptr<Player>& player);
     void slash(RenderWindow& window, shared_ptr<Player>& player);
+    int getHp();
+    void diminishHp(int damage);
 };
 
 #endif // BOSS_H
