@@ -57,7 +57,7 @@ int main()
     hud.setTextures(textureManager.getTexturesHud());
 
     window.setFramerateLimit(120);
-    manager->setPlayer(600, 2000);
+    manager->setPlayer(600 + 896, 2000);
 
     // manager->addBoss(Vector2f(1350, 750), 50.0f);
     manager->addItem(Vector2f(700, 2500), 1);
