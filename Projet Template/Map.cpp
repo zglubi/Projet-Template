@@ -65,6 +65,8 @@ void Map::loadMap(int mapNum)
 {
     walls.clear();
     map.clear();
+    floors.clear();
+    doors.clear();
     string path = "maps/map" + to_string(mapNum) + ".txt";
 
     ifstream file(path);
