@@ -54,6 +54,10 @@ void Map::draw(RenderWindow& window)
     {
         wall->draw(window);
     }
+    for (auto& door : doors)
+    {
+        door->draw(window);
+    }
     
 }
 
@@ -124,9 +128,13 @@ void Map::loadMap(int mapNum)
             {
                 walls.push_back(make_unique<Wall>(tilesetVillageA, i / 2 * 32, map.size() * 32, tileValue));
             }
-            else if (tileValue <= 63)
+            else if (tileValue <= 64)
             {
                 walls.push_back(make_unique<Wall>(tilesetElement, i / 2 * 32, map.size() * 32, tileValue));
+            }
+            else if (tileValue == 99)
+            {
+                doors.push_back(make_unique<Door>(tilesetElement, i / 2 * 32, map.size() * 32, 2, false,  tileValue));
             }
             else
             {

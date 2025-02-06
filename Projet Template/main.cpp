@@ -45,7 +45,7 @@ int main()
         cout << "Textures 2 chargees en arriere-plan" << endl;
         });
      
-    gameMap.loadMap(1);
+    gameMap.loadMap(2);
     threadManager.waitAll();
 
 
@@ -54,7 +54,7 @@ int main()
     hud.setTextures(textureManager.getTexturesHud());
 
     window.setFramerateLimit(120);
-    manager->setPlayer(600, 2500);
+    manager->setPlayer(600, 2000);
 
     manager->addItem(Vector2f(700, 2500), 1);
     manager->addItem(Vector2f(900, 2400), 2);
@@ -134,7 +134,7 @@ int main()
         // Dessin et mise à jour du jeu
         window.clear();
         gameMap.draw(window);
-        manager->update(window, deltaTime, view, gameMap.getWalls(), gameMap.getDoor());
+        manager->update(window, deltaTime, view, gameMap.getWalls(), gameMap.getDoor(), gameMap);
 
         hud.draw(window, manager->getInventory(), manager->getPlayer()->getHp(), manager->getBoss());
         window.display();
