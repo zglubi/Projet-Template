@@ -8,10 +8,11 @@ ThreadManager::~ThreadManager()
 void ThreadManager::waitAll() 
 {
     for (auto& future : futures)
-    {
-        if (future.valid()) 
+    {/*
+        while (!future.valid()) 
         {
-            future.get();
         }
+        future.get();*/
+        future.wait();
     }
 }

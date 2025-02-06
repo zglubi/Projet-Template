@@ -1,13 +1,11 @@
 #include "Player.h"
+#include "Boss.h"
 #include "Wall.h"
+#include "Door.h"
 #include "Projectile.h"
 #include "Enemy.h"
 #include <iostream>
 #include <cmath>
-
-Vector2f operator*(const Vector2f& vector, float scalar) {
-    return Vector2f(vector.x * scalar, vector.y * scalar);
-}
 
 Player::Player(Texture& texture, Texture& projTexture, Texture& katanaSlashTexture, int x, int y) : Entity(texture, x, y), hp(100), frame(0), frameKatanaSlash(0) 
 {
@@ -23,11 +21,17 @@ Player::Player(Texture& texture, Texture& projTexture, Texture& katanaSlashTextu
 
     projectileTexture = projTexture;
 
-    vitesse = 300;
+    vitesse = 900;
 
     dir = 4;
 
     attacking = false;
+
+    if (!katanaSoundBuffer.loadFromFile("Assets/Audio/KatanaSound.ogg"))
+    {
+        cout << "Erreur lors du chargement du son du katana" << endl;
+    }
+    katanaSound.setBuffer(katanaSoundBuffer);
 }
 
 float Player::getVitesse() const
@@ -45,8 +49,18 @@ void Player::setSprite(const Sprite& newSprite)
     sprite = newSprite;
 }
 
-void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls, vector<shared_ptr<Enemy>>& enemies, float deltatime)
+void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls, vector<unique_ptr<Door>>& doors, vector<shared_ptr<Enemy>>& enemies, float deltatime, Map& gamemap, shared_ptr<Boss> boss, EntityManager*& manager)
 {
+    if (getSprite().getPosition().x > 0 + 896 && getSprite().getPosition().x < 1216 + 896 && getSprite().getPosition().y > 1248 && getSprite().getPosition().y < 2464)
+    {
+        isWilderness = false;
+    }
+    else
+    {
+		isWilderness = true;
+    }
+    
+    
     float newX = x;
     float newY = y;
 
@@ -74,6 +88,10 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
         {
             newY += vitesse * deltatime;
             dir = 3;
+        }
+        
+        if (Keyboard::isKeyPressed(Keyboard::E)) {
+
         }
     }
 
@@ -113,6 +131,18 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
         y = newY;
     }
 
+    for (auto& door : doors) {
+
+        
+        FloatRect playerBounds(x - sprite.getGlobalBounds().width / 2, newY - sprite.getGlobalBounds().height / 4, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height * 3 / 4);
+        if (playerBounds.intersects(door->getSprite().getGlobalBounds()))
+        {
+            if(door->isOpen)
+            gamemap.loadMap(door->nextlvl, manager);
+            break;
+        }
+    }
+
     // Mises à jour de la vue et de la position du sprite
     view.setCenter(x, y);
     window.setView(view);
@@ -122,7 +152,7 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
     for (auto& projectile : projectiles)
     {
         projectile->collision(walls);
-        projectile->collisionEnemies(enemies);
+        projectile->collisionEnemies(enemies, boss);
     }
 
     projectiles.erase(
@@ -155,6 +185,17 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
                 hpUp();
                 inventory.erase(remove(inventory.begin(), inventory.end(), 3), inventory.end());
                 break;
+            case 4:
+                for (auto& door : doors) {
+                    FloatRect playerBounds(x - sprite.getGlobalBounds().width / 2, newY - sprite.getGlobalBounds().height / 4, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height * 3 / 4);
+                    if (playerBounds.intersects(door->getSprite().getGlobalBounds()))
+                    {
+                        inventory.erase(remove(inventory.begin(), inventory.end(), 4), inventory.end());
+                        door->open();
+                        break;
+                    }
+                }
+                break;
             default:
                 break;
             }
@@ -184,6 +225,17 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
             case 3:
                 hpUp();
                 inventory.erase(remove(inventory.begin(), inventory.end(), 3), inventory.end());
+                break;
+            case 4:
+                for (auto& door : doors) {
+                    FloatRect playerBounds(x - sprite.getGlobalBounds().width / 2, newY - sprite.getGlobalBounds().height / 4, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height * 3 / 4);
+                    if (playerBounds.intersects(door->getSprite().getGlobalBounds()))
+                    {
+                        inventory.erase(remove(inventory.begin(), inventory.end(), 4), inventory.end());
+                        door->open();
+                        break;
+                    }
+                }
                 break;
             default:
                 break;
@@ -215,15 +267,67 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
                 hpUp();
                 inventory.erase(remove(inventory.begin(), inventory.end(), 3), inventory.end());
                 break;
+            case 4:
+                for (auto& door : doors) {
+                    FloatRect playerBounds(x - sprite.getGlobalBounds().width / 2, newY - sprite.getGlobalBounds().height / 4, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height * 3 / 4);
+                    if (playerBounds.intersects(door->getSprite().getGlobalBounds()))
+                    {
+                        inventory.erase(remove(inventory.begin(), inventory.end(), 4), inventory.end());
+                        door->open();
+                        break;
+                    }
+                }
+                break;
             default:
                 break;
+            }
+        }
+
+        if (Keyboard::isKeyPressed(Keyboard::Num2))
+        {
+            if (inventory.size() > 3)
+            {
+                switch (inventory[3])
+                {
+                case 1:
+                    if (cooldownProjectile.getElapsedTime().asSeconds() > 0.5)
+                    {
+                        shoot(window, view);
+                    }
+                    break;
+                case 2:
+                    if (cooldownKatanaSlash.getElapsedTime().asSeconds() > 1)
+                    {
+                        cooldownKatanaSlash.restart();
+                        katanaAttack = true;
+                        attacking = true;
+                    }
+                    break;
+                case 3:
+                    hpUp();
+                    inventory.erase(remove(inventory.begin(), inventory.end(), 3), inventory.end());
+                    break;
+                case 4:
+                    for (auto& door : doors) {
+                        FloatRect playerBounds(x - sprite.getGlobalBounds().width / 2, newY - sprite.getGlobalBounds().height / 4, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height * 3 / 4);
+                        if (playerBounds.intersects(door->getSprite().getGlobalBounds()))
+                        {
+                            inventory.erase(remove(inventory.begin(), inventory.end(), 4), inventory.end());
+                            door->open();
+                            break;
+                        }
+                    }
+                    break;
+                default:
+                    break;
+                }
             }
         }
     }
 
     if (katanaAttack)
     {
-        katanaSlash(window, enemies);
+        katanaSlash(window, enemies, boss);
     }
 }
 
@@ -291,41 +395,7 @@ void Player::shoot(RenderWindow& window, View& view)
     }
 }
 
-Vector2f normalize(const Vector2f& source) 
-{
-    float length = sqrt(source.x * source.x + source.y * source.y);
-    if (length != 0)
-        return Vector2f(source.x / length, source.y / length);
-    else
-        return source;
-}
-
-float dotProduct(const Vector2f& v1, const Vector2f& v2) 
-{
-    return v1.x * v2.x + v1.y * v2.y;
-}
-
-float magnitude(const Vector2f& v) {
-    return sqrt(v.x * v.x + v.y * v.y);
-}
-
-float calculateAngle(const Vector2f& direction) {
-    Vector2f normalizedDirection = normalize(direction);
-    Vector2f reference(1.0f, 0.0f); // Vecteur de référence (axe des x)
-    float dot = dotProduct(normalizedDirection, reference);
-    float angle = acos(dot); // Angle en radians
-
-    // Déterminer le signe de l'angle en utilisant le produit vectoriel
-    float cross = reference.x * normalizedDirection.y - reference.y * normalizedDirection.x;
-    if (cross < 0)
-    {
-        angle = -angle;
-    }
-
-    return angle * 180 / 3.14159265;
-}
-
-void Player::katanaSlash(RenderWindow& window, vector<shared_ptr<Enemy>>& enemies)
+void Player::katanaSlash(RenderWindow& window, vector<shared_ptr<Enemy>>& enemies, shared_ptr<Boss> boss)
 {   
     
     if (frameKatanaSlash == 0)
@@ -333,6 +403,8 @@ void Player::katanaSlash(RenderWindow& window, vector<shared_ptr<Enemy>>& enemie
         Vector2f mousePos = Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y);
         slashDir = mousePos - Vector2f(720, 540);
         slashDir = normalize(slashDir);
+
+        katanaSound.play();
     }
     
     if (frameKatanaSlash / 10 > 3)
@@ -352,11 +424,18 @@ void Player::katanaSlash(RenderWindow& window, vector<shared_ptr<Enemy>>& enemie
     katanaSlashSprite.setTextureRect(IntRect(0 + 32 * (frameKatanaSlash / 10), 0, 32, 32));
     window.draw(katanaSlashSprite);
 
-    for (auto& enemy : enemies)
+    if (katanaSlashSprite.getGlobalBounds().intersects(boss->getSprite().getGlobalBounds()))
     {
-        if (katanaSlashSprite.getGlobalBounds().intersects(enemy->getSprite().getGlobalBounds()))
+        boss->diminishHp(1);
+    }
+    else
+    {
+        for (auto& enemy : enemies)
         {
-            enemy->setToBeDeleted(true);
+            if (katanaSlashSprite.getGlobalBounds().intersects(enemy->getSprite().getGlobalBounds()))
+            {
+                enemy->setToBeDeleted(true);
+            }
         }
     }
 }

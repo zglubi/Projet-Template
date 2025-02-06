@@ -5,7 +5,13 @@
 #include "Projectile.h"
 #include "Katana.h"
 #include "Shuriken.h"
-#include "Enemy.h"
+#include "Useful.h"
+#include "Door.h"
+#include <SFML/Audio.hpp>
+
+class EntityManager;
+
+class Boss;
 
 class Player : public Entity
 {
@@ -20,9 +26,9 @@ public:
 
     void update(RenderWindow& window, float deltatime, View& view) override;
     void draw(RenderWindow& window) override;
-    void handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls, vector<shared_ptr<Enemy>>& enemies, float deltatime);
+    void handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls, vector<unique_ptr<Door>>& doors, vector<shared_ptr<Enemy>>& enemies, float deltatime, Map& gamemap, shared_ptr<Boss> boss, EntityManager*& manager);
 	void shoot(RenderWindow& window, View& view);
-    void katanaSlash(RenderWindow& window, vector<shared_ptr<Enemy>>& enemies);
+    void katanaSlash(RenderWindow& window, vector<shared_ptr<Enemy>>& enemies, shared_ptr<Boss> boss);
     void addToInventory(int item);
 	vector<int> getInventory();
     bool getWilderness() const;
@@ -49,6 +55,8 @@ private:
     bool katanaAttack = false;
     Clock cooldownKatanaSlash;
     Vector2f slashDir;
+    SoundBuffer katanaSoundBuffer;
+    Sound katanaSound;
 };
 
 #endif // !PLAYER_H

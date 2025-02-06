@@ -1,5 +1,6 @@
 #include "Menu.h"
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <iostream>
 using namespace std;
 using namespace sf;
@@ -101,6 +102,24 @@ Menu::Menu(RenderWindow& window)
 	buttons.push_back(Button(buttonResumeTexture, Vector2f(620, 200)));
 	buttons.push_back(Button(buttonOptionsTexture, Vector2f(620, 450)));
 	buttons.push_back(Button(buttonReturnTexture, Vector2f(50, 50)));
+
+	if (!menuMusic.openFromFile("Assets/Audio/MainMenuMusic.ogg"))
+	{
+		cout << "Erreur lors du chargement de la musique du menu" << endl;
+	}
+	menuMusic.setLoop(true);
+
+	if (!gameMusic.openFromFile("Assets/Audio/Willderness.ogg"))
+	{
+		cout << "Erreur lors du chargement de la musique du menu" << endl;
+	}
+	gameMusic.setLoop(true);
+
+	if (!gameOverMusic.openFromFile("Assets/Audio/GameOver.ogg"))
+	{
+		cout << "Erreur lors du chargement de la musique du menu" << endl;
+	}
+	gameOverMusic.setLoop(true);
 }
 
 void Menu::draw(RenderWindow& window)
@@ -135,6 +154,9 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 	{
 		if (type == 0) // Menu Principal
 		{
+			menuMusic.play();
+			gameMusic.pause();
+
 			while (menu)
 			{
 				while (window.pollEvent(event))
@@ -171,9 +193,12 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 				buttons[1].draw(window);
 				window.display();
 			}
+			menuMusic.stop();
 		}
 		if (type == 1) // Menu Pause
 		{
+			gameMusic.pause();
+
 			while (pause)
 			{
 				window.setView(window.getDefaultView());
@@ -220,6 +245,9 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 		}
 		if (type == 2) // Game Over
 		{
+			gameOverMusic.play();
+			gameMusic.pause();
+
 			while (gameOver)
 			{
 				window.setView(window.getDefaultView());
@@ -250,9 +278,12 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 				buttons[1].draw(window);
 				window.display();
 			}
+			gameOverMusic.play();
 		}
 		if (type == 3) // Win
 		{
+			gameMusic.pause();
+
 			bool Win = true;
 			while (Win)
 			{
@@ -287,6 +318,8 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 		}
 		if (type == 4) // Options
 		{
+			gameMusic.pause();
+
 			while (Options)
 			{
 				window.setView(window.getDefaultView());
@@ -319,5 +352,11 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 				window.display();
 			}
 		}
+	}
+
+	if (type == 5) // Jeu actif
+	{
+		menuMusic.stop();
+		gameMusic.play();
 	}
 }

@@ -24,14 +24,16 @@ void TextureManager::loadTextures1()
     mouseTexture.loadFromFile("assets/Hud/mouse.png");
     mediPackIconTexture.loadFromFile("assets/Icons/Heal.png");
     keyIconTexture.loadFromFile("assets/Icons/GoldenKey.png");
+	bossHealthBarTexture.loadFromFile("assets\\Hud\\Health\\barBoss.png");
 	texturesHud.push_back(healthTexture);
 	texturesHud.push_back(healthBarBorderTexture);
 	texturesHud.push_back(inventoryTexture);
+	texturesHud.push_back(mouseTexture);
 	texturesHud.push_back(shurikenIconTexture);
 	texturesHud.push_back(katanaIconTexture);
-	texturesHud.push_back(mouseTexture);
 	texturesHud.push_back(mediPackIconTexture);
 	texturesHud.push_back(keyIconTexture);
+	texturesHud.push_back(bossHealthBarTexture);
 }
 
 void TextureManager::loadTextures2()
@@ -45,9 +47,10 @@ void TextureManager::loadTextures2()
     playerProjectileTexture.loadFromFile("assets\\Projectiles\\Shuriken.png");
     katanaSlashTexture.loadFromFile("assets\\Slash\\katanaCurved.png");
     shooterProjectileTexture.loadFromFile("assets/Projectiles/BigEnergyBall.png");
-	bossTexture.loadFromFile("assets/Enemies/Slime3/Slime3.png");
+	bossTexture.loadFromFile("assets/Enemies/Boss/BossWalk.png");
 	bossProjectileTexture.loadFromFile("assets\\Projectiles\\Shuriken.png");
 	bossSlashTexture.loadFromFile("assets\\Slash\\katanaCurved.png");
+	keyTexture.loadFromFile("assets/Items/GoldKey.png");
 	texturesEntities.push_back(playerTexture);
 	texturesEntities.push_back(chaserTexture);
 	texturesEntities.push_back(shooterTexture);
@@ -60,6 +63,7 @@ void TextureManager::loadTextures2()
 	texturesEntities.push_back(bossTexture);
 	texturesEntities.push_back(bossProjectileTexture);
 	texturesEntities.push_back(bossSlashTexture);
+	texturesEntities.push_back(keyTexture);
 }
 
 vector<Texture>& TextureManager::getTexturesMap()

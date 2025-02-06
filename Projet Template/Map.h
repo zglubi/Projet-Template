@@ -4,7 +4,9 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Wall.h"
+#include "Door.h"
 #include "Floor.h"
+#include "EntityManager.h"
 
 using namespace std;
 using namespace sf;
@@ -23,6 +25,7 @@ private:
 	vector<vector<char>> map;
 
 	vector<unique_ptr<Wall>> walls;
+	vector<unique_ptr<Door>> doors;
 	vector<unique_ptr<Floor>> floors;
 
 public:
@@ -32,10 +35,11 @@ public:
 	vector<vector<char>> getMap();
 	vector<unique_ptr<Wall>>& getWalls();
 	vector<unique_ptr<Floor>>& getFloor();
+	vector<unique_ptr<Door>>& getDoor();
 
 	void draw(RenderWindow& window);
 
-	void loadMap(int mapNum);
+	void loadMap(int mapNum, EntityManager*& manager);
 
 	void setTextures(vector<Texture>& textures);
 };

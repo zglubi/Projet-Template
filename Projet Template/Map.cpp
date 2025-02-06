@@ -21,6 +21,7 @@ Map::~Map()
 {
 	map.clear();
 	walls.clear();
+	floors.clear();
 }
 
 vector<vector<char>> Map::getMap()
@@ -33,6 +34,15 @@ vector<unique_ptr<Wall>>& Map::getWalls()
 	return walls;
 }
 
+vector<unique_ptr<Door>>& Map::getDoor()
+{
+    return doors;
+}
+
+vector<unique_ptr<Floor>>& Map::getFloor()
+{
+    return floors;
+}
 
 void Map::draw(RenderWindow& window)
 {
@@ -44,15 +54,27 @@ void Map::draw(RenderWindow& window)
     {
         wall->draw(window);
     }
+    for (auto& door : doors)
+    {
+        door->draw(window);
+    }
     
 }
 
-void Map::loadMap(int mapNum)
+void Map::loadMap(int mapNum, EntityManager*& manager)
 {
     walls.clear();
     map.clear();
+    floors.clear();
+    doors.clear();
     string path = "maps/map" + to_string(mapNum) + ".txt";
 
+
+    if (mapNum == 2) {
+        manager->Dungeon();
+    }
+    
+    
     ifstream file(path);
     if (!file.is_open())
     {
@@ -114,9 +136,13 @@ void Map::loadMap(int mapNum)
             {
                 walls.push_back(make_unique<Wall>(tilesetVillageA, i / 2 * 32, map.size() * 32, tileValue));
             }
-            else if (tileValue <= 63)
+            else if (tileValue <= 64)
             {
                 walls.push_back(make_unique<Wall>(tilesetElement, i / 2 * 32, map.size() * 32, tileValue));
+            }
+            else if (tileValue == 99)
+            {
+                doors.push_back(make_unique<Door>(tilesetElement, i / 2 * 32, map.size() * 32, 2, false,  tileValue));
             }
             else
             {

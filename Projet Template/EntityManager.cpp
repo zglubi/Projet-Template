@@ -1,4 +1,5 @@
 #include "EntityManager.h"
+#include "Player.h"
 
 EntityManager::EntityManager() 
 {
@@ -28,6 +29,14 @@ void EntityManager::addShooter(Vector2f startPosition, float initialSpeed)
     shared_ptr<Shooter> shooter = make_shared<Shooter>(shooterTexture, shooterProjectileTexture, startPosition, initialSpeed);
     enemies.push_back(shooter);
     entities.push_back(shooter);
+}
+
+void EntityManager::addBoss(Vector2f startPosition, float initialSpeed)
+{
+    shared_ptr<Boss> _boss = make_shared<Boss>(bossTexture, bossProjectileTexture, bossSlashTexture, startPosition, initialSpeed);
+    enemies.push_back(_boss);
+    entities.push_back(_boss);
+	this->boss = _boss;
 }
 
 void EntityManager::setPlayer(float x, float y)
@@ -67,6 +76,13 @@ void EntityManager::addItem(Vector2f Position, int val)
         entities.push_back(item);
         break;
     }
+    case 4:
+	{
+		shared_ptr<Key> item = make_shared<Key>(keyTexture, Position.x, Position.y);
+		items.push_back(item);
+		entities.push_back(item);
+		break;
+	}
     default:
         break;
     }
@@ -86,9 +102,17 @@ void EntityManager::removeEntity()
         remove_if(items.begin(), items.end(),
             [](const shared_ptr<Entity>& entity) { return entity->isToBeDeleted(); }),
         items.end());
+
+    if (boss)
+    {
+        if (boss->isToBeDeleted())
+        {
+            boss = nullptr;
+        }
+    }
 }
 
-void EntityManager::update(RenderWindow& window, float deltatime, View& view, vector<unique_ptr<Wall>>& walls)
+void EntityManager::update(RenderWindow& window, float deltatime, View& view, vector<unique_ptr<Wall>>& walls, vector<unique_ptr<Door>>& doors, Map& gamemap)
 {
     for (auto& entity : entities)
     {
@@ -98,7 +122,13 @@ void EntityManager::update(RenderWindow& window, float deltatime, View& view, ve
     for (auto& enemy : enemies)
 	{
 		enemy->collisionPlayer(player);
+        enemy->collisionWall(walls);
 	}
+
+    if (boss)
+    {
+        boss->attack(window, player);
+    }
 
     dispawnEnemy();
     removeEntity();
@@ -107,7 +137,7 @@ void EntityManager::update(RenderWindow& window, float deltatime, View& view, ve
         item->interact(player);
     }
 
-	player->handleInput(window, view, walls, enemies, deltatime);
+	player->handleInput(window, view, walls, doors,  enemies, deltatime, gamemap, boss);
     spawnEnemy();
 }
 
@@ -130,6 +160,7 @@ void EntityManager::setTextures(vector<Texture>& textures)
     bossTexture = textures[9];
     bossProjectileTexture = textures[10];
     bossSlashTexture = textures[11];
+    keyTexture = textures[12];
 }
 
 void EntityManager::spawnEnemy()
@@ -161,6 +192,14 @@ void EntityManager::spawnEnemy()
             break;
         }
     }
+    else if (!player->getWilderness())
+    {
+        for (auto enemy : enemies)
+        {
+            enemies.erase(std::remove(enemies.begin(), enemies.end(), enemy), enemies.end());
+            entities.erase(std::remove(entities.begin(), entities.end(), enemy), entities.end());
+        }
+    }
 }
 
 void EntityManager::dispawnEnemy()
@@ -173,4 +212,18 @@ void EntityManager::dispawnEnemy()
 			enemy->setToBeDeleted(true);
 		}
     }
+}
+
+void EntityManager::Dungeon() {
+    for (auto enemy : enemies)
+    {
+        enemies.erase(std::remove(enemies.begin(), enemies.end(), enemy), enemies.end());
+        entities.erase(std::remove(entities.begin(), entities.end(), enemy), entities.end());
+    }
+    addBoss(Vector2f(0, 0), 100);
+}
+
+shared_ptr<Boss> EntityManager::getBoss()
+{
+    return boss;
 }

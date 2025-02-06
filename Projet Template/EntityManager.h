@@ -7,11 +7,14 @@
 #include "Enemy.h"
 #include "Chaser.h"
 #include "Shooter.h"
+#include "Boss.h"
 #include "Medipack.h"
 #include "Katana.h"
 #include "Shuriken.h"
+#include "Key.h"
 #include <SFML/Graphics.hpp>
 #include "Wall.h"
+#include "Map.h"
 using namespace std;
 using namespace sf;
 
@@ -22,6 +25,7 @@ private:
 	vector<shared_ptr<Entity>> entities;
 	vector<shared_ptr<Enemy>> enemies;
 	vector<shared_ptr<Item>> items;
+	shared_ptr<Boss> boss;
 	shared_ptr<Player> player;
 	size_t mobCap;
 
@@ -37,6 +41,7 @@ private:
 	Texture bossTexture;
 	Texture bossProjectileTexture;
 	Texture bossSlashTexture;
+	Texture keyTexture;
 
 	EntityManager();
 public:
@@ -44,10 +49,11 @@ public:
 
 	void addChaser(Vector2f startPosition, float initialSpeed);
 	void addShooter(Vector2f startPosition, float initialSpeed);
+	void addBoss(Vector2f startPosition, float initialSpeed);
 	void addItem(Vector2f Position, int val);
 	void setPlayer(float x, float y);
 	shared_ptr<Player> getPlayer();
-	void update(RenderWindow& window, float deltatime, View& view, vector<unique_ptr<Wall>>& walls);
+	void update(RenderWindow& window, float deltatime, View& view, vector<unique_ptr<Wall>>& walls, vector<unique_ptr<Door>>& doors, Map& gamemap);
 	vector<shared_ptr<Enemy>> getEnemies();
 
 	void setTextures(vector<Texture>& textures);
@@ -55,7 +61,10 @@ public:
 	void spawnEnemy();
 	void dispawnEnemy();
 	void removeEntity();
+	void Dungeon();
 	vector<int> getInventory();
+
+	shared_ptr<Boss> getBoss();
 };
 
 #endif // ENTITYMANAGER_H
