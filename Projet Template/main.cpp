@@ -33,13 +33,15 @@ ThreadManager threadManager;
 
 int main()
 {
-    auto future1 = threadManager.addTask([&]() {
+    auto future1 = threadManager.addTask([&]() 
+        {
         textureManager.loadTextures1();
         cout << "Textures 1 chargees en arriere-plan" << endl;
         });
 
-    auto future2 = threadManager.addTask([&]() {
-      textureManager.loadTextures2();
+    auto future2 = threadManager.addTask([&]() 
+        {
+        textureManager.loadTextures2();
         cout << "Textures 2 chargees en arriere-plan" << endl;
         });
      
