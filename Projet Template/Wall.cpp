@@ -1,6 +1,6 @@
 #include "Wall.h"
 
-Wall::Wall(Texture& texture, float x, float y, int type) : Entity(texture, x, y)
+Wall::Wall(Texture& texture, float x, float y, int type) : type(type), Entity(texture, x, y)
 {
 	sprite.setTexture(texture);//16, 32, 48, 64, 80, 96
 	switch (type)			   // 1   2   3   4   5   6

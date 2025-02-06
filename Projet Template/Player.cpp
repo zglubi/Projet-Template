@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Wall.h"
+#include "Door.h"
 #include "Projectile.h"
 #include "Enemy.h"
 #include <iostream>
@@ -45,7 +46,7 @@ void Player::setSprite(const Sprite& newSprite)
     sprite = newSprite;
 }
 
-void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls, vector<shared_ptr<Enemy>>& enemies, float deltatime)
+void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls, vector<unique_ptr<Door>>& doors, vector<shared_ptr<Enemy>>& enemies, float deltatime)
 {
     float newX = x;
     float newY = y;
