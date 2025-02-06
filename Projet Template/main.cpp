@@ -45,7 +45,7 @@ int main()
         cout << "Textures 2 chargees en arriere-plan" << endl;
         });
      
-    gameMap.loadMap(2);
+    gameMap.loadMap(1);
     threadManager.waitAll();
 
 
@@ -78,6 +78,13 @@ int main()
         {
             gameOver = true;
         }
+        else if (manager->getBoss())
+		{
+			if (manager->getBoss()->getHp() <= 0)
+			{
+				win = true;
+			}
+		}
 
         Event event;
         while (window.pollEvent(event))

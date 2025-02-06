@@ -44,9 +44,7 @@ void Player::setSprite(const Sprite& newSprite)
 
 void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls, vector<unique_ptr<Door>>& doors, vector<shared_ptr<Enemy>>& enemies, float deltatime, Map& gamemap)
 {
-    cout << getSprite().getPosition().x << " " << getSprite().getPosition().y << endl;
-    
-    if (getSprite().getPosition().x > 0 && getSprite().getPosition().x < 1216 && getSprite().getPosition().y > 1248 && getSprite().getPosition().y < 3464)
+    if (getSprite().getPosition().x > 0 && getSprite().getPosition().x < 1216 && getSprite().getPosition().y > 1248 && getSprite().getPosition().y < 2464)
     {
         isWilderness = false;
     }
