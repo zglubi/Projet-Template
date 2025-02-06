@@ -9,6 +9,8 @@
 #include "Useful.h"
 #include "Door.h"
 
+
+
 class Player : public Entity
 {
 public:
@@ -22,7 +24,7 @@ public:
 
     void update(RenderWindow& window, float deltatime, View& view) override;
     void draw(RenderWindow& window) override;
-    void handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls, vector<unique_ptr<Door>>& doors, vector<shared_ptr<Enemy>>& enemies, float deltatime);
+    void handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls, vector<unique_ptr<Door>>& doors, vector<shared_ptr<Enemy>>& enemies, float deltatime, Map gamemap);
 	void shoot(RenderWindow& window, View& view);
     void katanaSlash(RenderWindow& window, vector<shared_ptr<Enemy>>& enemies);
     void addToInventory(int item);

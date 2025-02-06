@@ -5,10 +5,14 @@ Door::Door(Texture& texture, float x, float y, int nextlvl, bool isOpen, int typ
 	switch (type)
 	{
 	case(99)://grotte door
-		sprite.setTextureRect(IntRect(96, 48, 48, 64)); break;
+	{
+		sprite.setTextureRect(IntRect(144, 48, 48, 64)); break;
+	}
+
 	default:
 		break;
 	}
+	sprite.setScale(4, 4);
 	sprite.setPosition(x, y);
 }
 
@@ -27,8 +31,17 @@ void Door::open() {
 	switch (type)
 	{
 	case(99)://grotte door
-		sprite.setTextureRect(IntRect(144, 48, 48, 64)); break;
+		sprite.setTextureRect(IntRect(96, 48, 48, 64)); break;
 	default:
 		break;
 	}
+}
+
+void Door::draw(RenderWindow& window)
+{
+	window.draw(sprite);
+}
+
+void Door::update(RenderWindow& window, float deltatime, View& view)
+{
 }

@@ -82,11 +82,16 @@ Wall::Wall(Texture& texture, float x, float y, int type) : type(type), Entity(te
 		sprite.setTextureRect(IntRect(0, 80, 16, 32));break;
 	case(63)://pot
 		sprite.setTextureRect(IntRect(0, 160, 16, 16));break;
+	case(64)://Groote
+		sprite.setTextureRect(IntRect(192, 128, 48, 32)); break;
 
 	default:
 		break;
 	}
+
 	sprite.setScale(2, 2);
+	if (type == 64)sprite.setScale(4, 4);
+	
 	sprite.setPosition(x, y);
 }
 
