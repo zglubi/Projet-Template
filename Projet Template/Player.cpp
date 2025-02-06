@@ -72,6 +72,10 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
             newY += vitesse * deltatime;
             dir = 3;
         }
+        
+        if (Keyboard::isKeyPressed(Keyboard::E)) {
+
+        }
     }
 
     // Vérification des collisions horizontales (x)
@@ -108,6 +112,15 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
     if (!collisionY)
     {
         y = newY;
+    }
+
+    for (auto& door : doors) {
+        FloatRect playerBounds(x - sprite.getGlobalBounds().width / 2, newY - sprite.getGlobalBounds().height / 4, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height * 3 / 4);
+        if (playerBounds.intersects(door->getSprite().getGlobalBounds()))
+        {
+            
+            break;
+        }
     }
 
     // Mises à jour de la vue et de la position du sprite

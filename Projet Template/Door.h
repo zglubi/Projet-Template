@@ -9,6 +9,7 @@ class Door : public Entity
 public:
 	int type;
 	bool isOpen = true;
+	int nextlvl;
 	Door(Texture& texture, float x, float y, int nextlvl, bool isOpen, int type);
 	~Door();
 	Sprite getSprite();
