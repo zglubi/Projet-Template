@@ -41,36 +41,36 @@ Floor::Floor(Texture& texture, float x, float y, int type) : Entity(texture, x, 
 
 	//=============================TERRE==================================
 	case(16)://top-left
-		sprite.setTextureRect(IntRect(0, 112, 16, 16));break;
-	case(17)://left
-		sprite.setTextureRect(IntRect(0, 128, 16, 16));break;
-	case(18)://bot left
-		sprite.setTextureRect(IntRect(0, 144, 16, 16));break;
+		sprite.setTextureRect(IntRect(0, 112 + 112, 16, 16));break;
+	case(17)://left							 + 112
+		sprite.setTextureRect(IntRect(0, 128 + 112, 16, 16));break;
+	case(18)://bot left						 + 112
+		sprite.setTextureRect(IntRect(0, 144 + 112, 16, 16));break;
 	case(19)://top
-		sprite.setTextureRect(IntRect(16, 112, 16, 16));break;
-	case(20)://full
-		sprite.setTextureRect(IntRect(16, 128, 16, 16));break;
-	case(21)://bot
-		sprite.setTextureRect(IntRect(16, 144, 16, 16));break;
-	case(22)://top right
-		sprite.setTextureRect(IntRect(32, 112, 16, 16));break;
-	case(23)://right
-		sprite.setTextureRect(IntRect(32, 128, 16, 16));break;
-	case(24)://bot right
-		sprite.setTextureRect(IntRect(32, 144, 16, 16));break;
+		sprite.setTextureRect(IntRect(16, 112 + 112 , 16, 16));break;
+	case(20)://full							  + 112 
+		sprite.setTextureRect(IntRect(16, 128 + 112 , 16, 16));break;
+	case(21)://bot							  + 112 
+		sprite.setTextureRect(IntRect(16, 144 + 112 , 16, 16));break;
+	case(22)://top right					  + 112 
+		sprite.setTextureRect(IntRect(32, 112 + 112 , 16, 16));break;
+	case(23)://right						  + 112 
+		sprite.setTextureRect(IntRect(32, 128 + 112 , 16, 16));break;
+	case(24)://bot right					  + 112 
+		sprite.setTextureRect(IntRect(32, 144 + 112 , 16, 16));break;
 	case(25)://creux
-		sprite.setTextureRect(IntRect(32, 48, 16, 16));break;
+		sprite.setTextureRect(IntRect(32, 48+112, 16, 16));break;
 
 	case(26)://full bis
-		sprite.setTextureRect(IntRect(16, 176, 16, 16));break;
+		sprite.setTextureRect(IntRect(16, 176+112, 16, 16));break;
 	case(27)://full grass
-		sprite.setTextureRect(IntRect(0, 192, 16, 16));break;
+		sprite.setTextureRect(IntRect(0, 192+112, 16, 16));break;
 	case(28)://right sand
-		sprite.setTextureRect(IntRect(48, 208, 16, 16));break;
-	case(29):// top right sand 
-		sprite.setTextureRect(IntRect(64, 208, 16, 16));break;
-	case(30):// bot left  sand
-		sprite.setTextureRect(IntRect(80, 208, 16, 16));break;
+		sprite.setTextureRect(IntRect(48, 208+112, 16, 16));break;
+	case(29):// top right sand 				 +112
+		sprite.setTextureRect(IntRect(64, 208+112, 16, 16));break;
+	case(30):// bot left  sand				 +112
+		sprite.setTextureRect(IntRect(80, 208+112, 16, 16));break;
 	default:
 		break;
 	}

@@ -45,8 +45,9 @@ int main()
         cout << "Textures 2 chargees en arriere-plan" << endl;
         });
      
-    gameMap.loadMap(2);
+
     threadManager.waitAll();
+    gameMap.loadMap(2);
 
 
     gameMap.setTextures(textureManager.getTexturesMap());
