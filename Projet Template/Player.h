@@ -6,6 +6,7 @@
 #include "Katana.h"
 #include "Shuriken.h"
 #include "Enemy.h"
+#include "Useful.h"
 
 class Player : public Entity
 {
