@@ -42,7 +42,7 @@ void Player::setSprite(const Sprite& newSprite)
     sprite = newSprite;
 }
 
-void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls, vector<unique_ptr<Door>>& doors, vector<shared_ptr<Enemy>>& enemies, float deltatime, Map gamemap)
+void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls, vector<unique_ptr<Door>>& doors, vector<shared_ptr<Enemy>>& enemies, float deltatime, Map& gamemap)
 {
     cout << getSprite().getPosition().x << " " << getSprite().getPosition().y << endl;
     

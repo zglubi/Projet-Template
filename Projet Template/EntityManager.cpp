@@ -1,4 +1,5 @@
 #include "EntityManager.h"
+#include "Player.h"
 
 EntityManager::EntityManager() 
 {
@@ -103,7 +104,7 @@ void EntityManager::removeEntity()
         items.end());
 }
 
-void EntityManager::update(RenderWindow& window, float deltatime, View& view, vector<unique_ptr<Wall>>& walls, vector<unique_ptr<Door>>& doors, Map gamemap)
+void EntityManager::update(RenderWindow& window, float deltatime, View& view, vector<unique_ptr<Wall>>& walls, vector<unique_ptr<Door>>& doors, Map& gamemap)
 {
     for (auto& entity : entities)
     {
