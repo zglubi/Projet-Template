@@ -25,9 +25,9 @@ void TextureManager::loadTextures1()
 	texturesHud.push_back(healthTexture);
 	texturesHud.push_back(healthBarBorderTexture);
 	texturesHud.push_back(inventoryTexture);
+	texturesHud.push_back(mouseTexture);
 	texturesHud.push_back(shurikenIconTexture);
 	texturesHud.push_back(katanaIconTexture);
-	texturesHud.push_back(mouseTexture);
 	texturesHud.push_back(mediPackIconTexture);
 	texturesHud.push_back(keyIconTexture);
 }
