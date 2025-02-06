@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Boss.h"
 #include "Wall.h"
 #include "Door.h"
 #include "Projectile.h"
@@ -42,10 +43,9 @@ void Player::setSprite(const Sprite& newSprite)
     sprite = newSprite;
 }
 
-void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls, vector<unique_ptr<Door>>& doors, vector<shared_ptr<Enemy>>& enemies, float deltatime, Map& gamemap)
+void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls, vector<unique_ptr<Door>>& doors, vector<shared_ptr<Enemy>>& enemies, float deltatime, Map& gamemap, shared_ptr<Boss> boss)
 {
-    
-    if (getSprite().getPosition().x > 0 && getSprite().getPosition().x < 1216 && getSprite().getPosition().y > 1248 && getSprite().getPosition().y < 3464)
+    if (getSprite().getPosition().x > 0 && getSprite().getPosition().x < 1216 && getSprite().getPosition().y > 1248 && getSprite().getPosition().y < 2464)
     {
         isWilderness = false;
     }
@@ -146,7 +146,7 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
     for (auto& projectile : projectiles)
     {
         projectile->collision(walls);
-        projectile->collisionEnemies(enemies);
+        projectile->collisionEnemies(enemies, boss);
     }
 
     projectiles.erase(
@@ -321,7 +321,7 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
 
     if (katanaAttack)
     {
-        katanaSlash(window, enemies);
+        katanaSlash(window, enemies, boss);
     }
 }
 
@@ -389,7 +389,7 @@ void Player::shoot(RenderWindow& window, View& view)
     }
 }
 
-void Player::katanaSlash(RenderWindow& window, vector<shared_ptr<Enemy>>& enemies)
+void Player::katanaSlash(RenderWindow& window, vector<shared_ptr<Enemy>>& enemies, shared_ptr<Boss> boss)
 {   
     
     if (frameKatanaSlash == 0)
@@ -416,11 +416,18 @@ void Player::katanaSlash(RenderWindow& window, vector<shared_ptr<Enemy>>& enemie
     katanaSlashSprite.setTextureRect(IntRect(0 + 32 * (frameKatanaSlash / 10), 0, 32, 32));
     window.draw(katanaSlashSprite);
 
-    for (auto& enemy : enemies)
+    if (katanaSlashSprite.getGlobalBounds().intersects(boss->getSprite().getGlobalBounds()))
     {
-        if (katanaSlashSprite.getGlobalBounds().intersects(enemy->getSprite().getGlobalBounds()))
+        boss->diminishHp(1);
+    }
+    else
+    {
+        for (auto& enemy : enemies)
         {
-            enemy->setToBeDeleted(true);
+            if (katanaSlashSprite.getGlobalBounds().intersects(enemy->getSprite().getGlobalBounds()))
+            {
+                enemy->setToBeDeleted(true);
+            }
         }
     }
 }

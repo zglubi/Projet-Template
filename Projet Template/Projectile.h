@@ -6,6 +6,7 @@
 #include <memory>
 #include "Wall.h"
 
+class Boss;
 
 class Enemy;
 
@@ -27,7 +28,7 @@ public:
 	~Projectile();
 	void update(RenderWindow& window, float deltatime, View& view) override;
 	void collision(vector<unique_ptr<Wall>>& walls);
-	void collisionEnemies(vector<shared_ptr<Enemy>>& enemies);
+	void collisionEnemies(vector<shared_ptr<Enemy>>& enemies, shared_ptr<Boss> boss);
 	void collisionPlayer(shared_ptr<Player>& player);
 	void draw(RenderWindow& window) override;
 	void setDirection(Vector2f direction);

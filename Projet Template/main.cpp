@@ -48,6 +48,8 @@ int main()
      
     gameMap.loadMap(1, manager);
     threadManager.waitAll();
+    future1.wait();
+    gameMap.loadMap(1);
 
 
     gameMap.setTextures(textureManager.getTexturesMap());
@@ -80,6 +82,13 @@ int main()
         {
             gameOver = true;
         }
+        else if (manager->getBoss())
+		{
+			if (manager->getBoss()->getHp() <= 0)
+			{
+				win = true;
+			}
+		}
 
         Event event;
         while (window.pollEvent(event))

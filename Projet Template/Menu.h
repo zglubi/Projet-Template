@@ -4,6 +4,7 @@
 #include "Button.h"
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <iostream>
 using namespace std;
 using namespace sf;
@@ -17,6 +18,8 @@ private:
 	Text gameOverTexte;
 	Text win;
 
+	Music menuMusic;
+	Music gameMusic;
 	Sprite pauseMenuBGSprite;
 	Texture pauseMenuBGTexture;
 	Sprite mainMenuBGSprite;
