@@ -26,6 +26,12 @@ Player::Player(Texture& texture, Texture& projTexture, Texture& katanaSlashTextu
     dir = 4;
 
     attacking = false;
+
+    if (!katanaSoundBuffer.loadFromFile("Assets/Audio/KatanaSound.ogg"))
+    {
+        cout << "Erreur lors du chargement du son du katana" << endl;
+    }
+    katanaSound.setBuffer(katanaSoundBuffer);
 }
 
 float Player::getVitesse() const
@@ -397,6 +403,8 @@ void Player::katanaSlash(RenderWindow& window, vector<shared_ptr<Enemy>>& enemie
         Vector2f mousePos = Vector2f(Mouse::getPosition(window).x, Mouse::getPosition(window).y);
         slashDir = mousePos - Vector2f(720, 540);
         slashDir = normalize(slashDir);
+
+        katanaSound.play();
     }
     
     if (frameKatanaSlash / 10 > 3)

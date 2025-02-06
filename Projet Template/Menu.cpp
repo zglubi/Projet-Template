@@ -103,7 +103,7 @@ Menu::Menu(RenderWindow& window)
 	buttons.push_back(Button(buttonOptionsTexture, Vector2f(620, 450)));
 	buttons.push_back(Button(buttonReturnTexture, Vector2f(50, 50)));
 
-	if (!menuMusic.openFromFile("Assets/Audio/MenuMusic.ogg"))
+	if (!menuMusic.openFromFile("Assets/Audio/MainMenuMusic.ogg"))
 	{
 		cout << "Erreur lors du chargement de la musique du menu" << endl;
 	}
