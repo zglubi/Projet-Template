@@ -33,12 +33,13 @@ void HUD::inventoryDisplay(RenderWindow& window, vector<int> items) {
 }
 
 // Function to draw the HUD to the window
-void HUD::draw(RenderWindow& window, vector<int> inventory, size_t hp)
+void HUD::draw(RenderWindow& window, vector<int> inventory, size_t hp, shared_ptr<Boss> boss)
 {
     healthSprite.setTextureRect(IntRect(8, 54, static_cast<float>(78 * (static_cast<float>(hp) / static_cast<float>(100))), 6));
     healthSprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 588.f, window.getView().getCenter().y - window.getView().getSize().y / 2 + 834.f);
     window.draw(healthSprite);
 
+    healthBarBorderSprite.setScale(4, 4);
     healthBarBorderSprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 580.f, window.getView().getCenter().y - window.getView().getSize().y / 2 + 830.f);
     window.draw(healthBarBorderSprite);
 
@@ -50,6 +51,16 @@ void HUD::draw(RenderWindow& window, vector<int> inventory, size_t hp)
 
     mouseRightSprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 642.f, window.getView().getCenter().y - window.getView().getSize().y / 2 + 875.f);
     window.draw(mouseRightSprite);
+
+    if (boss)
+    {
+		healthBarBorderSprite.setScale(7, 7);
+        healthBarBorderSprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 480.f, window.getView().getCenter().y - window.getView().getSize().y / 2 + 30.f);
+        window.draw(healthBarBorderSprite);
+
+        bossHealthBarSprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 494.f, window.getView().getCenter().y - window.getView().getSize().y / 2 + 37.f);
+		window.draw(bossHealthBarSprite);
+    }
 
 	inventoryDisplay(window, inventory);
 }
@@ -65,6 +76,7 @@ void HUD::setTextures(vector<Texture>& textures)
     katanaIconTexture = textures[5];
     mediPackIconTexture = textures[6];
     keyIconTexture = textures[7];
+    bossHealthBarTexture = textures[8];
 
 
     healthSprite.setTexture(healthTexture);
@@ -98,8 +110,12 @@ void HUD::setTextures(vector<Texture>& textures)
 
     mediPackIconSprite.setTexture(mediPackIconTexture);
     mediPackIconSprite.setScale(2.0f, 2.0f);
-
     
     keyIconSprite.setTexture(keyIconTexture);
     keyIconSprite.setScale(2.0f, 2.0f);
+
+    bossHealthBarSprite.setTexture(bossHealthBarTexture);
+    bossHealthBarSprite.setTextureRect(IntRect(8, 54, 78, 6));
+    bossHealthBarSprite.setPosition(20.f, 20.f);
+    bossHealthBarSprite.setScale(7.1, 7.1);
 }

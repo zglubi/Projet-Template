@@ -112,8 +112,8 @@ void Shooter::update(RenderWindow& window, float deltatime, View& view)
     projectiles.erase(remove_if(projectiles.begin(), projectiles.end(),
         [&window](const unique_ptr<Projectile>& projectile) {
             return (projectile->getSprite().getPosition().x < 0 || projectile->getSprite().getPosition().y < 0 ||
-                projectile->getSprite().getPosition().x > window.getSize().x ||
-                projectile->getSprite().getPosition().y > window.getSize().y) || projectile->toBeDeleted;
+                projectile->getSprite().getPosition().x > 3960 ||
+                projectile->getSprite().getPosition().y > 3960) || projectile->toBeDeleted;
         }),
         projectiles.end());
     draw(window);
