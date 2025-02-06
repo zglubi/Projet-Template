@@ -61,6 +61,7 @@ public:
 	void spawnEnemy();
 	void dispawnEnemy();
 	void removeEntity();
+	void Dungeon();
 	vector<int> getInventory();
 
 	shared_ptr<Boss> getBoss();

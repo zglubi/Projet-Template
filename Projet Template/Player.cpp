@@ -49,7 +49,7 @@ void Player::setSprite(const Sprite& newSprite)
     sprite = newSprite;
 }
 
-void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls, vector<unique_ptr<Door>>& doors, vector<shared_ptr<Enemy>>& enemies, float deltatime, Map& gamemap, shared_ptr<Boss> boss)
+void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls, vector<unique_ptr<Door>>& doors, vector<shared_ptr<Enemy>>& enemies, float deltatime, Map& gamemap, shared_ptr<Boss> boss, EntityManager*& manager)
 {
     if (getSprite().getPosition().x > 0 + 896 && getSprite().getPosition().x < 1216 + 896 && getSprite().getPosition().y > 1248 && getSprite().getPosition().y < 2464)
     {
@@ -138,7 +138,7 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
         if (playerBounds.intersects(door->getSprite().getGlobalBounds()))
         {
             if(door->isOpen)
-            gamemap.loadMap(door->nextlvl);
+            gamemap.loadMap(door->nextlvl, manager);
             break;
         }
     }
