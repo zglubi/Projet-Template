@@ -6,6 +6,7 @@
 #include "Wall.h"
 #include "Door.h"
 #include "Floor.h"
+#include "EntityManager.h"
 
 using namespace std;
 using namespace sf;
@@ -38,7 +39,7 @@ public:
 
 	void draw(RenderWindow& window);
 
-	void loadMap(int mapNum);
+	void loadMap(int mapNum, EntityManager*& manager);
 
 	void setTextures(vector<Texture>& textures);
 };
