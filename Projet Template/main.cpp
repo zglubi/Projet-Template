@@ -89,9 +89,9 @@ int main()
                 window.close();
             }
 
-            if (event.type == sf::Event::KeyPressed)
+            if (event.type == Event::KeyPressed)
             {
-                if (event.key.code == sf::Keyboard::Escape)
+                if (event.key.code == Keyboard::Escape)
                 {
                     isPause = !isPause;
                 }

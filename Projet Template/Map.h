@@ -50,7 +50,7 @@ public:
 	vector<vector<char>> getMap();
 	vector<unique_ptr<Wall>>& getWalls();
 
-	void draw(sf::RenderWindow& window);
+	void draw(RenderWindow& window);
 
 	void loadMap(int mapNum);
 

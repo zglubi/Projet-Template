@@ -33,7 +33,7 @@ vector<unique_ptr<Wall>>& Map::getWalls()
 	return walls;
 }
 
-void Map::draw(sf::RenderWindow& window)
+void Map::draw(RenderWindow& window)
 {
 	for (int i = 0; i < map.size(); i++)
 	{

@@ -29,7 +29,7 @@ public:
 	void collision(vector<unique_ptr<Wall>>& walls);
 	void collisionEnemies(vector<shared_ptr<Enemy>>& enemies);
 	void collisionPlayer(shared_ptr<Player>& player);
-	void draw(sf::RenderWindow& window) override;
+	void draw(RenderWindow& window) override;
 	void setDirection(Vector2f direction);
 	Vector2f getDirection();
 	Vector2f getPosition();

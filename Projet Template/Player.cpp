@@ -5,8 +5,8 @@
 #include <iostream>
 #include <cmath>
 
-sf::Vector2f operator*(const sf::Vector2f& vector, float scalar) {
-    return sf::Vector2f(vector.x * scalar, vector.y * scalar);
+Vector2f operator*(const Vector2f& vector, float scalar) {
+    return Vector2f(vector.x * scalar, vector.y * scalar);
 }
 
 Player::Player(Texture& texture, Texture& projTexture, Texture& katanaSlashTexture, int x, int y) : Entity(texture, x, y), hp(100), frame(0), frameKatanaSlash(0) 
@@ -259,10 +259,10 @@ void Player::draw(RenderWindow& window)
         break;
     }
 
-    RectangleShape PBounds(sf::Vector2f(sprite.getGlobalBounds().width, sprite.getGlobalBounds().height));
+    RectangleShape PBounds(Vector2f(sprite.getGlobalBounds().width, sprite.getGlobalBounds().height));
     PBounds.setPosition(x - sprite.getGlobalBounds().width/2, y - sprite.getGlobalBounds().height / 2);
-    PBounds.setFillColor(sf::Color::Transparent);
-    PBounds.setOutlineColor(sf::Color::Red);
+    PBounds.setFillColor(Color::Transparent);
+    PBounds.setOutlineColor(Color::Red);
     PBounds.setOutlineThickness(1.0f);
     window.draw(PBounds);
     
@@ -300,18 +300,18 @@ Vector2f normalize(const Vector2f& source)
         return source;
 }
 
-float dotProduct(const sf::Vector2f& v1, const sf::Vector2f& v2) 
+float dotProduct(const Vector2f& v1, const Vector2f& v2) 
 {
     return v1.x * v2.x + v1.y * v2.y;
 }
 
-float magnitude(const sf::Vector2f& v) {
+float magnitude(const Vector2f& v) {
     return sqrt(v.x * v.x + v.y * v.y);
 }
 
-float calculateAngle(const sf::Vector2f& direction) {
-    sf::Vector2f normalizedDirection = normalize(direction);
-    sf::Vector2f reference(1.0f, 0.0f); // Vecteur de référence (axe des x)
+float calculateAngle(const Vector2f& direction) {
+    Vector2f normalizedDirection = normalize(direction);
+    Vector2f reference(1.0f, 0.0f); // Vecteur de référence (axe des x)
     float dot = dotProduct(normalizedDirection, reference);
     float angle = acos(dot); // Angle en radians
 

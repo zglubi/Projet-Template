@@ -31,7 +31,7 @@ Projectile::Projectile(Texture& texture, Vector2f position, Vector2f direction, 
 
 Projectile::~Projectile() {}
 
-void Projectile::update(sf::RenderWindow& window, float deltatime, sf::View& view)
+void Projectile::update(RenderWindow& window, float deltatime, View& view)
 {
 
 	x += direction.x * speed * deltatime;
@@ -52,17 +52,17 @@ void Projectile::update(sf::RenderWindow& window, float deltatime, sf::View& vie
 	draw(window);
 }
 
-void Projectile::draw(sf::RenderWindow& window)
+void Projectile::draw(RenderWindow& window)
 {
     window.draw(sprite);
 }
 
-void Projectile::setDirection(sf::Vector2f direction)
+void Projectile::setDirection(Vector2f direction)
 {
     this->direction = direction;
 }
 
-sf::Vector2f Projectile::getDirection()
+Vector2f Projectile::getDirection()
 {
     return direction;
 }
