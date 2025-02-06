@@ -104,6 +104,7 @@ void Boss::update(RenderWindow& window, float deltatime, View& view)
                 projectile->getSprite().getPosition().y > window.getSize().y) || projectile->toBeDeleted;
         }),
         projectiles.end());
+
     draw(window);
 }
 
@@ -126,39 +127,26 @@ void Boss::fireProjectile(Vector2f direction)
 	projectiles.emplace_back(make_unique<Projectile>(projectileTexture, startPosition, direction, 600, 10, 2, 16, 16));
 }
 
-//Vector2f normalize(const Vector2f& source)
-//{
-//    float length = sqrt(source.x * source.x + source.y * source.y);
-//    if (length != 0)
-//        return Vector2f(source.x / length, source.y / length);
-//    else
-//        return source;
-//}
-//
-//float dotProduct(const Vector2f& v1, const Vector2f& v2)
-//{
-//    return v1.x * v2.x + v1.y * v2.y;
-//}
-//
-//float magnitude(const Vector2f& v) {
-//    return sqrt(v.x * v.x + v.y * v.y);
-//}
-//
-//float calculateAngle(const Vector2f& direction) {
-//    Vector2f normalizedDirection = normalize(direction);
-//    Vector2f reference(1.0f, 0.0f); // Vecteur de référence (axe des x)
-//    float dot = dotProduct(normalizedDirection, reference);
-//    float angle = acos(dot); // Angle en radians
-//
-//    // Déterminer le signe de l'angle en utilisant le produit vectoriel
-//    float cross = reference.x * normalizedDirection.y - reference.y * normalizedDirection.x;
-//    if (cross < 0)
-//    {
-//        angle = -angle;
-//    }
-//
-//    return angle * 180 / 3.14159265;
-//}
+void Boss::attack(RenderWindow& window, shared_ptr<Player>& player)
+{
+    View view = window.getView();
+    
+    Vector2f playerPos = view.getCenter();
+    Vector2f enemyPos = sprite.getPosition();
+    
+    Vector2f dir = { abs(playerPos.x - enemyPos.x), (playerPos.y - enemyPos.y) };
+
+    if (sqrt(dir.x * dir.x + dir.y * dir.y) < 100.0f && cooldownslash.getElapsedTime().asSeconds() > 2.0f)
+    {
+        katanaAttack = true;
+        attacking = true;
+        cooldownslash.restart();
+    }
+
+    if (katanaAttack) {
+        slash(window, player);
+    }
+}
 
 void Boss::slash(RenderWindow& window, shared_ptr<Player>& player)
 {
