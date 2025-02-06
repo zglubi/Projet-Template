@@ -30,6 +30,13 @@ void EntityManager::addShooter(Vector2f startPosition, float initialSpeed)
     entities.push_back(shooter);
 }
 
+void EntityManager::addBoss(Vector2f startPosition, float initialSpeed)
+{
+    shared_ptr<Boss> boss = make_shared<Boss>(startPosition, initialSpeed);
+    enemies.push_back(boss);
+    entities.push_back(boss);
+}
+
 void EntityManager::setPlayer(float x, float y)
 {
     shared_ptr<Player> player = make_shared<Player>(playerTexture, playerProjectileTexture, katanaSlashTexture, x, y);

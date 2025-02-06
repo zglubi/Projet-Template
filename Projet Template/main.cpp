@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Chaser.h"
+#include "Boss.h"
 #include "Menu.h"
 #include "Shooter.h"
 #include "Medipack.h"
@@ -63,6 +64,7 @@ int main()
     window.setFramerateLimit(120);
     manager->setPlayer(1000, 740);
 
+    manager->addBoss(Vector2f(100, 100), 50.0f);
     manager->addItem(Vector2f(0, 500), 1);
     manager->addItem(Vector2f(200, 700), 2);
     manager->addItem(Vector2f(800, 300), 3);

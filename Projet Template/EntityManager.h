@@ -7,6 +7,7 @@
 #include "Enemy.h"
 #include "Chaser.h"
 #include "Shooter.h"
+#include "Boss.h"
 #include "Medipack.h"
 #include "Katana.h"
 #include "Shuriken.h"
@@ -44,6 +45,7 @@ public:
 
 	void addChaser(Vector2f startPosition, float initialSpeed);
 	void addShooter(Vector2f startPosition, float initialSpeed);
+	void addBoss(Vector2f startPosition, float initialSpeed);
 	void addItem(Vector2f Position, int val);
 	void setPlayer(float x, float y);
 	shared_ptr<Player> getPlayer();
