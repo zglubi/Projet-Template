@@ -33,6 +33,7 @@ public:
     void update(RenderWindow& window, float deltatime, View& view) override;
     void draw(RenderWindow& window) override;
     void fireProjectile(Vector2f direction);
+    void attack(RenderWindow& window, shared_ptr<Player>& player);
     void slash(RenderWindow& window, shared_ptr<Player>& player);
 };
 
