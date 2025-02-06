@@ -1,6 +1,6 @@
 #include "Wall.h"
 
-Wall::Wall(Texture& texture, float x, float y, int type) : Entity(texture, x, y)
+Wall::Wall(Texture& texture, float x, float y, int type) : type(type), Entity(texture, x, y)
 {
 	sprite.setTexture(texture);//16, 32, 48, 64, 80, 96
 	switch (type)			   // 1   2   3   4   5   6
@@ -25,9 +25,9 @@ Wall::Wall(Texture& texture, float x, float y, int type) : Entity(texture, x, y)
 	case(38)://Trees
 		sprite.setTextureRect(IntRect(160, 64, 64, 48));break;
 	case(39)://Tour
-		sprite.setTextureRect(IntRect(224, 64, 48, 80));break;
+		sprite.setTextureRect(IntRect(224, 64, 48, 96));break;
 	case(40)://Wall horizontale
-		sprite.setTextureRect(IntRect(304, 34, 16, 48));break;
+		sprite.setTextureRect(IntRect(304, 64, 16, 48));break;
 	case(41)://fontaine
 		sprite.setTextureRect(IntRect(0, 96, 32, 48));break;
 	case(42)://Shop
@@ -82,11 +82,16 @@ Wall::Wall(Texture& texture, float x, float y, int type) : Entity(texture, x, y)
 		sprite.setTextureRect(IntRect(0, 80, 16, 32));break;
 	case(63)://pot
 		sprite.setTextureRect(IntRect(0, 160, 16, 16));break;
+	case(64)://Groote
+		sprite.setTextureRect(IntRect(192, 128, 48, 32)); break;
 
 	default:
 		break;
 	}
+
 	sprite.setScale(2, 2);
+	if (type == 64)sprite.setScale(4, 4);
+	
 	sprite.setPosition(x, y);
 }
 

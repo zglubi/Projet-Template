@@ -34,40 +34,33 @@ ThreadManager threadManager;
 
 int main()
 {
-    //// Charger les textures en arrière-plan
-    //auto future1 = threadManager.addTask([&]() {
-    //    textureManager.loadTextures1();
-    //    cout << "Textures 1 chargées en arrière-plan" << endl;
-    //    });
+    auto future1 = threadManager.addTask([&]() 
+        {
+        textureManager.loadTextures1();
+        cout << "Textures 1 chargees en arriere-plan" << endl;
+        });
 
-    //auto future2 = threadManager.addTask([&]() {
-    //    textureManager.loadTextures2();
-    //    cout << "Textures 2 chargées en arrière-plan" << endl;
-    //    });
+    auto future2 = threadManager.addTask([&]() 
+        {
+        textureManager.loadTextures2();
+        cout << "Textures 2 chargees en arriere-plan" << endl;
+        });
+     
+    gameMap.loadMap(2);
+    threadManager.waitAll();
 
-    //auto future3 = threadManager.addTask([&]() {
-    //    gameMap.loadMap(1);
-    //    cout << "Map 1 chargée en arrière-plan" << endl;
-    //    });
-
-    //// Attendre que les textures soient chargées avant de continuer
-    //threadManager.waitAll();
-
-    textureManager.loadTextures1();
-    textureManager.loadTextures2();
-    gameMap.loadMap(1);
 
     gameMap.setTextures(textureManager.getTexturesMap());
     manager->setTextures(textureManager.getTexturesEntities());
     hud.setTextures(textureManager.getTexturesHud());
 
     window.setFramerateLimit(120);
-    manager->setPlayer(1000, 740);
+    manager->setPlayer(600, 2000);
 
-    manager->addBoss(Vector2f(200, 200), 50.0f);
-    manager->addItem(Vector2f(0, 500), 1);
-    manager->addItem(Vector2f(200, 700), 2);
-    manager->addItem(Vector2f(800, 300), 3);
+    manager->addItem(Vector2f(700, 2500), 1);
+    manager->addItem(Vector2f(900, 2400), 2);
+    manager->addItem(Vector2f(800, 2300), 3);
+    manager->addItem(Vector2f(1800, 1600), 4);
 
     Clock clock;
 
@@ -142,9 +135,9 @@ int main()
         // Dessin et mise à jour du jeu
         window.clear();
         gameMap.draw(window);
-        manager->update(window, deltaTime, view, gameMap.getWalls());
+        manager->update(window, deltaTime, view, gameMap.getWalls(), gameMap.getDoor(), gameMap);
 
-        hud.draw(window, manager->getInventory(), manager->getPlayer()->getHp());
+        hud.draw(window, manager->getInventory(), manager->getPlayer()->getHp(), manager->getBoss());
         window.display();
     }
 

@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Wall.h"
+#include "Door.h"
 #include "Projectile.h"
 #include "Enemy.h"
 #include <iostream>
@@ -19,7 +20,7 @@ Player::Player(Texture& texture, Texture& projTexture, Texture& katanaSlashTextu
 
     projectileTexture = projTexture;
 
-    vitesse = 300;
+    vitesse = 900;
 
     dir = 4;
 
@@ -41,8 +42,20 @@ void Player::setSprite(const Sprite& newSprite)
     sprite = newSprite;
 }
 
-void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls, vector<shared_ptr<Enemy>>& enemies, float deltatime)
+void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls, vector<unique_ptr<Door>>& doors, vector<shared_ptr<Enemy>>& enemies, float deltatime, Map& gamemap)
 {
+    cout << getSprite().getPosition().x << " " << getSprite().getPosition().y << endl;
+    
+    if (getSprite().getPosition().x > 0 && getSprite().getPosition().x < 1216 && getSprite().getPosition().y > 1248 && getSprite().getPosition().y < 3464)
+    {
+        isWilderness = false;
+    }
+    else
+    {
+		isWilderness = true;
+    }
+    
+    
     float newX = x;
     float newY = y;
 
@@ -70,6 +83,10 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
         {
             newY += vitesse * deltatime;
             dir = 3;
+        }
+        
+        if (Keyboard::isKeyPressed(Keyboard::E)) {
+
         }
     }
 
@@ -107,6 +124,18 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
     if (!collisionY)
     {
         y = newY;
+    }
+
+    for (auto& door : doors) {
+
+        
+        FloatRect playerBounds(x - sprite.getGlobalBounds().width / 2, newY - sprite.getGlobalBounds().height / 4, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height * 3 / 4);
+        if (playerBounds.intersects(door->getSprite().getGlobalBounds()))
+        {
+            
+            gamemap.loadMap(door->nextlvl);
+            break;
+        }
     }
 
     // Mises à jour de la vue et de la position du sprite

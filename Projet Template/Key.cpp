@@ -1,9 +1,7 @@
 #include "Key.h"
 
-Key::Key(Texture& texture, float x, float y) : Item(texture, x, y) {
-    if (!texture.loadFromFile("assets/Items/GoldKey.png")) {
-        cerr << "Erreur : impossible de charger 'Key'" << endl;
-    }
+Key::Key(Texture& texture, float x, float y) : Item(texture, x, y)
+{
     sprite.setTexture(texture);
     sprite.setOrigin(texture.getSize().x / 2.f, texture.getSize().y / 2.f);
     sprite.setScale(Vector2f(2, 2));
@@ -11,15 +9,18 @@ Key::Key(Texture& texture, float x, float y) : Item(texture, x, y) {
 }
 
 
-void Key::draw(RenderWindow& window) {
+void Key::draw(RenderWindow& window)
+{
     window.draw(sprite);
 }
 
-void Key::update(RenderWindow& window, float deltatime, View& view) {
+void Key::update(RenderWindow& window, float deltatime, View& view) 
+{
     draw(window);
 }
 
-void Key::interact(shared_ptr<Player>& player) {
+void Key::interact(shared_ptr<Player>& player)
+{
 
     if (player->getSprite().getGlobalBounds().intersects(sprite.getGlobalBounds()))
     {

@@ -35,6 +35,7 @@ private:
 	Texture katanaIconTexture;
 	Texture mediPackIconTexture;
 	Texture keyIconTexture;
+	Texture bossHealthBarTexture;
 	vector<Texture> texturesHud;
 
 	Texture playerTexture;
@@ -49,6 +50,7 @@ private:
 	Texture bossTexture;
 	Texture bossProjectileTexture;
 	Texture bossSlashTexture;
+	Texture keyTexture;
 	vector<Texture> texturesEntities;
 };
 
