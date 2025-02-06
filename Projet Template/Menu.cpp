@@ -114,6 +114,12 @@ Menu::Menu(RenderWindow& window)
 		cout << "Erreur lors du chargement de la musique du menu" << endl;
 	}
 	gameMusic.setLoop(true);
+
+	if (!gameOverMusic.openFromFile("Assets/Audio/GameOver.ogg"))
+	{
+		cout << "Erreur lors du chargement de la musique du menu" << endl;
+	}
+	gameOverMusic.setLoop(true);
 }
 
 void Menu::draw(RenderWindow& window)
@@ -239,6 +245,7 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 		}
 		if (type == 2) // Game Over
 		{
+			gameOverMusic.play();
 			gameMusic.pause();
 
 			while (gameOver)
@@ -271,6 +278,7 @@ void Menu::menuDisplay(RenderWindow& window, int type)
 				buttons[1].draw(window);
 				window.display();
 			}
+			gameOverMusic.play();
 		}
 		if (type == 3) // Win
 		{

@@ -20,6 +20,7 @@ private:
 
 	Music menuMusic;
 	Music gameMusic;
+	Music gameOverMusic;
 	Sprite pauseMenuBGSprite;
 	Texture pauseMenuBGTexture;
 	Sprite mainMenuBGSprite;
