@@ -59,6 +59,7 @@ int main()
     manager->addItem(Vector2f(700, 2500), 1);
     manager->addItem(Vector2f(900, 2400), 2);
     manager->addItem(Vector2f(800, 2300), 3);
+    manager->addItem(Vector2f(1800, 1600), 4);
 
     Clock clock;
 
@@ -135,7 +136,7 @@ int main()
         gameMap.draw(window);
         manager->update(window, deltaTime, view, gameMap.getWalls(), gameMap.getDoor());
 
-        hud.draw(window, manager->getInventory(), manager->getPlayer()->getHp());
+        hud.draw(window, manager->getInventory(), manager->getPlayer()->getHp(), manager->getBoss());
         window.display();
     }
 

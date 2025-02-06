@@ -75,6 +75,13 @@ void EntityManager::addItem(Vector2f Position, int val)
         entities.push_back(item);
         break;
     }
+    case 4:
+	{
+		shared_ptr<Key> item = make_shared<Key>(keyTexture, Position.x, Position.y);
+		items.push_back(item);
+		entities.push_back(item);
+		break;
+	}
     default:
         break;
     }
@@ -106,6 +113,7 @@ void EntityManager::update(RenderWindow& window, float deltatime, View& view, ve
     for (auto& enemy : enemies)
 	{
 		enemy->collisionPlayer(player);
+        enemy->collisionWall(walls);
 	}
 
     if (boss)
@@ -143,6 +151,7 @@ void EntityManager::setTextures(vector<Texture>& textures)
     bossTexture = textures[9];
     bossProjectileTexture = textures[10];
     bossSlashTexture = textures[11];
+    keyTexture = textures[12];
 }
 
 void EntityManager::spawnEnemy()
@@ -174,8 +183,16 @@ void EntityManager::spawnEnemy()
             break;
         }
     }
+    else if (!player->getWilderness())
+    {
+        for (auto enemy : enemies)
+        {
+            enemies.erase(std::remove(enemies.begin(), enemies.end(), enemy), enemies.end());
+            entities.erase(std::remove(entities.begin(), entities.end(), enemy), entities.end());
+        }
+    }
 
-    if (boss == nullptr)
+    /*if (boss == nullptr)
     {
         bool spawning = false;
         Vector2f posEnemy;
@@ -192,7 +209,7 @@ void EntityManager::spawnEnemy()
             }
         }
         addBoss(posEnemy, 100);
-    }
+    }*/
 }
 
 void EntityManager::dispawnEnemy()
@@ -205,4 +222,9 @@ void EntityManager::dispawnEnemy()
 			enemy->setToBeDeleted(true);
 		}
     }
+}
+
+shared_ptr<Boss> EntityManager::getBoss()
+{
+    return boss;
 }

@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include "Boss.h"
 using namespace sf;
 using namespace std;
 
@@ -41,6 +42,9 @@ private:
     Texture keyIconTexture;
     Sprite keyIconSprite;
 
+    Texture bossHealthBarTexture;
+    Sprite bossHealthBarSprite;
+
     // Private method to update the health sprite based on the player's health
     void updateHealthSprite();
 
@@ -49,7 +53,7 @@ public:
     HUD();
 
     // Function to draw the HUD to the window
-    void draw(RenderWindow& window, vector<int> inventory, size_t hp);
+    void draw(RenderWindow& window, vector<int> inventory, size_t hp, shared_ptr<Boss> boss);
 
 	void inventoryDisplay(RenderWindow& window, vector<int> items);
 

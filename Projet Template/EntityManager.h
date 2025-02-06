@@ -11,6 +11,7 @@
 #include "Medipack.h"
 #include "Katana.h"
 #include "Shuriken.h"
+#include "Key.h"
 #include <SFML/Graphics.hpp>
 #include "Wall.h"
 using namespace std;
@@ -39,6 +40,7 @@ private:
 	Texture bossTexture;
 	Texture bossProjectileTexture;
 	Texture bossSlashTexture;
+	Texture keyTexture;
 
 	EntityManager();
 public:
@@ -59,6 +61,8 @@ public:
 	void dispawnEnemy();
 	void removeEntity();
 	vector<int> getInventory();
+
+	shared_ptr<Boss> getBoss();
 };
 
 #endif // ENTITYMANAGER_H
