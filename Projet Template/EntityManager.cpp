@@ -233,6 +233,15 @@ void EntityManager::dispawnEnemy()
     }
 }
 
+void EntityManager::Dungeon() {
+    for (auto enemy : enemies)
+    {
+        enemies.erase(std::remove(enemies.begin(), enemies.end(), enemy), enemies.end());
+        entities.erase(std::remove(entities.begin(), entities.end(), enemy), entities.end());
+    }
+    addBoss(Vector2f(0, 0), 100);
+}
+
 shared_ptr<Boss> EntityManager::getBoss()
 {
     return boss;
