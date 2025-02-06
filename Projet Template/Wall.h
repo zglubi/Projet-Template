@@ -1,15 +1,12 @@
 #ifndef WALL_H
 #define WALL_H
-
-#include <SFML/Graphics.hpp>
 #include "Entity.h"
-using namespace sf;
-using namespace std;
+
 
 class Wall : public Entity
 {
 public:
-
+	int type;
 	Wall(Texture& texture, float x, float y, int type);
 	~Wall();
 	Sprite getSprite();

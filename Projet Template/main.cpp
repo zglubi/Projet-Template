@@ -33,28 +33,21 @@ ThreadManager threadManager;
 
 int main()
 {
-    //// Charger les textures en arrière-plan
-    //auto future1 = threadManager.addTask([&]() {
-    //    textureManager.loadTextures1();
-    //    cout << "Textures 1 chargées en arrière-plan" << endl;
-    //    });
+    auto future1 = threadManager.addTask([&]() 
+        {
+        textureManager.loadTextures1();
+        cout << "Textures 1 chargees en arriere-plan" << endl;
+        });
 
-    //auto future2 = threadManager.addTask([&]() {
-    //    textureManager.loadTextures2();
-    //    cout << "Textures 2 chargées en arrière-plan" << endl;
-    //    });
-
-    //auto future3 = threadManager.addTask([&]() {
-    //    gameMap.loadMap(1);
-    //    cout << "Map 1 chargée en arrière-plan" << endl;
-    //    });
-
-    //// Attendre que les textures soient chargées avant de continuer
-    //threadManager.waitAll();
-
-    textureManager.loadTextures1();
-    textureManager.loadTextures2();
+    auto future2 = threadManager.addTask([&]() 
+        {
+        textureManager.loadTextures2();
+        cout << "Textures 2 chargees en arriere-plan" << endl;
+        });
+     
     gameMap.loadMap(1);
+    threadManager.waitAll();
+
 
     gameMap.setTextures(textureManager.getTexturesMap());
     manager->setTextures(textureManager.getTexturesEntities());
@@ -140,7 +133,7 @@ int main()
         // Dessin et mise à jour du jeu
         window.clear();
         gameMap.draw(window);
-        manager->update(window, deltaTime, view, gameMap.getWalls());
+        manager->update(window, deltaTime, view, gameMap.getWalls(), gameMap.getDoor());
 
         hud.draw(window, manager->getInventory(), manager->getPlayer()->getHp());
         window.display();

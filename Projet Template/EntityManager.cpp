@@ -96,7 +96,7 @@ void EntityManager::removeEntity()
         items.end());
 }
 
-void EntityManager::update(RenderWindow& window, float deltatime, View& view, vector<unique_ptr<Wall>>& walls)
+void EntityManager::update(RenderWindow& window, float deltatime, View& view, vector<unique_ptr<Wall>>& walls, vector<unique_ptr<Door>>& doors)
 {
     for (auto& entity : entities)
     {
@@ -108,6 +108,11 @@ void EntityManager::update(RenderWindow& window, float deltatime, View& view, ve
 		enemy->collisionPlayer(player);
 	}
 
+    if (boss)
+    {
+        boss->attack(window, player);
+    }
+
     dispawnEnemy();
     removeEntity();
     for (auto& item : items) 
@@ -115,7 +120,7 @@ void EntityManager::update(RenderWindow& window, float deltatime, View& view, ve
         item->interact(player);
     }
 
-	player->handleInput(window, view, walls, enemies, deltatime);
+	player->handleInput(window, view, walls, doors,  enemies, deltatime);
     spawnEnemy();
 }
 

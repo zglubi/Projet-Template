@@ -1,6 +1,6 @@
 #include "Wall.h"
 
-Wall::Wall(Texture& texture, float x, float y, int type) : Entity(texture, x, y)
+Wall::Wall(Texture& texture, float x, float y, int type) : type(type), Entity(texture, x, y)
 {
 	sprite.setTexture(texture);//16, 32, 48, 64, 80, 96
 	switch (type)			   // 1   2   3   4   5   6
@@ -25,7 +25,7 @@ Wall::Wall(Texture& texture, float x, float y, int type) : Entity(texture, x, y)
 	case(38)://Trees
 		sprite.setTextureRect(IntRect(160, 64, 64, 48));break;
 	case(39)://Tour
-		sprite.setTextureRect(IntRect(224, 64, 48, 80));break;
+		sprite.setTextureRect(IntRect(224, 64, 48, 96));break;
 	case(40)://Wall horizontale
 		sprite.setTextureRect(IntRect(304, 64, 16, 48));break;
 	case(41)://fontaine
