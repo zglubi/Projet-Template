@@ -1,6 +1,7 @@
 #include "Projectile.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Boss.h"
 
 Projectile::Projectile(Texture& texture, Vector2f position, Vector2f direction, float speed, float damage, size_t maxF, size_t w, size_t h) : Entity(texture, position.x, position.y)
 {
@@ -84,15 +85,24 @@ void Projectile::collision(vector<unique_ptr<Wall>>& walls)
 	}
 }
 
-void Projectile::collisionEnemies(vector<shared_ptr<Enemy>>& enemies)
+void Projectile::collisionEnemies(vector<shared_ptr<Enemy>>& enemies, shared_ptr<Boss> boss)
 {
-	for (size_t i = 0; i < enemies.size(); i++)
+	if (sprite.getGlobalBounds().intersects(boss->getSprite().getGlobalBounds()))
 	{
-		if (sprite.getGlobalBounds().intersects(enemies[i]->getSprite().getGlobalBounds()))
+		boss->diminishHp(damage);
+		setToBeDeleted(true);
+	}
+	else
+	{
+		for (size_t i = 0; i < enemies.size(); i++)
 		{
-			enemies[i]->setToBeDeleted(true);
-			setToBeDeleted(true);
-			break;
+			if (sprite.getGlobalBounds().intersects(enemies[i]->getSprite().getGlobalBounds()))
+			{
+
+				enemies[i]->setToBeDeleted(true);
+				setToBeDeleted(true);
+				break;
+			}
 		}
 	}
 }

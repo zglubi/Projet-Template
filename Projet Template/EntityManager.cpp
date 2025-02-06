@@ -102,6 +102,14 @@ void EntityManager::removeEntity()
         remove_if(items.begin(), items.end(),
             [](const shared_ptr<Entity>& entity) { return entity->isToBeDeleted(); }),
         items.end());
+
+    if (boss)
+    {
+        if (boss->isToBeDeleted())
+        {
+            boss = nullptr;
+        }
+    }
 }
 
 void EntityManager::update(RenderWindow& window, float deltatime, View& view, vector<unique_ptr<Wall>>& walls, vector<unique_ptr<Door>>& doors, Map& gamemap)
@@ -129,7 +137,7 @@ void EntityManager::update(RenderWindow& window, float deltatime, View& view, ve
         item->interact(player);
     }
 
-	player->handleInput(window, view, walls, doors,  enemies, deltatime, gamemap);
+	player->handleInput(window, view, walls, doors,  enemies, deltatime, gamemap, boss);
     spawnEnemy();
 }
 
@@ -209,7 +217,7 @@ void EntityManager::spawnEnemy()
                 spawning = true;
             }
         }
-        addBoss(posEnemy, 100);
+        addBoss(Vector2f(1500, 1500), 100);
     }
 }
 
