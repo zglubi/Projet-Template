@@ -44,7 +44,6 @@ void Player::setSprite(const Sprite& newSprite)
 
 void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls, vector<unique_ptr<Door>>& doors, vector<shared_ptr<Enemy>>& enemies, float deltatime, Map& gamemap)
 {
-    cout << getSprite().getPosition().x << " " << getSprite().getPosition().y << endl;
     
     if (getSprite().getPosition().x > 0 && getSprite().getPosition().x < 1216 && getSprite().getPosition().y > 1248 && getSprite().getPosition().y < 3464)
     {
@@ -132,7 +131,9 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
         FloatRect playerBounds(x - sprite.getGlobalBounds().width / 2, newY - sprite.getGlobalBounds().height / 4, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height * 3 / 4);
         if (playerBounds.intersects(door->getSprite().getGlobalBounds()))
         {
-            
+            cout << door->isOpen;
+
+            if(door->isOpen)
             gamemap.loadMap(door->nextlvl);
             break;
         }
