@@ -23,7 +23,7 @@ Player::Player(Texture& texture, Texture& projTexture, Texture& katanaSlashTextu
 
     projectileTexture = projTexture;
 
-    vitesse = 300;
+    vitesse = 900;
 
     dir = 4;
 
