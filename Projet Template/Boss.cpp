@@ -6,33 +6,39 @@ Boss::Boss(Texture& texture, Texture& projTexture, Texture& SlashTexture, Vector
 	projectileTexture = projTexture;
     slashTexture = SlashTexture;
 
-	sprite.setTextureRect(IntRect(0, 0, 25, 25));
-	sprite.setScale(2, 2);
-	sprite.setOrigin(sprite.getGlobalBounds().width / 2.f, sprite.getGlobalBounds().height / 2.f);
+    sprite.setTextureRect(IntRect(0, 0, 96, 48));
+    sprite.setScale(4, 4);
+    sprite.setOrigin(sprite.getGlobalBounds().width / 4.f, sprite.getGlobalBounds().height / 4.f);
+    
+    slashSprite.setTexture(slashTexture);
+    slashSprite.setScale(4, 4);
 
-	moveX = 0;
-	moveY = 0;
+    moveX = 0;
+    moveY = 0;
 }
 
-void Boss::collisionPlayer(shared_ptr<Player>& player) 
+void Boss::collisionPlayer(shared_ptr<Player>& player)
 {
-	if (sprite.getGlobalBounds().intersects(player->getSprite().getGlobalBounds()))
-	{
-		player->diminishHp(1);
-		hp -= 1;
-	}
-	for (auto& projectile : projectiles)
-	{
-		projectile->collisionPlayer(player);
-	}
+    if (sprite.getGlobalBounds().intersects(player->getSprite().getGlobalBounds()))
+    {
+        player->diminishHp(1);
+        hp -= 1;
+    }
+    for (auto& projectile : projectiles)
+    {
+        projectile->collisionPlayer(player);
+    }
 }
 
 void Boss::collisionWall(vector<unique_ptr<Wall>>& walls)
 {
-
+    for (auto& projectile : projectiles)
+    {
+        projectile->collision(walls);
+    }
 }
 
-void Boss::update(RenderWindow& window, float deltatime, View& view) 
+void Boss::update(RenderWindow& window, float deltatime, View& view)
 {
 	Vector2f playerPos = view.getCenter();
 	Vector2f enemyPos = sprite.getPosition();
@@ -46,31 +52,13 @@ void Boss::update(RenderWindow& window, float deltatime, View& view)
     enemyPos.x += moveX * initialSpeed * deltatime;
     enemyPos.y += moveY * initialSpeed * deltatime;
 
-    if (frame / 10 > 3)
-    {
-        frame = 0;
-    }
-    else
-    {
-        frame++;
+    animationTimer += deltatime;
+    if (animationTimer >= 0.1f) { // 100ms
+        currentFrame = (currentFrame + 1) % 6; // 6 frames dans le sprite
+        animationTimer = 0.0f;
     }
 
-    if (distanceX > distanceY) {
-        if (moveX > 0) {
-            sprite.setTextureRect(IntRect(16 * 3, 0 + 16 * (frame / 10), 16, 16));
-        }
-        else {
-            sprite.setTextureRect(IntRect(16 * 2, 0 + 16 * (frame / 10), 16, 16));
-        }
-    }
-    else {
-        if (moveY > 0) {
-            sprite.setTextureRect(IntRect(0, 0 + 16 * (frame / 10), 16, 16));
-        }
-        else {
-            sprite.setTextureRect(IntRect(16, 0 + 16 * (frame / 10), 16, 16));
-        }
-    }
+    sprite.setTextureRect(IntRect(96 * currentFrame, 0, 96, 48));
     sprite.setPosition(enemyPos);
 
     // Update the fire timer
@@ -108,18 +96,23 @@ void Boss::update(RenderWindow& window, float deltatime, View& view)
     draw(window);
 }
 
-void Boss::draw(RenderWindow& window) 
-{
-	window.draw(sprite);
 
-	// Draw projectiles
-	for (const auto& projectile : projectiles)
-	{
-		projectile->draw(window);
-	}
+void Boss::draw(RenderWindow& window)
+{
+    window.draw(sprite);
+
+    // Draw projectiles
+    for (const auto& projectile : projectiles)
+    {
+        projectile->draw(window);
+    }
+
+    if (attacking) {
+        window.draw(slashSprite);
+    }
 }
 
-void Boss::fireProjectile(Vector2f direction) 
+void Boss::fireProjectile(Vector2f direction)
 {
 	Vector2f startPosition = sprite.getPosition();
 	float speed = 200.0f;
@@ -136,7 +129,7 @@ void Boss::attack(RenderWindow& window, shared_ptr<Player>& player)
     
     Vector2f dir = { abs(playerPos.x - enemyPos.x), (playerPos.y - enemyPos.y) };
 
-    if (sqrt(dir.x * dir.x + dir.y * dir.y) < 100.0f && cooldownslash.getElapsedTime().asSeconds() > 2.0f)
+    if (sqrt(dir.x * dir.x + dir.y * dir.y) < 500.0f && cooldownslash.getElapsedTime().asSeconds() > 2.0f)
     {
         katanaAttack = true;
         attacking = true;
@@ -152,7 +145,7 @@ void Boss::slash(RenderWindow& window, shared_ptr<Player>& player)
 {
     if (slashFrame == 0)
     {
-        slashDir = player->getSprite().getPosition() - getSprite().getPosition();
+        slashDir = player->getSprite().getPosition() - (getSprite().getPosition() + Vector2f(-200, -50));
         slashDir = normalize(slashDir);
     }
 
@@ -168,7 +161,7 @@ void Boss::slash(RenderWindow& window, shared_ptr<Player>& player)
         slashFrame++;
     }
 
-    slashSprite.setPosition(Vector2f(x, y) + (slashDir * 50));
+    slashSprite.setPosition((getSprite().getPosition() + Vector2f(-200, -50) + (slashDir * 70)));
     slashSprite.setRotation(calculateAngle(slashDir));
     slashSprite.setTextureRect(IntRect(0 + 32 * (slashFrame / 10), 0, 32, 32));
     window.draw(slashSprite);

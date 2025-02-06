@@ -25,6 +25,8 @@ private:
 
     float fireCooldown;
     float fireTimer;
+    float animationTimer;
+    int currentFrame;
 
 public:
     Boss(Texture& texture, Texture& projTexture, Texture& SlashTexture, Vector2f startPosition, float initialSpeed);

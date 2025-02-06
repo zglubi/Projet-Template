@@ -47,7 +47,7 @@ void TextureManager::loadTextures2()
     playerProjectileTexture.loadFromFile("assets\\Projectiles\\Shuriken.png");
     katanaSlashTexture.loadFromFile("assets\\Slash\\katanaCurved.png");
     shooterProjectileTexture.loadFromFile("assets/Projectiles/BigEnergyBall.png");
-	bossTexture.loadFromFile("assets/Enemies/Slime3/Slime3.png");
+	bossTexture.loadFromFile("assets/Enemies/Boss/BossWalk.png");
 	bossProjectileTexture.loadFromFile("assets\\Projectiles\\Shuriken.png");
 	bossSlashTexture.loadFromFile("assets\\Slash\\katanaCurved.png");
 	keyTexture.loadFromFile("assets/Items/GoldKey.png");
