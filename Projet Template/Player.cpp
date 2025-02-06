@@ -126,8 +126,8 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
     }
 
     projectiles.erase(
-        std::remove_if(projectiles.begin(), projectiles.end(),
-            [](const std::unique_ptr<Projectile>& projectile) { return projectile->isToBeDeleted(); }),
+        remove_if(projectiles.begin(), projectiles.end(),
+            [](const unique_ptr<Projectile>& projectile) { return projectile->isToBeDeleted(); }),
         projectiles.end());
 
     // Gestion des attaques
@@ -153,7 +153,7 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
                 break;
             case 3:
                 hpUp();
-                inventory.erase(std::remove(inventory.begin(), inventory.end(), 3), inventory.end());
+                inventory.erase(remove(inventory.begin(), inventory.end(), 3), inventory.end());
                 break;
             default:
                 break;
@@ -183,7 +183,7 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
                 break;
             case 3:
                 hpUp();
-                inventory.erase(std::remove(inventory.begin(), inventory.end(), 3), inventory.end());
+                inventory.erase(remove(inventory.begin(), inventory.end(), 3), inventory.end());
                 break;
             default:
                 break;
@@ -213,7 +213,7 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
                 break;
             case 3:
                 hpUp();
-                inventory.erase(std::remove(inventory.begin(), inventory.end(), 3), inventory.end());
+                inventory.erase(remove(inventory.begin(), inventory.end(), 3), inventory.end());
                 break;
             default:
                 break;
@@ -293,7 +293,7 @@ void Player::shoot(RenderWindow& window, View& view)
 
 Vector2f normalize(const Vector2f& source) 
 {
-    float length = std::sqrt(source.x * source.x + source.y * source.y);
+    float length = sqrt(source.x * source.x + source.y * source.y);
     if (length != 0)
         return Vector2f(source.x / length, source.y / length);
     else
@@ -306,14 +306,14 @@ float dotProduct(const sf::Vector2f& v1, const sf::Vector2f& v2)
 }
 
 float magnitude(const sf::Vector2f& v) {
-    return std::sqrt(v.x * v.x + v.y * v.y);
+    return sqrt(v.x * v.x + v.y * v.y);
 }
 
 float calculateAngle(const sf::Vector2f& direction) {
     sf::Vector2f normalizedDirection = normalize(direction);
     sf::Vector2f reference(1.0f, 0.0f); // Vecteur de référence (axe des x)
     float dot = dotProduct(normalizedDirection, reference);
-    float angle = std::acos(dot); // Angle en radians
+    float angle = acos(dot); // Angle en radians
 
     // Déterminer le signe de l'angle en utilisant le produit vectoriel
     float cross = reference.x * normalizedDirection.y - reference.y * normalizedDirection.x;

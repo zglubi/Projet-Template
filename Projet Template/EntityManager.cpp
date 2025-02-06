@@ -75,16 +75,16 @@ void EntityManager::addItem(Vector2f Position, int val)
 void EntityManager::removeEntity()
 {
     entities.erase(
-        std::remove_if(entities.begin(), entities.end(),
-            [](const std::shared_ptr<Entity>& entity) { return entity->isToBeDeleted(); }),
+        remove_if(entities.begin(), entities.end(),
+            [](const shared_ptr<Entity>& entity) { return entity->isToBeDeleted(); }),
         entities.end());
     enemies.erase(
-        std::remove_if(enemies.begin(), enemies.end(),
-            [](const std::shared_ptr<Entity>& entity) { return entity->isToBeDeleted(); }),
+        remove_if(enemies.begin(), enemies.end(),
+            [](const shared_ptr<Entity>& entity) { return entity->isToBeDeleted(); }),
         enemies.end());
     items.erase(
-        std::remove_if(items.begin(), items.end(),
-            [](const std::shared_ptr<Entity>& entity) { return entity->isToBeDeleted(); }),
+        remove_if(items.begin(), items.end(),
+            [](const shared_ptr<Entity>& entity) { return entity->isToBeDeleted(); }),
         items.end());
 }
 

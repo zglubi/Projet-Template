@@ -2,7 +2,7 @@
 
 Key::Key(Texture& texture, float x, float y) : Item(texture, x, y) {
     if (!texture.loadFromFile("assets/Items/GoldKey.png")) {
-        std::cerr << "Erreur : impossible de charger 'Key'" << std::endl;
+        cerr << "Erreur : impossible de charger 'Key'" << endl;
     }
     sprite.setTexture(texture);
     sprite.setOrigin(texture.getSize().x / 2.f, texture.getSize().y / 2.f);

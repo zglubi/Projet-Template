@@ -26,8 +26,8 @@ public:
 	Projectile(Texture& texture, Vector2f position, Vector2f direction, float speed, float damage, size_t maxF, size_t w, size_t h);
 	~Projectile();
 	void update(RenderWindow& window, float deltatime, View& view) override;
-	void collision(std::vector<unique_ptr<Wall>>& walls);
-	void collisionEnemies(std::vector<shared_ptr<Enemy>>& enemies);
+	void collision(vector<unique_ptr<Wall>>& walls);
+	void collisionEnemies(vector<shared_ptr<Enemy>>& enemies);
 	void collisionPlayer(shared_ptr<Player>& player);
 	void draw(sf::RenderWindow& window) override;
 	void setDirection(Vector2f direction);

@@ -109,8 +109,8 @@ void Shooter::update(RenderWindow& window, float deltatime, View& view)
     }
 
     // Remove projectiles that go out of the window bounds (optional)
-    projectiles.erase(std::remove_if(projectiles.begin(), projectiles.end(),
-        [&window](const std::unique_ptr<Projectile>& projectile) {
+    projectiles.erase(remove_if(projectiles.begin(), projectiles.end(),
+        [&window](const unique_ptr<Projectile>& projectile) {
             return (projectile->getSprite().getPosition().x < 0 || projectile->getSprite().getPosition().y < 0 ||
                 projectile->getSprite().getPosition().x > window.getSize().x ||
                 projectile->getSprite().getPosition().y > window.getSize().y) || projectile->toBeDeleted;
@@ -138,5 +138,5 @@ void Shooter::fireProjectile(Vector2f direction)
     Vector2f startPosition = sprite.getPosition();
     float speed = 300.0f;
     float damage = 10.0f;
-    projectiles.emplace_back(std::make_unique<Projectile>(projectileTexture, startPosition, direction, speed, damage, 4, 24, 24));
+    projectiles.emplace_back(make_unique<Projectile>(projectileTexture, startPosition, direction, speed, damage, 4, 24, 24));
 }

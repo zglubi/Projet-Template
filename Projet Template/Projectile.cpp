@@ -25,7 +25,7 @@ Projectile::Projectile(Texture& texture, Vector2f position, Vector2f direction, 
 	maxFrame = maxF;
 	height = h;
 	width = w;
-	float angle = std::atan2(direction.y, direction.x) * 180 / 3.14159f;
+	float angle = atan2(direction.y, direction.x) * 180 / 3.14159f;
 	sprite.setRotation(angle+90);
 }
 
@@ -72,7 +72,7 @@ float Projectile::getDamage()
     return damage;
 }
 
-void Projectile::collision(std::vector<unique_ptr<Wall>>& walls)
+void Projectile::collision(vector<unique_ptr<Wall>>& walls)
 {
 	for (size_t i = 0; i < walls.size(); i++)
 	{
@@ -84,7 +84,7 @@ void Projectile::collision(std::vector<unique_ptr<Wall>>& walls)
 	}
 }
 
-void Projectile::collisionEnemies(std::vector<shared_ptr<Enemy>>& enemies)
+void Projectile::collisionEnemies(vector<shared_ptr<Enemy>>& enemies)
 {
 	for (size_t i = 0; i < enemies.size(); i++)
 	{
