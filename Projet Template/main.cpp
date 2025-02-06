@@ -60,10 +60,10 @@ int main()
     manager->setPlayer(600 + 896, 2000);
 
     // manager->addBoss(Vector2f(1350, 750), 50.0f);
-    manager->addItem(Vector2f(700, 2500), 1);
-    manager->addItem(Vector2f(900, 2400), 2);
-    manager->addItem(Vector2f(800, 2300), 3);
-    manager->addItem(Vector2f(1800, 1600), 4);
+    manager->addItem(Vector2f(700 + 1896, 2500 - 700), 1);
+    manager->addItem(Vector2f(900 + 1896, 2400 - 800), 2);
+    manager->addItem(Vector2f(800 + 1896, 2300 - 1000), 3);
+    manager->addItem(Vector2f(1800 + 1896, 1600), 4);
 
     Clock clock;
 
