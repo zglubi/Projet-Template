@@ -1,6 +1,6 @@
 #include "Door.h"
 
-Door::Door(Texture& texture, float x, float y, int nextlvl, bool isOpen, int type) :type(type), nextlvl(nextlvl), Entity(texture, x, y)
+Door::Door(Texture& texture, float x, float y, int nextlvl, bool isOpen, int type) : isOpen(isOpen), type(type), nextlvl(nextlvl), Entity(texture, x, y)
 {
 	switch (type)
 	{
