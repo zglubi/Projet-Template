@@ -10,20 +10,20 @@ void HUD::inventoryDisplay(RenderWindow& window, vector<int> items) {
     for (int i = 0; i < items.size(); i++) {
         switch (items[i]) {
         case 1:
-            shurikenIconSprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 562.f, window.getView().getCenter().y - window.getView().getSize().y / 2 + 912.f);
+            shurikenIconSprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 562.f+70.f*i, window.getView().getCenter().y - window.getView().getSize().y / 2 + 912.f);
             window.draw(shurikenIconSprite);
             break;
         case 2:
-            katanaIconSprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 632.f, window.getView().getCenter().y - window.getView().getSize().y / 2 + 912.f);
+            katanaIconSprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 562.f + 70.f * i, window.getView().getCenter().y - window.getView().getSize().y / 2 + 912.f);
             window.draw(katanaIconSprite);
             break;
 
         case 3:
-            mediPackIconSprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 702.f, window.getView().getCenter().y - window.getView().getSize().y / 2 + 912.f);
+            mediPackIconSprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 562.f + 70.f * i, window.getView().getCenter().y - window.getView().getSize().y / 2 + 912.f);
             window.draw(mediPackIconSprite);
             break;
         case 4:
-            keyIconSprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 772.f, window.getView().getCenter().y - window.getView().getSize().y / 2 + 912.f);
+            keyIconSprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 562.f + 70.f * i, window.getView().getCenter().y - window.getView().getSize().y / 2 + 912.f);
             window.draw(keyIconSprite);
             break;
         }
