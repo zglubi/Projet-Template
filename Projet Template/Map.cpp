@@ -1,4 +1,4 @@
-#include "Map.h"
+#include"Map.h"
 #include <fstream>
 #include <iostream>
 
@@ -33,25 +33,18 @@ vector<unique_ptr<Wall>>& Map::getWalls()
 	return walls;
 }
 
+
 void Map::draw(RenderWindow& window)
 {
-	for (int i = 0; i < map.size(); i++)
-	{
-		for (int j = 0; j < map[i].size(); j++)
-		{
-			if (j < 57)
-			spriteSand.setPosition(j * 32, i * 32);
-			else
-			spriteGrass.setPosition(j * 32, i * 32);
-			window.draw(spriteSand);
-			window.draw(spriteGrass);
-		}
-	}
-
-	for (auto& wall : walls)
-	{
-		wall->draw(window);
-	}
+    for (auto& floor : floors)
+    {
+        floor->draw(window);
+    }
+    for (auto& wall : walls)
+    {
+        wall->draw(window);
+    }
+    
 }
 
 void Map::loadMap(int mapNum)
@@ -105,7 +98,15 @@ void Map::loadMap(int mapNum)
             }
 
             row.push_back(tileCode[0]);
-            if (tileValue > 29)
+            if (tileValue == 00 )
+            {
+                floors.push_back(make_unique<Floor>(tilesetFloor, i / 2 * 32, map.size() * 32, tileValue));
+            }
+            else if (tileValue < 31)
+            {
+                floors.push_back(make_unique<Floor>(tilesetFloor, i / 2 * 32, map.size() * 32, tileValue));
+            }
+			else if (tileValue < 41)
             {
                 walls.push_back(make_unique<Wall>(tilesetDesert, i / 2 * 32, map.size() * 32, tileValue));
             }
@@ -134,24 +135,9 @@ void Map::setTextures(vector<Texture>& textures)
 	spriteSand.setTextureRect(IntRect(16, 16, 16, 16));
 	spriteSand.setScale(2, 2);
 
-	spriteGrass.setTexture(tilesetFloor);
+    spriteGrass.setTexture(tilesetFloor);
 	spriteGrass.setTextureRect(IntRect(0, 192, 16, 16));
 	spriteGrass.setScale(2, 2);
-
-
-
-	spriteHouse1.setTexture(tilesetDesert);
-	spriteHouse1.setTextureRect(IntRect(96, 48, 64, 64));
-
-	spriteWallH.setTexture(tilesetDesert);
-	spriteWallH.setTextureRect(IntRect(304, 64, 16, 48));
-	spriteWallH.setScale(2, 2);
-
-	spriteWallV.setTexture(tilesetDesert);
-	spriteWallV.setTextureRect(IntRect(240, 176, 16, 16));
-	spriteWallV.setScale(2, 2);
-
-
 
 	spritePillarA.setTexture(tilesetVillageA);
 	spritePillarA.setTextureRect(IntRect(32, 48, 16, 48));

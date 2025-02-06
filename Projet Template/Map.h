@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Wall.h"
+#include "Floor.h"
 
 using namespace std;
 using namespace sf;
@@ -16,7 +17,7 @@ private:
 
 	Sprite spriteGrass;
 	Sprite spriteSand;
-
+	Sprite spriteFloor;
 
 	Texture tilesetDesert;
 
@@ -42,6 +43,7 @@ private:
 	vector<vector<char>> map;
 
 	vector<unique_ptr<Wall>> walls;
+	vector<unique_ptr<Floor>> floors;
 
 public:
 	Map();
@@ -49,6 +51,7 @@ public:
 
 	vector<vector<char>> getMap();
 	vector<unique_ptr<Wall>>& getWalls();
+	vector<unique_ptr<Floor>>& getFloor();
 
 	void draw(RenderWindow& window);
 
