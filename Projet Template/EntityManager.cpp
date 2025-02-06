@@ -165,7 +165,7 @@ void EntityManager::setTextures(vector<Texture>& textures)
 
 void EntityManager::spawnEnemy()
 {
- /*   if (player->getWilderness() && enemies.size() < mobCap)
+    if (player->getWilderness() && enemies.size() < mobCap)
     {
         bool spawning = false;
         Vector2f posEnemy;
@@ -199,25 +199,6 @@ void EntityManager::spawnEnemy()
             enemies.erase(std::remove(enemies.begin(), enemies.end(), enemy), enemies.end());
             entities.erase(std::remove(entities.begin(), entities.end(), enemy), entities.end());
         }
-    }*/
-
-    if (boss == nullptr)
-    {
-        bool spawning = false;
-        Vector2f posEnemy;
-        while (!spawning)
-        {
-            posEnemy = { static_cast<float>(randomNumber(player->getSprite().getPosition().x - 3000, player->getSprite().getPosition().x + 3000)), static_cast<float>(randomNumber(player->getSprite().getPosition().y - 3000, player->getSprite().getPosition().y + 3000)) };
-            if (posEnemy.x > player->getSprite().getPosition().x - 500 && posEnemy.x < player->getSprite().getPosition().x + 500 && posEnemy.y > player->getSprite().getPosition().y - 500 && posEnemy.y < player->getSprite().getPosition().y + 500)
-            {
-                continue;
-            }
-            else
-            {
-                spawning = true;
-            }
-        }
-        addBoss(Vector2f(1500, 1500), 100);
     }
 }
 
@@ -231,6 +212,15 @@ void EntityManager::dispawnEnemy()
 			enemy->setToBeDeleted(true);
 		}
     }
+}
+
+void EntityManager::Dungeon() {
+    for (auto enemy : enemies)
+    {
+        enemies.erase(std::remove(enemies.begin(), enemies.end(), enemy), enemies.end());
+        entities.erase(std::remove(entities.begin(), entities.end(), enemy), entities.end());
+    }
+    addBoss(Vector2f(0, 0), 100);
 }
 
 shared_ptr<Boss> EntityManager::getBoss()

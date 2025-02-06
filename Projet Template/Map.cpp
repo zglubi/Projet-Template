@@ -61,7 +61,7 @@ void Map::draw(RenderWindow& window)
     
 }
 
-void Map::loadMap(int mapNum)
+void Map::loadMap(int mapNum, EntityManager*& manager)
 {
     walls.clear();
     map.clear();
@@ -69,6 +69,12 @@ void Map::loadMap(int mapNum)
     doors.clear();
     string path = "maps/map" + to_string(mapNum) + ".txt";
 
+
+    if (mapNum == 2) {
+        manager->Dungeon();
+    }
+    
+    
     ifstream file(path);
     if (!file.is_open())
     {
