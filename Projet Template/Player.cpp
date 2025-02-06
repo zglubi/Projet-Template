@@ -131,8 +131,6 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
         FloatRect playerBounds(x - sprite.getGlobalBounds().width / 2, newY - sprite.getGlobalBounds().height / 4, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height * 3 / 4);
         if (playerBounds.intersects(door->getSprite().getGlobalBounds()))
         {
-            cout << door->isOpen;
-
             if(door->isOpen)
             gamemap.loadMap(door->nextlvl);
             break;
@@ -181,6 +179,17 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
                 hpUp();
                 inventory.erase(remove(inventory.begin(), inventory.end(), 3), inventory.end());
                 break;
+            case 4:
+                for (auto& door : doors) {
+                    FloatRect playerBounds(x - sprite.getGlobalBounds().width / 2, newY - sprite.getGlobalBounds().height / 4, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height * 3 / 4);
+                    if (playerBounds.intersects(door->getSprite().getGlobalBounds()))
+                    {
+                        inventory.erase(remove(inventory.begin(), inventory.end(), 4), inventory.end());
+                        door->open();
+                        break;
+                    }
+                }
+                break;
             default:
                 break;
             }
@@ -210,6 +219,17 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
             case 3:
                 hpUp();
                 inventory.erase(remove(inventory.begin(), inventory.end(), 3), inventory.end());
+                break;
+            case 4:
+                for (auto& door : doors) {
+                    FloatRect playerBounds(x - sprite.getGlobalBounds().width / 2, newY - sprite.getGlobalBounds().height / 4, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height * 3 / 4);
+                    if (playerBounds.intersects(door->getSprite().getGlobalBounds()))
+                    {
+                        inventory.erase(remove(inventory.begin(), inventory.end(), 4), inventory.end());
+                        door->open();
+                        break;
+                    }
+                }
                 break;
             default:
                 break;
@@ -241,8 +261,60 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
                 hpUp();
                 inventory.erase(remove(inventory.begin(), inventory.end(), 3), inventory.end());
                 break;
+            case 4:
+                for (auto& door : doors) {
+                    FloatRect playerBounds(x - sprite.getGlobalBounds().width / 2, newY - sprite.getGlobalBounds().height / 4, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height * 3 / 4);
+                    if (playerBounds.intersects(door->getSprite().getGlobalBounds()))
+                    {
+                        inventory.erase(remove(inventory.begin(), inventory.end(), 4), inventory.end());
+                        door->open();
+                        break;
+                    }
+                }
+                break;
             default:
                 break;
+            }
+        }
+
+        if (Keyboard::isKeyPressed(Keyboard::Num2))
+        {
+            if (inventory.size() > 3)
+            {
+                switch (inventory[3])
+                {
+                case 1:
+                    if (cooldownProjectile.getElapsedTime().asSeconds() > 0.5)
+                    {
+                        shoot(window, view);
+                    }
+                    break;
+                case 2:
+                    if (cooldownKatanaSlash.getElapsedTime().asSeconds() > 1)
+                    {
+                        cooldownKatanaSlash.restart();
+                        katanaAttack = true;
+                        attacking = true;
+                    }
+                    break;
+                case 3:
+                    hpUp();
+                    inventory.erase(remove(inventory.begin(), inventory.end(), 3), inventory.end());
+                    break;
+                case 4:
+                    for (auto& door : doors) {
+                        FloatRect playerBounds(x - sprite.getGlobalBounds().width / 2, newY - sprite.getGlobalBounds().height / 4, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height * 3 / 4);
+                        if (playerBounds.intersects(door->getSprite().getGlobalBounds()))
+                        {
+                            inventory.erase(remove(inventory.begin(), inventory.end(), 4), inventory.end());
+                            door->open();
+                            break;
+                        }
+                    }
+                    break;
+                default:
+                    break;
+                }
             }
         }
     }
