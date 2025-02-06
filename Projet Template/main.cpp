@@ -33,39 +33,30 @@ ThreadManager threadManager;
 
 int main()
 {
-    //// Charger les textures en arrière-plan
-    //auto future1 = threadManager.addTask([&]() {
-    //    textureManager.loadTextures1();
-    //    cout << "Textures 1 chargées en arrière-plan" << endl;
-    //    });
+    auto future1 = threadManager.addTask([&]() {
+        textureManager.loadTextures1();
+        cout << "Textures 1 chargees en arriere-plan" << endl;
+        });
 
-    //auto future2 = threadManager.addTask([&]() {
-    //    textureManager.loadTextures2();
-    //    cout << "Textures 2 chargées en arrière-plan" << endl;
-    //    });
-
-    //auto future3 = threadManager.addTask([&]() {
-    //    gameMap.loadMap(1);
-    //    cout << "Map 1 chargée en arrière-plan" << endl;
-    //    });
-
-    //// Attendre que les textures soient chargées avant de continuer
-    //threadManager.waitAll();
-
-    textureManager.loadTextures1();
-    textureManager.loadTextures2();
+    auto future2 = threadManager.addTask([&]() {
+      textureManager.loadTextures2();
+        cout << "Textures 2 chargees en arriere-plan" << endl;
+        });
+     
     gameMap.loadMap(1);
+    threadManager.waitAll();
+
 
     gameMap.setTextures(textureManager.getTexturesMap());
     manager->setTextures(textureManager.getTexturesEntities());
     hud.setTextures(textureManager.getTexturesHud());
 
     window.setFramerateLimit(120);
-    manager->setPlayer(1000, 740);
+    manager->setPlayer(600, 2500);
 
-    manager->addItem(Vector2f(0, 500), 1);
-    manager->addItem(Vector2f(200, 700), 2);
-    manager->addItem(Vector2f(800, 300), 3);
+    manager->addItem(Vector2f(700, 2500), 1);
+    manager->addItem(Vector2f(900, 2400), 2);
+    manager->addItem(Vector2f(800, 2300), 3);
 
     Clock clock;
 

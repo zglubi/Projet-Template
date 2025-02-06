@@ -27,7 +27,7 @@ Wall::Wall(Texture& texture, float x, float y, int type) : type(type), Entity(te
 	case(39)://Tour
 		sprite.setTextureRect(IntRect(224, 64, 48, 80));break;
 	case(40)://Wall horizontale
-		sprite.setTextureRect(IntRect(304, 34, 16, 48));break;
+		sprite.setTextureRect(IntRect(304, 64, 16, 48));break;
 	case(41)://fontaine
 		sprite.setTextureRect(IntRect(0, 96, 32, 48));break;
 	case(42)://Shop

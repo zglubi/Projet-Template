@@ -160,6 +160,7 @@
     <ClCompile Include="Shuriken.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="ThreadManager.cpp" />
+    <ClCompile Include="Useful.cpp" />
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -186,6 +187,7 @@
     <ClInclude Include="Shuriken.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="ThreadManager.h" />
+    <ClInclude Include="Useful.h" />
     <ClInclude Include="Wall.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
