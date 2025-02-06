@@ -108,6 +108,11 @@ void EntityManager::update(RenderWindow& window, float deltatime, View& view, ve
 		enemy->collisionPlayer(player);
 	}
 
+    if (boss)
+    {
+        boss->attack(window, player);
+    }
+
     dispawnEnemy();
     removeEntity();
     for (auto& item : items) 
