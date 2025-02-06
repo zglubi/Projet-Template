@@ -33,10 +33,10 @@ void EntityManager::addShooter(Vector2f startPosition, float initialSpeed)
 
 void EntityManager::addBoss(Vector2f startPosition, float initialSpeed)
 {
-	shared_ptr<Boss> _boss = make_shared<Boss>(bossTexture, bossProjectileTexture, bossSlashTexture, startPosition, initialSpeed);
-	enemies.push_back(_boss);
-	entities.push_back(_boss);
-    boss = _boss;
+    shared_ptr<Boss> _boss = make_shared<Boss>(bossTexture, bossProjectileTexture, bossSlashTexture, startPosition, initialSpeed);
+    enemies.push_back(_boss);
+    entities.push_back(_boss);
+	this->boss = _boss;
 }
 
 void EntityManager::setPlayer(float x, float y)
@@ -157,7 +157,7 @@ void EntityManager::setTextures(vector<Texture>& textures)
 
 void EntityManager::spawnEnemy()
 {
-    if (player->getWilderness() && enemies.size() < mobCap)
+ /*   if (player->getWilderness() && enemies.size() < mobCap)
     {
         bool spawning = false;
         Vector2f posEnemy;
@@ -191,9 +191,9 @@ void EntityManager::spawnEnemy()
             enemies.erase(std::remove(enemies.begin(), enemies.end(), enemy), enemies.end());
             entities.erase(std::remove(entities.begin(), entities.end(), enemy), entities.end());
         }
-    }
+    }*/
 
-    /*if (boss == nullptr)
+    if (boss == nullptr)
     {
         bool spawning = false;
         Vector2f posEnemy;
@@ -210,7 +210,7 @@ void EntityManager::spawnEnemy()
             }
         }
         addBoss(posEnemy, 100);
-    }*/
+    }
 }
 
 void EntityManager::dispawnEnemy()

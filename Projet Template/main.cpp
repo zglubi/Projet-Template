@@ -57,7 +57,7 @@ int main()
     window.setFramerateLimit(120);
     manager->setPlayer(600, 2000);
 
-    manager->addBoss(Vector2f(200, 200), 50.0f);
+    // manager->addBoss(Vector2f(1350, 750), 50.0f);
     manager->addItem(Vector2f(700, 2500), 1);
     manager->addItem(Vector2f(900, 2400), 2);
     manager->addItem(Vector2f(800, 2300), 3);
