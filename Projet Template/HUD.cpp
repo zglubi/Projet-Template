@@ -58,6 +58,7 @@ void HUD::draw(RenderWindow& window, vector<int> inventory, size_t hp, shared_pt
         healthBarBorderSprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 480.f, window.getView().getCenter().y - window.getView().getSize().y / 2 + 30.f);
         window.draw(healthBarBorderSprite);
 
+        bossHealthBarSprite.setTextureRect(IntRect(8, 54, static_cast<float>(78 * (static_cast<float>(boss->getHp()) / static_cast<float>(100))), 6));
         bossHealthBarSprite.setPosition(window.getView().getCenter().x - window.getView().getSize().x / 2 + 494.f, window.getView().getCenter().y - window.getView().getSize().y / 2 + 37.f);
 		window.draw(bossHealthBarSprite);
     }

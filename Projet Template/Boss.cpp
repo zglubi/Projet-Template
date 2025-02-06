@@ -172,3 +172,13 @@ void Boss::slash(RenderWindow& window, shared_ptr<Player>& player)
         player->diminishHp(1);
     }
 }
+
+int Boss::getHp()
+{
+    return hp;
+}
+
+void Boss::diminishHp(int damage)
+{
+	hp -= damage;
+}
