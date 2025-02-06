@@ -47,7 +47,8 @@ int main()
      
 
     threadManager.waitAll();
-    gameMap.loadMap(2);
+    future1.wait();
+    gameMap.loadMap(1);
 
 
     gameMap.setTextures(textureManager.getTexturesMap());
