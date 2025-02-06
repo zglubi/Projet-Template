@@ -30,6 +30,14 @@ void EntityManager::addShooter(Vector2f startPosition, float initialSpeed)
     entities.push_back(shooter);
 }
 
+void EntityManager::addBoss(Vector2f startPosition, float initialSpeed)
+{
+	shared_ptr<Boss> _boss = make_shared<Boss>(bossTexture, bossProjectileTexture, bossSlashTexture, startPosition, initialSpeed);
+	enemies.push_back(_boss);
+	entities.push_back(_boss);
+    boss = _boss;
+}
+
 void EntityManager::setPlayer(float x, float y)
 {
     shared_ptr<Player> player = make_shared<Player>(playerTexture, playerProjectileTexture, katanaSlashTexture, x, y);
@@ -160,6 +168,25 @@ void EntityManager::spawnEnemy()
             addShooter(posEnemy, 100);
             break;
         }
+    }
+
+    if (boss == nullptr)
+    {
+        bool spawning = false;
+        Vector2f posEnemy;
+        while (!spawning)
+        {
+            posEnemy = { static_cast<float>(randomNumber(player->getSprite().getPosition().x - 3000, player->getSprite().getPosition().x + 3000)), static_cast<float>(randomNumber(player->getSprite().getPosition().y - 3000, player->getSprite().getPosition().y + 3000)) };
+            if (posEnemy.x > player->getSprite().getPosition().x - 500 && posEnemy.x < player->getSprite().getPosition().x + 500 && posEnemy.y > player->getSprite().getPosition().y - 500 && posEnemy.y < player->getSprite().getPosition().y + 500)
+            {
+                continue;
+            }
+            else
+            {
+                spawning = true;
+            }
+        }
+        addBoss(posEnemy, 100);
     }
 }
 

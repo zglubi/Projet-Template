@@ -7,6 +7,7 @@
 #include "Enemy.h"
 #include "Chaser.h"
 #include "Shooter.h"
+#include "Boss.h"
 #include "Medipack.h"
 #include "Katana.h"
 #include "Shuriken.h"
@@ -22,6 +23,7 @@ private:
 	vector<shared_ptr<Entity>> entities;
 	vector<shared_ptr<Enemy>> enemies;
 	vector<shared_ptr<Item>> items;
+	shared_ptr<Boss> boss;
 	shared_ptr<Player> player;
 	size_t mobCap;
 
@@ -44,6 +46,7 @@ public:
 
 	void addChaser(Vector2f startPosition, float initialSpeed);
 	void addShooter(Vector2f startPosition, float initialSpeed);
+	void addBoss(Vector2f startPosition, float initialSpeed);
 	void addItem(Vector2f Position, int val);
 	void setPlayer(float x, float y);
 	shared_ptr<Player> getPlayer();
