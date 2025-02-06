@@ -130,7 +130,9 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
         FloatRect playerBounds(x - sprite.getGlobalBounds().width / 2, newY - sprite.getGlobalBounds().height / 4, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height * 3 / 4);
         if (playerBounds.intersects(door->getSprite().getGlobalBounds()))
         {
-            
+            cout << door->isOpen;
+
+            if(door->isOpen)
             gamemap.loadMap(door->nextlvl);
             break;
         }
