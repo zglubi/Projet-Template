@@ -54,11 +54,11 @@ int main()
     hud.setTextures(textureManager.getTexturesHud());
 
     window.setFramerateLimit(120);
-    manager->setPlayer(600, 2500);
+    manager->setPlayer(600, 2000);
 
-    manager->addItem(Vector2f(700, 2500), 1);
-    manager->addItem(Vector2f(900, 2400), 2);
-    manager->addItem(Vector2f(800, 2300), 3);
+    manager->addItem(Vector2f(700, 2000), 1);
+    manager->addItem(Vector2f(900, 2000), 2);
+    manager->addItem(Vector2f(800, 2000), 3);
 
     Clock clock;
 
