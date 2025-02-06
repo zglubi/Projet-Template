@@ -7,6 +7,7 @@
 #include "Shuriken.h"
 #include "Useful.h"
 #include "Door.h"
+#include <SFML/Audio.hpp>
 
 class EntityManager;
 
@@ -54,6 +55,8 @@ private:
     bool katanaAttack = false;
     Clock cooldownKatanaSlash;
     Vector2f slashDir;
+    SoundBuffer katanaSoundBuffer;
+    Sound katanaSound;
 };
 
 #endif // !PLAYER_H
