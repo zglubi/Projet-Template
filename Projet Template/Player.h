@@ -8,6 +8,8 @@
 #include "Useful.h"
 #include "Door.h"
 
+class EntityManager;
+
 class Boss;
 
 class Player : public Entity
@@ -23,7 +25,7 @@ public:
 
     void update(RenderWindow& window, float deltatime, View& view) override;
     void draw(RenderWindow& window) override;
-    void handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls, vector<unique_ptr<Door>>& doors, vector<shared_ptr<Enemy>>& enemies, float deltatime, Map& gamemap, shared_ptr<Boss> boss);
+    void handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls, vector<unique_ptr<Door>>& doors, vector<shared_ptr<Enemy>>& enemies, float deltatime, Map& gamemap, shared_ptr<Boss> boss, EntityManager*& manager);
 	void shoot(RenderWindow& window, View& view);
     void katanaSlash(RenderWindow& window, vector<shared_ptr<Enemy>>& enemies, shared_ptr<Boss> boss);
     void addToInventory(int item);
