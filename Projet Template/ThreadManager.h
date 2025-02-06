@@ -3,6 +3,7 @@
 #include <vector>
 #include <functional>
 #include <future>
+#include <iostream>
 
 using namespace std;
 class ThreadManager {

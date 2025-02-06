@@ -80,19 +80,39 @@ void Map::loadMap(int mapNum)
             }
 
             string tileCode = line.substr(i, 2);
-            int tileValue = stoi(tileCode);
+
+            // Vérifiez que tileCode contient bien deux caractères numériques
+            if (!isdigit(tileCode[0]) || !isdigit(tileCode[1]))
+            {
+                cout << "Warning: Invalid tile code '" << tileCode << "' at position " << i << "." << endl;
+                continue;
+            }
+
+            int tileValue;
+            try
+            {
+                tileValue = stoi(tileCode);
+            }
+            catch (const std::invalid_argument& e)
+            {
+                cout << "Error: Invalid argument for stoi: " << tileCode << " at position " << i << "." << endl;
+                continue;
+            }
+            catch (const std::out_of_range& e)
+            {
+                cout << "Error: Out of range argument for stoi: " << tileCode << " at position " << i << "." << endl;
+                continue;
+            }
 
             row.push_back(tileCode[0]);
             if (tileValue > 29)
             {
                 walls.push_back(make_unique<Wall>(tilesetDesert, i / 2 * 32, map.size() * 32, tileValue));
             }
-            
             else if (tileValue > 40)
             {
                 walls.push_back(make_unique<Wall>(tilesetVillageA, i / 2 * 32, map.size() * 32, tileValue));
             }
-            
             else
             {
                 cout << "Warning: Unknown tile code '" << tileCode << "' at position " << i << "." << endl;
@@ -101,6 +121,7 @@ void Map::loadMap(int mapNum)
         map.push_back(row);
     }
 }
+
 
 void Map::setTextures(vector<Texture>& textures)
 {

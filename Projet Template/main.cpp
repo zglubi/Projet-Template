@@ -33,24 +33,28 @@ ThreadManager threadManager;
 
 int main()
 {
-    // Charger les textures en arrière-plan
-    auto future1 = threadManager.addTask([&]() {
-        textureManager.loadTextures1();
-        cout << "Textures 1 chargées en arrière-plan" << endl;
-        });
+    //// Charger les textures en arrière-plan
+    //auto future1 = threadManager.addTask([&]() {
+    //    textureManager.loadTextures1();
+    //    cout << "Textures 1 chargées en arrière-plan" << endl;
+    //    });
 
-    auto future2 = threadManager.addTask([&]() {
-        textureManager.loadTextures2();
-        cout << "Textures 2 chargées en arrière-plan" << endl;
-        });
+    //auto future2 = threadManager.addTask([&]() {
+    //    textureManager.loadTextures2();
+    //    cout << "Textures 2 chargées en arrière-plan" << endl;
+    //    });
 
-    auto future3 = threadManager.addTask([&]() {
-        gameMap.loadMap(1);
-        cout << "Map 1 chargée en arrière-plan" << endl;
-        });
+    //auto future3 = threadManager.addTask([&]() {
+    //    gameMap.loadMap(1);
+    //    cout << "Map 1 chargée en arrière-plan" << endl;
+    //    });
 
-    // Attendre que les textures soient chargées avant de continuer
-    threadManager.waitAll();
+    //// Attendre que les textures soient chargées avant de continuer
+    //threadManager.waitAll();
+
+    textureManager.loadTextures1();
+    textureManager.loadTextures2();
+    gameMap.loadMap(1);
 
     gameMap.setTextures(textureManager.getTexturesMap());
     manager->setTextures(textureManager.getTexturesEntities());

@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <iostream>
 using namespace sf;
 using namespace std;
 
@@ -23,6 +24,7 @@ private:
 	Texture tilesetFloor;
 	Texture tilesetDesert;
 	Texture tilesetVillageA;
+	vector<Texture> texturesMap;
 
 	Texture healthTexture;
 	Texture healthBarBorderTexture;
@@ -32,6 +34,7 @@ private:
 	Texture katanaIconTexture;
 	Texture mediPackIconTexture;
 	Texture keyIconTexture;
+	vector<Texture> texturesHud;
 
 	Texture playerTexture;
 	Texture chaserTexture;
@@ -45,5 +48,6 @@ private:
 	Texture bossTexture;
 	Texture bossProjectileTexture;
 	Texture bossSlashTexture;
+	vector<Texture> texturesEntities;
 };
 
