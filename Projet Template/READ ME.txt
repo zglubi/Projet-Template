@@ -5,13 +5,13 @@ J'ai commencé par faire une classe Menu avec également un enum pour définir l
 J'ai fait une fonction draw pour les boutons et une fonction handleInput pour vérifier si un bouton est cliqué.
 J'ai ensuite fait une classe Button afin de créé les boutons, les boutons sont pour l'instant des rectangles.
 
+
 J'ai fini les différents menu en utilisant des types, il y'a donc le menu principal avec comme bouton play et quitter, un menu pause avec comme bouton resume, options et quitter, un menu Options accessible depuis le menu pause avec un bouton pour revenir vers le menu pause ,un menu pour le game over lorsque qu'on meurt qui affiche " Game over " et un menu Win qui affiche " You Win ! " lorsqu'on vient à bout du boss. La plupart des des menus ont comme interaction la touche échap afin de soit quitter le jeu, soit revenir en arrière ou bien faire afficher le menu pause lorsque l'on joue. À côté de ça j'ai également ajouter des Sprites pour les différents bouton et un background pour le menu principal dans le thème de notre jeu. 
 
 J'ai commencé à créé le boss, le boss aura comme particularité d'alterner entre des tires de shuriken et des attaques au corps à corps lorsque le joueur s'approche de lui.
 
-Teo (Entity) :J'ai commencé par faire la classe entity pour que le player, les ennemis et autres. La classe a comme attribut x, y, texture et sprite, et comme methode 
-le constructeur update et draw des méthodes qui seront override dans les classes qui herite de entity. Ensuite j'ai fait player qui utilise entity avec l'attribut vitesse en plus et sa fonction update permet de bouger la camera avec ZQSD.
-
+Teo : J’ai commencé ce projet en m’attaquant sur la classe projet Entity qui servira de base pour tout élément qui sera affiché dans le jeu, j’ai ensuite enchaîné avec l’implémentation d’une classe player dans laquelle j’ai fais de quoi gérer les inputs du joueur pour faire déplacer le player. 
+J’ai ensuite aider à corriger des bugs dans les classes ennemis qui avait été créé. J’ai continué en créant une nouvelle classe d’entités, les walls, pour ensuite pouvoir gérer les collisions avec le player pour l’empêcher de passer à travers. j’ai laissé ensuite le reste du player à un autre camarade pour me concentrer sur la map. La lecture du fichier texte avait déjà été implémenté j’avais juste à créer un switch pour créer des walls avec différentes taille ou texture en fonction des valeurs dans le fichier texte. je me suis occupé de faire tous les sprites (joueur, ennemis, map) sauf ceux du boss et en plus préparer les switchs pour que la personne qui devra s'occupper de la map n'ai que à poser . J'ai codé les portes et l'utilisation de la clé dessus pour pouvoir ouvrir la porte et changer de zone.
 
 Emilien (Map/Player attack) : 
 J'ai d'abord commencé par ajouter deux sprite et deux textures pour l'herbe et la pierre qui servira de mur.
