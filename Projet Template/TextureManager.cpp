@@ -10,9 +10,11 @@ void TextureManager::loadTextures1()
 	tilesetFloor.loadFromFile("assets/map_assets/Tilesets/TilesetFloor.png");
     tilesetDesert.loadFromFile("assets/map_assets/Tilesets/TilesetDesert.png");
     tilesetVillageA.loadFromFile("assets/map_assets/Tilesets/TilesetVillageAbandoned.png");
+    tilesetElement.loadFromFile("assets/map_assets/Tilesets/TilesetElement.png");
 	texturesMap.push_back(tilesetFloor);
 	texturesMap.push_back(tilesetDesert);
 	texturesMap.push_back(tilesetVillageA);
+	texturesMap.push_back(tilesetElement);
 
     healthTexture.loadFromFile("assets\\Hud\\Health\\bar.png");
     healthBarBorderTexture.loadFromFile("assets\\Hud\\Health\\border.png");

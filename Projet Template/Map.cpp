@@ -106,13 +106,17 @@ void Map::loadMap(int mapNum)
             {
                 floors.push_back(make_unique<Floor>(tilesetFloor, i / 2 * 32, map.size() * 32, tileValue));
             }
-			else if (tileValue < 41)
+			else if (tileValue <= 45)
             {
                 walls.push_back(make_unique<Wall>(tilesetDesert, i / 2 * 32, map.size() * 32, tileValue));
             }
-            else if (tileValue > 40)
+            else if (tileValue <= 56)
             {
                 walls.push_back(make_unique<Wall>(tilesetVillageA, i / 2 * 32, map.size() * 32, tileValue));
+            }
+            else if (tileValue <= 63)
+            {
+                walls.push_back(make_unique<Wall>(tilesetElement, i / 2 * 32, map.size() * 32, tileValue));
             }
             else
             {
@@ -129,21 +133,5 @@ void Map::setTextures(vector<Texture>& textures)
 	tilesetFloor = textures[0];
 	tilesetDesert = textures[1];
 	tilesetVillageA = textures[2];
-
-
-	spriteSand.setTexture(tilesetFloor);
-	spriteSand.setTextureRect(IntRect(16, 16, 16, 16));
-	spriteSand.setScale(2, 2);
-
-    spriteGrass.setTexture(tilesetFloor);
-	spriteGrass.setTextureRect(IntRect(0, 192, 16, 16));
-	spriteGrass.setScale(2, 2);
-
-	spritePillarA.setTexture(tilesetVillageA);
-	spritePillarA.setTextureRect(IntRect(32, 48, 16, 48));
-	spritePillarA.setScale(2, 2);
-
-	spriteRockA.setTexture(tilesetVillageA);
-	spriteRockA.setTextureRect(IntRect(48, 80, 16, 16));
-	spriteRockA.setScale(2, 2);
+    tilesetElement = textures[3];
 }

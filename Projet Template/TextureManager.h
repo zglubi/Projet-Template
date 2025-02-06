@@ -24,6 +24,7 @@ private:
 	Texture tilesetFloor;
 	Texture tilesetDesert;
 	Texture tilesetVillageA;
+	Texture tilesetElement;
 	vector<Texture> texturesMap;
 
 	Texture healthTexture;
