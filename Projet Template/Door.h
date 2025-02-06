@@ -1,12 +1,13 @@
 #pragma once
 #ifndef DOOR_H
 #define DOOR_H
-#include "Wall.h"
+#include "Entity.h"
 
 
-class Door : public Wall
+class Door : public Entity
 {
 public:
+	int type;
 	bool isOpen = true;
 	Door(Texture& texture, float x, float y, int nextlvl, bool isOpen, int type);
 	~Door();

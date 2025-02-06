@@ -21,6 +21,7 @@ Map::~Map()
 {
 	map.clear();
 	walls.clear();
+	floors.clear();
 }
 
 vector<vector<char>> Map::getMap()
@@ -33,6 +34,15 @@ vector<unique_ptr<Wall>>& Map::getWalls()
 	return walls;
 }
 
+vector<unique_ptr<Door>>& Map::getDoor()
+{
+    return doors;
+}
+
+vector<unique_ptr<Floor>>& Map::getFloor()
+{
+    return floors;
+}
 
 void Map::draw(RenderWindow& window)
 {
