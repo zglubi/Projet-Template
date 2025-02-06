@@ -133,7 +133,7 @@ int main()
         // Dessin et mise à jour du jeu
         window.clear();
         gameMap.draw(window);
-        manager->update(window, deltaTime, view, gameMap.getWalls(), gameMap.getDoor());
+        manager->update(window, deltaTime, view, gameMap.getWalls(), gameMap.getDoor(), gameMap);
 
         hud.draw(window, manager->getInventory(), manager->getPlayer()->getHp());
         window.display();

@@ -13,6 +13,7 @@
 #include "Shuriken.h"
 #include <SFML/Graphics.hpp>
 #include "Wall.h"
+#include "Map.h"
 using namespace std;
 using namespace sf;
 
@@ -50,7 +51,7 @@ public:
 	void addItem(Vector2f Position, int val);
 	void setPlayer(float x, float y);
 	shared_ptr<Player> getPlayer();
-	void update(RenderWindow& window, float deltatime, View& view, vector<unique_ptr<Wall>>& walls, vector<unique_ptr<Door>>& doors);
+	void update(RenderWindow& window, float deltatime, View& view, vector<unique_ptr<Wall>>& walls, vector<unique_ptr<Door>>& doors, Map gamemap);
 	vector<shared_ptr<Enemy>> getEnemies();
 
 	void setTextures(vector<Texture>& textures);

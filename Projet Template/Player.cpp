@@ -42,7 +42,7 @@ void Player::setSprite(const Sprite& newSprite)
     sprite = newSprite;
 }
 
-void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls, vector<unique_ptr<Door>>& doors, vector<shared_ptr<Enemy>>& enemies, float deltatime)
+void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wall>>& walls, vector<unique_ptr<Door>>& doors, vector<shared_ptr<Enemy>>& enemies, float deltatime, Map gamemap)
 {
     float newX = x;
     float newY = y;
@@ -115,10 +115,13 @@ void Player::handleInput(RenderWindow& window, View& view, vector<unique_ptr<Wal
     }
 
     for (auto& door : doors) {
+
+        
         FloatRect playerBounds(x - sprite.getGlobalBounds().width / 2, newY - sprite.getGlobalBounds().height / 4, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height * 3 / 4);
         if (playerBounds.intersects(door->getSprite().getGlobalBounds()))
         {
             
+            gamemap.loadMap(door->nextlvl);
             break;
         }
     }

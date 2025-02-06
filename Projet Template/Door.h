@@ -14,6 +14,10 @@ public:
 	~Door();
 	Sprite getSprite();
 	void open();
+
+	void draw(RenderWindow& window) override;
+
+	void update(RenderWindow& window, float deltatime, View& view) override;
 };
 
 #endif // WALL_H
