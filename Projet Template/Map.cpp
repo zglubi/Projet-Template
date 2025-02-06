@@ -121,7 +121,6 @@ void Map::setTextures(vector<Texture>& textures)
 
 	spriteHouse1.setTexture(tilesetDesert);
 	spriteHouse1.setTextureRect(IntRect(96, 48, 64, 64));
-	spriteHouse1.setScale(2, 2);
 
 	spriteWallH.setTexture(tilesetDesert);
 	spriteWallH.setTextureRect(IntRect(304, 64, 16, 48));
